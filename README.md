@@ -1,66 +1,60 @@
-# Seerat-un-Nabi ﷺ — Interactive Study Guide
+<div align="center">
+  <img src="https://mustafa-shah-tech.github.io/Seerat/stack-of-books_5832416.png" alt="Seerat un Nabi Study Guide Icon" width="100"/>
 
-[![View Live Site](https://img.shields.io/badge/View_Live_Site-Ready-success?style=for-the-badge&logo=github)](https://mustafa-shah-tech.github.io/Seerat/)
+  # Seerat-un-Nabi ﷺ — Interactive Study Guide
+  **Islamiat · 1st Semester · BS Economics · University of Malakand**
 
+  [![View Live Site](https://img.shields.io/badge/View_Live_Site-Ready-success?style=for-the-badge&logo=github)](https://mustafa-shah-tech.github.io/Seerat/)
+  [![Language](https://img.shields.io/badge/Language-English_%26_Urdu-blue?style=for-the-badge)](#)
+</div>
 
-A modern, responsive, and interactive web-based study guide for the **Seerat-un-Nabi ﷺ** course (Islamiat, 1st Semester, BS Economics, University of Malakand).
+<br/>
 
-This project transforms traditional course material into an engaging, self-paced learning experience with progress tracking, interactive quizzes, and beautiful mobile-first design. 
+A beautifully designed, interactive web-based study guide tailored specifically for the **Seerat-un-Nabi ﷺ** course. This project transforms traditional syllabus material into a modern, self-paced learning experience with interactive quizzes, persistent progress tracking, and professional Urdu typography.
 
-**Hybrid Language Design:** The application features a sleek English user interface (for navigation, progress, and menus) while all the core academic content, definitions, and quizzes have been meticulously translated and formatted in **Urdu** using professional right-to-left (RTL) typography.
+The application features a sleek **English User Interface** for navigation, while all academic content, definitions, and quizzes have been meticulously translated and formatted in **Urdu** using native right-to-left (RTL) typography for an authentic reading experience.
 
-## 🌟 Features
+---
 
-*   **Bilingual Academic Structure:**
-    *   **English UI:** Easy-to-use modern navigation, progress tracking, and chapter structure.
-    *   **Urdu Content:** All 8 study topics, detailed notes, historical timelines, and quiz questions are fully localized in Urdu for accurate academic study.
-*   **Interactive Progress Tracking:**
-    *   Visual progress ring showing completion percentage.
-    *   Progress is automatically saved in your browser's `localStorage` so you can resume where you left off.
-*   **Structured Learning Chapters:**
-    *   **Chapter 1:** Introduction to Seerat, Differences from Hadith, and Sources.
-    *   **Chapter 2:** Core Topics (Khassais-e-Kubra, Makki & Madani periods, Preaching Stages).
-    *   **Chapter 3:** Character & Mission (Rights & Beauty of Mustafa ﷺ, Da'wah Methodology).
-*   **Mini-Quizzes (Knowledge Checks):** Built-in interactive quizzes at the end of each topic to test comprehension, featuring immediate feedback and retry logic.
-*   **Premium UI/UX Design:** "Warm Islamic Night" theme with gold and emerald accents, elegant Arabic typography (Amiri font), and smooth scroll-spy animations.
-*   **Fully Responsive:** A hamburger menu and off-canvas sidebar ensure a flawless experience on smartphones and tablets.
+## 📚 Course Syllabus & Topics
 
-## 🚀 Technologies Used
+The study guide is divided into 3 chapters, covering all 8 core essential topics of the syllabus:
 
-*   **HTML5:** Semantic, single-file structure.
-*   **CSS3:** Custom properties, Flexbox/Grid, RTL layout for Urdu sections, and responsive media queries.
-*   **Vanilla JavaScript (ES6+):** 
-    *   DOM manipulation and event handling.
-    *   `IntersectionObserver` for scroll-spy navigation.
-    *   Browser `localStorage` APIs for persistent progress.
+### Chapter 1: Introduction (تعارف سیرت)
+*   🟢 **Topic 1:** سیرت کا تعارف — تعریفات، اہمیت اور ضرورت (Introduction to Seerat)
+*   🟢 **Topic 2:** سیرت اور حدیث — فرق اور مشترکات (Seerat vs Hadith)
+*   🟢 **Topic 3:** سیرت کے مآخذ (Sources of Seerat)
 
-## 📥 How to Run Locally
+### Chapter 2: Core Topics (خصائصِ کبریٰ اور ادوار)
+*   🟢 **Topic 4:** خصائصِ کبریٰ — بڑی خصوصیات اور معجزات (Khassais-e-Kubra)
+*   🟢 **Topic 5:** مکی اور مدنی ادوار کا خلاصہ (Makki & Madani Periods)
+*   🟢 **Topic 6:** دعوت کے مراحل — خفیہ سے مکمل آزادی تک (Stages of Preaching)
 
-This is a single-file application. No build steps, servers, or dependencies are required.
+### Chapter 3: Character & Mission (حقوق و جمالِ مصطفیٰ ﷺ)
+*   🟢 **Topic 7:** حقوق اور جمالِ مصطفیٰ ﷺ (Rights & Beauty of Mustafa ﷺ)
+*   🟢 **Topic 8:** نبی محمد ﷺ بحیثیت داعی (Prophet as Da'ee)
 
-1.  Clone the repository:
+---
+
+## ✨ Key Features
+
+*   **Bilingual Design:** Navigational elements in English paired seamlessly with comprehensive Urdu academic content.
+*   **Interactive Checkpoint Quizzes (جانچ کوئز):** Test your knowledge at the end of every topic with interactive multiple-choice questions, instant feedback, and retry logic completely localized in Urdu.
+*   **Progress Tracking:** Click the checkmark (✓) when completing a topic. A progress ring dynamically updates and saves your course completion status locally so you never lose your place.
+*   **Mobile-First Responsiveness:** Includes a slide-in sidebar, hamburger menu, and optimized reading panels for smartphones.
+*   **Premium Aesthetics:** A distinct "Warm Islamic Night" theme featuring dark backgrounds, gold and emerald accents, elegant Amiri fonts, and smooth scroll animations.
+
+## 📥 Getting Started
+
+Because this is a completely client-side application running purely on HTML, CSS, and JavaScript, no installation or setup is required.
+
+1.  **Clone the repository:**
     ```bash
     git clone https://github.com/mustafa-shah-tech/Seerat.git
     ```
-2.  Open the folder.
-3.  Simply double-click `index.html` to open it in any modern web browser.
-
-## 📱 Mobile Experience
-
-The application is fully optimized for mobile viewing:
-*   A gold-styled hamburger menu appears on screens under `768px`.
-*   The sidebar smoothly slides in as a touch-friendly overlay.
-*   Typography and grid layouts automatically adjust for optimal readability on small devices.
-
-## 💾 Progress Persistence
-
-Your progress is saved securely locally using `localStorage` under the `seerat_progress` key. 
-*   Checking off a topic saves it permanently to your device.
-*   Refreshing or reopening the page instantly restores your previous state.
-
-## 📝 License
-
-This project is created for educational purposes.
+2.  Open the cloned folder on your computer.
+3.  Double-click `index.html` to instantly load the study guide in any modern web browser.
 
 ---
+*Prepared for Mudassir · University of Malakand* <br>
 *اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّد*
