@@ -1,0 +1,1725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seerat-un-Nabi ﷺ — Interactive Study Course</title>
+<style>
+/* ============================================================
+   FONTS
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cinzel+Decorative:wght@400;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,400;1,600&family=DM+Sans:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap');
+
+/* ============================================================
+   DESIGN TOKENS — Warm Islamic Night Theme
+   ============================================================ */
+:root {
+  --bg:         #0a0c0f;
+  --bg2:        #111318;
+  --bg3:        #181c24;
+  --panel:      #1e2330;
+  --border:     #2a3040;
+  --border2:    #3a4560;
+
+  --gold:       #d4a843;
+  --gold2:      #f0c96a;
+  --gold3:      #8a6820;
+  --gold-dim:   rgba(212,168,67,0.13);
+  --gold-glow:  rgba(212,168,67,0.25);
+
+  --emerald:    #3ecf8e;
+  --emerald2:   #2aaf74;
+  --em-dim:     rgba(62,207,142,0.1);
+
+  --rose:       #e07070;
+  --rose-dim:   rgba(224,112,112,0.12);
+
+  --sky:        #60a5fa;
+  --sky-dim:    rgba(96,165,250,0.1);
+
+  --amber:      #fbbf24;
+  --amber-dim:  rgba(251,191,36,0.1);
+
+  --text:       #dde2ec;
+  --text2:      #8b95aa;
+  --text3:      #505a70;
+  --white:      #f0f4ff;
+
+  --serif:      'Crimson Pro', Georgia, serif;
+  --arabic:     'Amiri', serif;
+  --display:    'Cinzel Decorative', serif;
+  --sans:       'DM Sans', system-ui, sans-serif;
+  --mono:       'Fira Code', monospace;
+
+  --radius:     10px;
+  --radius2:    16px;
+  --shadow:     0 6px 30px rgba(0,0,0,0.6);
+  --glow:       0 0 40px rgba(212,168,67,0.15);
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:16px;scroll-padding-top:52px}
+body{font-family:var(--serif);background:var(--bg);color:var(--text);line-height:1.9;overflow-x:hidden;}
+a{color:var(--emerald);text-decoration:none}
+a:hover{text-decoration:underline}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--gold3);border-radius:99px}
+
+/* ============================================================
+   LAYOUT SHELL
+   ============================================================ */
+.shell{display:flex;min-height:100vh}
+
+/* ── SIDEBAR ── */
+.sidebar{
+  width:285px;flex-shrink:0;background:var(--bg2);
+  border-right:1px solid var(--border);
+  position:sticky;top:0;height:100vh;overflow-y:auto;
+  padding:0 0 3rem;display:flex;flex-direction:column;z-index:50;
+}
+.sidebar::-webkit-scrollbar{width:3px}
+.sidebar::-webkit-scrollbar-thumb{background:var(--gold3)}
+
+.sidebar-logo{
+  padding:1.5rem 1.4rem 1.2rem;
+  border-bottom:1px solid var(--border);
+  background:linear-gradient(180deg, rgba(212,168,67,0.07), transparent);
+  flex-shrink:0;
+}
+.sidebar-logo .badge{
+  font-family:var(--mono);font-size:9px;letter-spacing:2.5px;
+  text-transform:uppercase;color:var(--gold);background:var(--gold-dim);
+  padding:3px 9px;border-radius:4px;display:inline-block;margin-bottom:0.7rem;
+  border:1px solid rgba(212,168,67,0.2);
+}
+.sidebar-logo .arabic-title{
+  font-family:var(--arabic);font-size:1.7rem;color:var(--gold2);
+  line-height:1.3;margin-bottom:0.3rem;direction:rtl;text-align:right;
+}
+.sidebar-logo h1{font-family:var(--sans);font-size:0.88rem;font-weight:600;color:var(--white);line-height:1.4;}
+.sidebar-logo p{font-size:11px;color:var(--text3);font-family:var(--sans);margin-top:3px;}
+
+/* progress ring */
+.progress-ring-wrap{
+  padding:1.1rem 1.4rem;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:1rem;
+}
+.progress-ring-wrap svg{flex-shrink:0}
+.ring-track{fill:none;stroke:var(--border2);stroke-width:3}
+.ring-fill{
+  fill:none;stroke:url(#ringGrad);stroke-width:3;stroke-linecap:round;
+  stroke-dasharray:125.66;stroke-dashoffset:125.66;
+  transform:rotate(-90deg);transform-origin:50% 50%;
+  transition:stroke-dashoffset 0.7s ease;
+}
+.ring-pct{font-family:var(--sans);font-size:9px;fill:var(--gold);font-weight:700;text-anchor:middle;dominant-baseline:middle}
+.progress-ring-wrap .info .label{font-family:var(--sans);font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:1.5px}
+.progress-ring-wrap .info .count{font-family:var(--sans);font-size:1rem;font-weight:700;color:var(--white)}
+
+/* nav */
+.nav-section{padding:0.8rem 1.2rem 0.2rem}
+.nav-section-label{
+  font-family:var(--sans);font-size:9.5px;letter-spacing:2px;
+  text-transform:uppercase;color:var(--text3);margin-bottom:0.5rem;
+  padding-left:0.3rem;
+}
+.nav-item{
+  display:flex;align-items:center;gap:0.6rem;
+  padding:0.42rem 0.65rem;border-radius:7px;cursor:pointer;
+  font-family:var(--sans);font-size:12.5px;color:var(--text2);
+  transition:all 0.2s;margin-bottom:2px;
+  border:1px solid transparent;background:none;width:100%;text-align:left;
+}
+.nav-item:hover{background:var(--bg3);color:var(--white)}
+.nav-item.active{background:var(--gold-dim);color:var(--gold);border:1px solid rgba(212,168,67,0.15);}
+.nav-item .dot{width:7px;height:7px;border-radius:50%;background:var(--border2);flex-shrink:0;transition:all 0.2s;}
+.nav-item.done .dot{background:var(--emerald)}
+.nav-item.active .dot{background:var(--gold);box-shadow:0 0 7px var(--gold)}
+
+/* ── MAIN ── */
+.main{flex:1;min-width:0;max-width:880px;margin:0 auto;padding:0 2.8rem 8rem}
+
+/* ============================================================
+   TOP BAR
+   ============================================================ */
+.topbar{
+  position:sticky;top:0;
+  background:rgba(10,12,15,0.92);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);z-index:40;
+  padding:0.55rem 2.8rem;display:flex;align-items:center;
+  justify-content:space-between;font-family:var(--sans);font-size:12px;
+  margin:0 -2.8rem;
+}
+.topbar .tb-left{color:var(--text3);display:flex;align-items:center;gap:0.5rem}
+.topbar .tb-left strong{color:var(--text2)}
+.topbar .tb-right{display:flex;align-items:center;gap:0.6rem;color:var(--text3)}
+.pbar{height:2px;background:var(--border);width:110px;border-radius:99px;overflow:hidden;}
+.pbar-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--emerald));border-radius:99px;width:0%;transition:width 0.4s ease;}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{
+  padding:4.5rem 0 3.5rem;position:relative;text-align:center;
+}
+.hero::before{
+  content:'';position:absolute;top:0;left:-2.8rem;right:-2.8rem;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold3),var(--gold),var(--gold3),transparent);
+}
+.hero-arabic{
+  font-family:var(--arabic);font-size:2.8rem;color:var(--gold2);
+  line-height:1.5;margin-bottom:0.5rem;direction:rtl;
+  text-shadow:0 2px 20px rgba(212,168,67,0.3);
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  font-family:var(--mono);font-size:10px;letter-spacing:2.5px;
+  text-transform:uppercase;color:var(--emerald);margin-bottom:1.2rem;
+}
+.hero-eyebrow span{width:22px;height:1px;background:var(--emerald);display:block;}
+.hero h1{
+  font-family:var(--display);font-size:clamp(1.8rem,4.5vw,3.2rem);
+  font-weight:700;line-height:1.15;color:var(--white);
+  margin-bottom:1rem;letter-spacing:0.5px;
+}
+.hero h1 .accent{
+  background:linear-gradient(90deg,var(--gold),var(--amber));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-desc{font-size:1.05rem;color:var(--text2);max-width:560px;margin:0 auto 2rem;line-height:1.75;}
+.hero-stats{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;}
+.stat-pill{
+  display:flex;align-items:center;gap:0.5rem;
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:8px;padding:0.45rem 1rem;
+  font-family:var(--sans);font-size:12px;color:var(--text2);
+}
+.stat-pill strong{color:var(--white)}
+
+/* decorative star divider */
+.star-div{
+  display:flex;align-items:center;gap:0.8rem;margin:3.5rem 0;
+}
+.star-div::before,.star-div::after{
+  content:'';flex:1;height:1px;
+  background:linear-gradient(90deg,transparent,var(--border2));
+}
+.star-div::after{background:linear-gradient(90deg,var(--border2),transparent)}
+.star-div .star-center{
+  color:var(--gold);font-size:1.1rem;letter-spacing:6px;
+  text-shadow:0 0 10px var(--gold-glow);
+}
+
+/* ============================================================
+   CHAPTER HEADERS
+   ============================================================ */
+.ch-header{
+  margin:3.5rem 0 2rem;padding:2rem 2rem 1.7rem;
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--radius2);position:relative;overflow:hidden;
+}
+.ch-header::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,var(--gold-dim),transparent 55%);
+  pointer-events:none;
+}
+.ch-header::after{
+  content:'';position:absolute;top:0;right:0;
+  width:200px;height:200px;
+  background:radial-gradient(circle at 100% 0%,rgba(212,168,67,0.06),transparent 70%);
+  pointer-events:none;
+}
+.ch-header .ch-num{
+  font-family:var(--mono);font-size:10px;letter-spacing:2.5px;
+  text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;
+}
+.ch-header h2{
+  font-family:var(--display);font-size:1.6rem;font-weight:700;
+  color:var(--white);margin-bottom:0.5rem;
+}
+.ch-header .ch-desc{color:var(--text2);font-size:0.92rem;font-family:var(--sans);}
+.ch-header .ch-arabic{
+  font-family:var(--arabic);font-size:1.3rem;color:var(--gold);
+  direction:rtl;margin-bottom:0.4rem;
+}
+
+/* ============================================================
+   TOPIC
+   ============================================================ */
+.topic{
+  margin:2.5rem 0;opacity:0;transform:translateY(18px);
+  transition:opacity 0.55s ease,transform 0.55s ease;
+}
+.topic.visible{opacity:1;transform:none}
+.topic-title{display:flex;align-items:center;gap:0.75rem;margin-bottom:1.2rem;}
+.topic-title h3{font-family:var(--sans);font-size:1.2rem;font-weight:700;color:var(--white);}
+.marker{
+  width:34px;height:34px;border-radius:9px;background:var(--gold-dim);
+  border:1px solid rgba(212,168,67,0.3);display:flex;align-items:center;
+  justify-content:center;font-size:15px;flex-shrink:0;
+}
+.check-btn{
+  margin-left:auto;width:27px;height:27px;border-radius:50%;
+  border:2px solid var(--border2);background:transparent;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;font-size:13px;
+  transition:all 0.2s;flex-shrink:0;color:transparent;
+}
+.check-btn:hover{border-color:var(--emerald);background:var(--em-dim)}
+.check-btn.checked{border-color:var(--emerald);background:var(--emerald);color:var(--bg)}
+
+p{margin-bottom:0.9rem;color:var(--text);font-size:1rem}
+
+/* ============================================================
+   BOXES
+   ============================================================ */
+.box{border-radius:var(--radius);padding:1.25rem 1.5rem;margin:1.4rem 0;border-left:4px solid;position:relative;}
+.box .box-label{font-family:var(--sans);font-size:9.5px;letter-spacing:2.5px;text-transform:uppercase;font-weight:700;margin-bottom:0.5rem;display:flex;align-items:center;gap:0.4rem;}
+.box p{margin:0 0 0.4rem;font-size:0.93rem}
+.box p:last-child{margin-bottom:0}
+.box ul{margin-top:0.4rem}
+
+.box.def{background:var(--gold-dim);border-color:var(--gold)}
+.box.def .box-label{color:var(--gold)}
+.box.eg{background:var(--em-dim);border-color:var(--emerald)}
+.box.eg .box-label{color:var(--emerald)}
+.box.exam{background:var(--rose-dim);border-color:var(--rose)}
+.box.exam .box-label{color:var(--rose)}
+.box.note{background:var(--amber-dim);border-color:var(--amber)}
+.box.note .box-label{color:var(--amber)}
+.box.arabic-quote{
+  background:linear-gradient(135deg,rgba(212,168,67,0.08),transparent);
+  border-color:var(--gold);border-left:none;border-top:2px solid var(--gold);
+  text-align:center;padding:1.5rem;
+}
+.box.arabic-quote .aq-text{
+  font-family:var(--arabic);font-size:1.6rem;color:var(--gold2);
+  direction:rtl;line-height:1.8;margin-bottom:0.5rem;
+  text-shadow:0 1px 10px rgba(212,168,67,0.2);
+}
+.box.arabic-quote .aq-trans{font-family:var(--serif);font-size:0.95rem;color:var(--text2);font-style:italic;}
+.box.arabic-quote .aq-ref{font-family:var(--mono);font-size:10px;color:var(--text3);margin-top:0.3rem;}
+
+/* ============================================================
+   FORMULA / KEY POINTS
+   ============================================================ */
+.kp-box{
+  background:var(--bg);border:1px solid var(--border2);
+  border-radius:var(--radius);margin:1.4rem 0;overflow:hidden;
+}
+.kp-head{
+  background:var(--bg3);padding:0.5rem 1rem;
+  font-family:var(--sans);font-size:9.5px;letter-spacing:2px;
+  text-transform:uppercase;color:var(--text3);border-bottom:1px solid var(--border);
+}
+.kp-body{padding:1.2rem 1.5rem;}
+.kp-body .kp-row{
+  display:flex;align-items:baseline;gap:0.75rem;
+  padding:0.45rem 0;border-bottom:1px solid rgba(255,255,255,0.04);
+  font-size:0.93rem;
+}
+.kp-body .kp-row:last-child{border-bottom:none}
+.kp-body .kp-row .num{
+  font-family:var(--mono);font-size:10px;color:var(--gold);
+  background:var(--gold-dim);padding:1px 6px;border-radius:3px;flex-shrink:0;
+}
+.kp-body .kp-row .txt{color:var(--text)}
+.kp-body .kp-row .txt strong{color:var(--gold2)}
+
+/* ============================================================
+   TABLE
+   ============================================================ */
+.tbl-wrap{overflow-x:auto;margin:1.4rem 0;border-radius:var(--radius);border:1px solid var(--border)}
+table{width:100%;border-collapse:collapse}
+thead tr{background:var(--bg3)}
+thead th{
+  padding:0.7rem 1rem;font-family:var(--sans);font-size:10px;
+  letter-spacing:1.5px;text-transform:uppercase;color:var(--text2);
+  text-align:left;border-bottom:1px solid var(--border);
+}
+tbody td{
+  padding:0.65rem 1rem;font-size:0.88rem;border-bottom:1px solid var(--border);
+  vertical-align:top;color:var(--text);font-family:var(--sans);
+}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover td{background:rgba(255,255,255,0.02)}
+
+/* ============================================================
+   BULLET LIST
+   ============================================================ */
+.bl{list-style:none;padding:0;margin:0.8rem 0 1rem}
+.bl li{
+  padding:0.38rem 0 0.38rem 1.7rem;position:relative;
+  font-size:0.95rem;color:var(--text);
+  border-bottom:1px solid rgba(255,255,255,0.04);
+}
+.bl li:last-child{border-bottom:none}
+.bl li::before{
+  content:'◆';color:var(--gold);font-size:7px;
+  position:absolute;left:2px;top:0.7rem;
+}
+
+/* ============================================================
+   VISUAL DIAGRAM AREA
+   ============================================================ */
+.diagram-wrap{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--radius2);margin:1.5rem 0;overflow:hidden;
+}
+.diagram-head{
+  background:var(--bg3);padding:0.6rem 1.2rem;
+  font-family:var(--sans);font-size:9.5px;letter-spacing:2px;
+  text-transform:uppercase;color:var(--text3);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:0.4rem;
+}
+.diagram-body{padding:1.5rem;display:flex;justify-content:center;}
+
+/* ============================================================
+   TIMELINE
+   ============================================================ */
+.timeline{position:relative;margin:1.5rem 0;padding-left:2rem;}
+.timeline::before{
+  content:'';position:absolute;left:0.5rem;top:0;bottom:0;
+  width:1px;background:linear-gradient(180deg,var(--gold),var(--border),transparent);
+}
+.tl-item{position:relative;padding:0 0 1.5rem 1.5rem;}
+.tl-item::before{
+  content:'';position:absolute;left:-1.9rem;top:0.4rem;
+  width:11px;height:11px;border-radius:50%;
+  background:var(--gold);border:2px solid var(--bg2);
+  box-shadow:0 0 8px var(--gold-glow);
+}
+.tl-item .tl-head{
+  font-family:var(--sans);font-size:13px;font-weight:700;
+  color:var(--gold2);margin-bottom:0.3rem;
+}
+.tl-item .tl-body{font-size:0.92rem;color:var(--text2);}
+
+/* ============================================================
+   COMPARISON CARDS
+   ============================================================ */
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.4rem 0;}
+.c-card{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--radius);padding:1.2rem;
+}
+.c-card .c-title{
+  font-family:var(--sans);font-size:12px;font-weight:700;
+  letter-spacing:1px;text-transform:uppercase;margin-bottom:0.8rem;
+  padding-bottom:0.5rem;border-bottom:1px solid var(--border);
+}
+.c-card.left .c-title{color:var(--gold)}
+.c-card.right .c-title{color:var(--emerald)}
+.c-card .c-list{list-style:none;padding:0;}
+.c-card .c-list li{font-size:0.88rem;color:var(--text);padding:0.3rem 0;border-bottom:1px solid rgba(255,255,255,0.04);}
+.c-card .c-list li:last-child{border-bottom:none}
+.c-card .c-list li::before{content:'• ';color:var(--text3)}
+
+/* ============================================================
+   QUIZ
+   ============================================================ */
+.mini-quiz{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--radius2);padding:1.6rem;margin-top:2rem;
+  position:relative;overflow:hidden;
+}
+.mini-quiz::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--gold),var(--emerald),var(--gold));
+}
+.mini-quiz h4{
+  font-family:var(--sans);font-size:1rem;color:var(--gold);
+  margin-bottom:1.2rem;display:flex;align-items:center;gap:0.5rem;
+}
+.quiz-q{margin-bottom:1.7rem;}
+.quiz-q:last-child{margin-bottom:0;}
+.q-text{font-family:var(--sans);font-size:0.93rem;color:var(--white);margin-bottom:0.8rem;font-weight:500;line-height:1.5;}
+.options{display:flex;flex-direction:column;gap:0.45rem;}
+.opt{
+  background:var(--bg3);border:1px solid var(--border2);
+  border-radius:7px;padding:0.65rem 1rem;
+  font-family:var(--sans);font-size:0.88rem;color:var(--text);
+  cursor:pointer;text-align:left;transition:all 0.2s;
+}
+.opt:hover:not(:disabled){border-color:var(--gold);background:var(--gold-dim);}
+.opt.correct{border-color:var(--emerald)!important;background:var(--em-dim)!important;color:var(--emerald)!important;}
+.opt.wrong{border-color:var(--rose)!important;background:var(--rose-dim)!important;color:var(--rose)!important;}
+.opt:disabled{cursor:default;}
+.q-feedback{
+  font-family:var(--sans);font-size:0.84rem;margin-top:0.5rem;
+  padding:0.6rem 0.9rem;border-radius:6px;display:none;
+}
+.q-feedback.show{display:block;}
+.q-feedback.ok{background:var(--em-dim);color:var(--emerald);border:1px solid rgba(62,207,142,0.2);}
+.q-feedback.fail{background:var(--rose-dim);color:var(--rose);border:1px solid rgba(224,112,112,0.2);}
+
+/* ============================================================
+   CHARACTERISTICS GRID
+   ============================================================ */
+.char-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem;margin:1.4rem 0;}
+.char-card{
+  background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);
+  padding:1.2rem;transition:border-color 0.2s;
+}
+.char-card:hover{border-color:var(--gold3);}
+.char-card .char-icon{font-size:1.5rem;margin-bottom:0.5rem;}
+.char-card .char-title{font-family:var(--sans);font-size:13px;font-weight:700;color:var(--gold2);margin-bottom:0.4rem;}
+.char-card .char-desc{font-size:0.87rem;color:var(--text2);line-height:1.6;}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+/* ── HAMBURGER BUTTON ── */
+.hamburger-btn{
+  display:none;position:fixed;top:0.65rem;left:0.85rem;z-index:200;
+  background:#111318;border:1px solid rgba(212,168,67,0.4);
+  color:#d4a843;font-size:1.25rem;width:40px;height:40px;
+  border-radius:9px;cursor:pointer;align-items:center;justify-content:center;
+  box-shadow:0 2px 12px rgba(0,0,0,0.5);transition:background 0.2s,border-color 0.2s;
+}
+.hamburger-btn:hover{background:#1e2330;border-color:rgba(212,168,67,0.7);}
+
+/* ── SIDEBAR OVERLAY ── */
+.sidebar-overlay{
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,0.65);
+  z-index:99;backdrop-filter:blur(3px);
+}
+.sidebar-overlay.open{display:block;}
+
+/* ── SIDEBAR CLOSE BUTTON (mobile) ── */
+.sidebar-close-btn{
+  display:none;position:absolute;top:0.75rem;right:0.75rem;
+  background:rgba(212,168,67,0.1);border:1px solid rgba(212,168,67,0.25);
+  color:var(--gold);font-size:1rem;width:32px;height:32px;
+  border-radius:7px;cursor:pointer;align-items:center;justify-content:center;
+  transition:background 0.2s;z-index:10;flex-shrink:0;
+}
+.sidebar-close-btn:hover{background:rgba(212,168,67,0.2);}
+
+@media (max-width: 768px) {
+  .hamburger-btn{display:flex}
+  .sidebar-close-btn{display:flex}
+  .sidebar{
+    display:flex;position:fixed;left:-295px;top:0;height:100vh;
+    z-index:100;transition:left 0.32s cubic-bezier(0.4,0,0.2,1);
+    box-shadow:6px 0 40px rgba(0,0,0,0.8);
+  }
+  .sidebar-logo{padding-right:2.8rem;} /* room for close btn */
+  .sidebar.mobile-open{left:0}
+  .main{padding:0 1.2rem 5rem}
+  .topbar{padding:0.55rem 1.2rem 0.55rem 3.8rem;margin:0 -1.2rem;}
+  .compare-grid{grid-template-columns:1fr}
+  .char-grid{grid-template-columns:1fr}
+  .hero h1{font-size:1.9rem}
+}
+
+/* ── EXTRA SMALL ── */
+@media (max-width: 480px) {
+  .hero h1{font-size:1.4rem}
+  .hero-arabic{font-size:2rem}
+  .hero-stats{flex-direction:column;align-items:center;gap:0.5rem;}
+  .stat-pill{width:100%;max-width:280px;justify-content:center;}
+  .main{padding:0 0.9rem 5rem}
+  .topbar{padding:0.5rem 0.9rem 0.5rem 3.6rem;margin:0 -0.9rem;}
+}
+
+/* ── LANGUAGE TOGGLE ── */
+.lang-btn{
+  font-family:var(--arabic);font-size:13px;padding:3px 11px;
+  background:var(--gold-dim);border:1px solid rgba(212,168,67,0.4);
+  color:var(--gold);border-radius:6px;cursor:pointer;
+  transition:background 0.2s,border-color 0.2s;letter-spacing:0.5px;
+  white-space:nowrap;line-height:1.6;
+}
+.lang-btn:hover{background:rgba(212,168,67,0.25);border-color:var(--gold);}
+
+/* Urdu body mode */
+body.urdu-mode .main{direction:rtl;}
+body.urdu-mode .topic-title h3,
+body.urdu-mode .kp-row .txt,
+body.urdu-mode .q-text,
+body.urdu-mode p,
+body.urdu-mode .bl li,
+body.urdu-mode td,
+body.urdu-mode .char-desc,
+body.urdu-mode .tl-body,
+body.urdu-mode .c-list li{
+  font-family:var(--arabic);font-size:1.05rem;line-height:2;
+}
+body.urdu-mode .opt{
+  font-family:var(--arabic);font-size:0.95rem;text-align:right;
+}
+body.urdu-mode .bl li{padding:0.38rem 1.7rem 0.38rem 0;}
+body.urdu-mode .bl li::before{left:auto;right:2px;}
+body.urdu-mode .timeline{padding-left:0;padding-right:2rem;}
+body.urdu-mode .timeline::before{left:auto;right:0.5rem;}
+body.urdu-mode .tl-item{padding:0 1.5rem 1.5rem 0;}
+body.urdu-mode .tl-item::before{left:auto;right:-1.9rem;}
+body.urdu-mode .nav-section-label,
+body.urdu-mode .nav-item,
+body.urdu-mode .kp-head,
+body.urdu-mode .ch-num,
+body.urdu-mode .box-label{
+  font-family:var(--arabic);
+}
+</style>
+</head>
+<body>
+
+<button class="hamburger-btn" id="hamburgerBtn" aria-label="Open navigation menu">☰</button>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<div class="shell">
+
+<!-- ============================================================ SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <button class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Close navigation menu">✕</button>
+  <div class="sidebar-logo">
+    <div class="badge">SEERAT · BS Economics</div>
+    <div class="arabic-title">سیرت النبی ﷺ</div>
+    <h1>Seerat-un-Nabi ﷺ</h1>
+    <p>Islamiat · 1st Semester · Malakand University</p>
+  </div>
+
+  <div class="progress-ring-wrap">
+    <svg width="48" height="48" viewBox="0 0 48 48">
+      <defs>
+        <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#d4a843"/>
+          <stop offset="100%" stop-color="#3ecf8e"/>
+        </linearGradient>
+      </defs>
+      <circle class="ring-track" cx="24" cy="24" r="20"/>
+      <circle class="ring-fill" id="ringFill" cx="24" cy="24" r="20"/>
+      <text class="ring-pct" id="ringPct" x="24" y="24">0%</text>
+    </svg>
+    <div class="info">
+      <div class="label">Your Progress</div>
+      <div class="count"><span id="doneCount">0</span> / <span id="totalCount">0</span> topics</div>
+    </div>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-label">Chapter 1 — Introduction</div>
+    <button class="nav-item" data-target="t1-1"><div class="dot"></div>Introduction to Seerat</button>
+    <button class="nav-item" data-target="t1-2"><div class="dot"></div>Seerat vs Hadith</button>
+    <button class="nav-item" data-target="t1-3"><div class="dot"></div>Sources of Seerat</button>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-label">Chapter 2 — Core Topics</div>
+    <button class="nav-item" data-target="t2-1"><div class="dot"></div>Khassais-e-Kubra</button>
+    <button class="nav-item" data-target="t2-2"><div class="dot"></div>Makki &amp; Madani Periods</button>
+    <button class="nav-item" data-target="t2-3"><div class="dot"></div>Private &amp; Public Preaching</button>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-label">Chapter 3 — Character &amp; Mission</div>
+    <button class="nav-item" data-target="t3-1"><div class="dot"></div>Rights &amp; Beauty of Mustafa ﷺ</button>
+    <button class="nav-item" data-target="t3-2"><div class="dot"></div>Prophet ﷺ as Da'ee</button>
+  </div>
+</aside>
+
+<!-- ============================================================ MAIN -->
+<div class="main">
+
+  <div class="topbar">
+    <div class="tb-left">☪️ <strong id="tbTitle">Seerat-un-Nabi ﷺ</strong> <span id="tbSub">— Interactive Study Guide</span></div>
+    <div class="tb-right">
+      <button class="lang-btn" id="langBtn" onclick="toggleLang()">اردو</button>
+      <span id="topPct">0%</span>
+      <div class="pbar"><div class="pbar-fill" id="topBar"></div></div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════ HERO -->
+  <header class="hero">
+    <div class="hero-arabic">سیرت النبی ﷺ</div>
+    <div class="hero-eyebrow"><span></span>Interactive Self-Learning Edition<span></span></div>
+    <h1>Seerat-un-Nabi<br><span class="accent">ﷺ</span></h1>
+    <p class="hero-desc">Study the life, character, and mission of the Holy Prophet Muhammad ﷺ — step by step, with clear explanations, real examples, and quiz checkpoints to ace your exam.</p>
+    <div class="hero-stats">
+      <div class="stat-pill">☪️ <strong>8</strong>&nbsp;Topics Covered</div>
+      <div class="stat-pill">📖 <strong>Definitions</strong>&nbsp;& Arabic Terms</div>
+      <div class="stat-pill">🧪 <strong>Mini-Quizzes</strong>&nbsp;Included</div>
+      <div class="stat-pill">⭐ <strong>Exam Tips</strong>&nbsp;Highlighted</div>
+    </div>
+  </header>
+
+  <!-- ══════════════════════════════════════════════════════════
+       CHAPTER 1: INTRODUCTION
+       ══════════════════════════════════════════════════════════ -->
+  <div class="ch-header">
+    <div class="ch-num">Chapter 01 of 03</div>
+    <div class="ch-arabic">تعارف سیرت</div>
+    <h2>Introduction to Seerat</h2>
+    <p class="ch-desc">Understand what Seerat truly means, why it matters, how it differs from Hadith, and where scholars get their information from.</p>
+  </div>
+
+  <!-- ── TOPIC 1: Introduction to Seerat ─────────────────── -->
+  <section class="topic" id="t1-1">
+    <div class="topic-title">
+      <div class="marker">📜</div>
+      <h3>Topic 1: Introduction to Seerat — Definitions, Importance & Necessity</h3>
+      <button class="check-btn" onclick="toggleDone(this,'t1-1')">✓</button>
+    </div>
+
+    <p>Let us start from the very beginning. Before we can study the life of the Prophet ﷺ, we need to understand <strong>what the word "Seerat" actually means</strong> — both in the Arabic language and as a technical term used by scholars.</p>
+
+    <h4 style="color:var(--gold2);font-family:var(--sans);margin:1.4rem 0 0.6rem;font-size:1rem;"> Literal (Lugawi) Definition</h4>
+    <div class="box def">
+      <div class="box-label">📖 Arabic Root: س ي ر (Sa-Ya-Ra)</div>
+      <p>The word <strong>Seerat (سیرت)</strong> comes from the Arabic root <em>Sa-Ya-Ra</em> (سار), which means <strong>to walk, to travel, or to move along a path</strong>. In its original Arabic usage, "Seerat" means a person's <strong>way of life, conduct, behavior, and manner of living</strong> — literally the "path" they walk through life.</p>
+    </div>
+
+    <div class="box arabic-quote">
+      <div class="aq-text">سیرت = طریقہ زندگی، طرزِ عمل، سیرت و کردار</div>
+      <div class="aq-trans">"Seerat = The way of life, manner of conduct, and character of a person."</div>
+    </div>
+
+    <h4 style="color:var(--gold2);font-family:var(--sans);margin:1.4rem 0 0.6rem;font-size:1rem;"> Technical (Istilaahi) Definition</h4>
+    <div class="box def">
+      <div class="box-label">📖 Technical Definition of Seerat-un-Nabi ﷺ</div>
+      <p><strong>Seerat-un-Nabi ﷺ</strong> is the scholarly discipline that records and studies the <strong>complete biography of the Prophet Muhammad ﷺ</strong> — including his birth, childhood, prophethood, battles, treaties, family life, teachings, worship, character, and final days — so that Muslims can understand and follow his perfect example in every aspect of life.</p>
+    </div>
+
+    <div class="box eg">
+      <div class="box-label">🌍 Simple Real-Life Example</div>
+      <p>Think of Seerat like a very detailed and trustworthy biography. Just like you might read about Quaid-e-Azam to understand how he built Pakistan — his speeches, decisions, and character — we read Seerat to understand everything about how the Prophet ﷺ lived, spoke, led, and worshipped. Except Seerat is <em>infinitely more important</em> because it is a model for all of humanity until the Day of Judgment.</p>
+    </div>
+
+    <h4 style="color:var(--emerald);font-family:var(--sans);margin:1.4rem 0 0.6rem;font-size:1rem;"> Importance of Seerat</h4>
+    <p>Why is studying Seerat not just interesting, but <em>absolutely necessary</em> for every Muslim? Here are the key reasons:</p>
+
+    <div class="kp-box">
+      <div class="kp-head">⭐ Exam-Key: 7 Reasons Why Seerat is Important</div>
+      <div class="kp-body">
+        <div class="kp-row"><span class="num">01</span><span class="txt"><strong>Quranic Command:</strong> Allah ﷻ commands us: "Indeed, in the Messenger of Allah you have an excellent example (Uswah Hasanah)." (Al-Ahzab 33:21). Studying Seerat is how we know this example.</span></div>
+        <div class="kp-row"><span class="num">02</span><span class="txt"><strong>Understanding the Quran:</strong> Many Quranic verses were revealed in response to specific events in the Prophet's ﷺ life. Without Seerat, we cannot fully understand the context of those verses.</span></div>
+        <div class="kp-row"><span class="num">03</span><span class="txt"><strong>Strengthening Imaan (Faith):</strong> Reading about the struggles, miracles, and sacrifices of the Prophet ﷺ deeply increases our love and faith.</span></div>
+        <div class="kp-row"><span class="num">04</span><span class="txt"><strong>A Complete Life Guide:</strong> Seerat covers personal life, family, politics, trade, war, and worship — it is a complete manual for human life.</span></div>
+        <div class="kp-row"><span class="num">05</span><span class="txt"><strong>Completing Iman:</strong> Believing in the Prophet ﷺ is a pillar of faith. Knowing his life deepens this belief from the heart.</span></div>
+        <div class="kp-row"><span class="num">06</span><span class="txt"><strong>Preserving Islamic History:</strong> Seerat preserves the authentic history of early Islam, protecting it from distortion.</span></div>
+        <div class="kp-row"><span class="num">07</span><span class="txt"><strong>Countering Misconceptions:</strong> With a solid knowledge of Seerat, Muslims can respond to false claims and misrepresentations about Islam and the Prophet ﷺ.</span></div>
+      </div>
+    </div>
+
+    <div class="box exam">
+      <div class="box-label">🔴 Exam Alert — Quran Reference to Memorize</div>
+      <p><strong>Surah Al-Ahzab (33:21):</strong> <em>"Laqad kaana lakum fi Rasoolillahi uswatun hasanah"</em> — "Verily, in the Messenger of Allah you have a most excellent example." This verse is the #1 proof of the <em>necessity</em> of studying Seerat. Always quote it in your exam answer!</p>
+    </div>
+
+    <div class="mini-quiz">
+      <h4>🧪 Topic 1 — Checkpoint Quiz</h4>
+      <div class="quiz-q">
+        <div class="q-text">1. The word "Seerat" literally comes from the Arabic root meaning:</div>
+        <div class="options">
+          <button class="opt" onclick="checkAnswer(this, false, 'Incorrect. Kitaab means book — that is not the root of Seerat.')">A. To write a book (Kitaab)</button>
+          <button class="opt" onclick="checkAnswer(this, true, 'Excellent! The root Sa-Ya-Ra means to walk a path — hence Seerat means a person\'s way of life and conduct.')">B. To walk / to travel along a path (Sa-Ya-Ra)</button>
+          <button class="opt" onclick="checkAnswer(this, false, 'That is related to Hadith (to speak/narrate), not Seerat.')">C. To speak / to narrate (Hadatha)</button>
+        </div>
+        <div class="q-feedback"></div>
+      </div>
+      <div class="quiz-q">
+        <div class="q-text">2. Which Quranic verse is the most important proof of the necessity of studying Seerat?</div>
+        <div class="options">
+          <button class="opt" onclick="checkAnswer(this, false, 'Surah Fatiha is the opening chapter but not the verse about Uswah Hasanah.')">A. Surah Al-Fatiha (1:1)</button>
+          <button class="opt" onclick="checkAnswer(this, true, 'Perfect! Al-Ahzab 33:21 — "Uswatun Hasanah" — is the key verse proving why studying the Prophet\'s ﷺ life is an obligation.')">B. Surah Al-Ahzab (33:21) — "Uswatun Hasanah"</button>
+          <button class="opt" onclick="checkAnswer(this, false, 'Ayat-ul-Kursi is about Allah\'s greatness, not the Seerah.')">C. Surah Al-Baqarah (2:255) — Ayat-ul-Kursi</button>
+        </div>
+        <div class="q-feedback"></div>
+      </div>
+      <div class="quiz-q">
+        <div class="q-text">3. What is the technical (Istilaahi) meaning of Seerat-un-Nabi ﷺ?</div>
+        <div class="options">
+          <button class="opt" onclick="checkAnswer(this, false, 'That is the definition of Tafseer (Quranic commentary), not Seerat.')">A. The scholarly study and commentary of the Holy Quran.</button>
+          <button class="opt" onclick="checkAnswer(this, true, 'Correct! Seerat is the complete and detailed biography of the Prophet ﷺ — covering every aspect of his life.')">B. The complete biography of the Prophet ﷺ — his life, character, teachings, and conduct.</button>
+        </div>
+        <div class="q-feedback"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TOPIC 2: Seerat vs Hadith ─────────────────────── -->
+  <section class="topic" id="t1-2">
+    <div class="topic-title">
+      <div class="marker">⚖️</div>
+      <h3>Topic 2: Differences & Similarities — Seerat and Hadith</h3>
+      <button class="check-btn" onclick="toggleDone(this,'t1-2')">✓</button>
+    </div>
+
+    <p>Many students confuse Seerat with Hadith. While they are deeply connected and share some similarities, they are <strong>distinct sciences</strong> with different definitions, methods, and purposes. A clear comparison will help you answer this in any exam.</p>
+
+    <div class="compare-grid">
+      <div class="c-card left">
+        <div class="c-title">📜 Seerat (سیرت)</div>
+        <ul class="c-list">
+          <li>Comprehensive biography of the Prophet ﷺ</li>
+          <li>Covers the full life — birth to death</li>
+          <li>Includes all events: battles, treaties, travel</li>
+          <li>Does NOT require a detailed chain of narrators (Isnad)</li>
+          <li>Can include non-Hadith sources (historians, Sahaba accounts)</li>
+          <li>Subject: <strong>Events and Biography</strong></li>
+          <li>Focus: <em>Historical narrative</em></li>
+        </ul>
+      </div>
+      <div class="c-card right">
+        <div class="c-title">💬 Hadith (حدیث)</div>
+        <ul class="c-list">
+          <li>Records of the Prophet's ﷺ sayings, actions, approvals</li>
+          <li>Can be from any period of his life</li>
+          <li>Can be a single short statement or action</li>
+          <li><strong>Requires a verified chain of narrators (Isnad)</strong></li>
+          <li>Strictly authenticated through science of Rijaal (narrator analysis)</li>
+          <li>Subject: <strong>Laws, guidance, and conduct</strong></li>
+          <li>Focus: <em>Legal and religious rulings</em></li>
+        </ul>
+      </div>
+    </div>
+
+    <h4 style="color:var(--emerald);font-family:var(--sans);margin:1.4rem 0 0.6rem;font-size:1rem;">Similarities Between Seerat and Hadith</h4>
+    <div class="kp-box">
+      <div class="kp-head">🔗 What They Share</div>
+      <div class="kp-body">
+        <div class="kp-row"><span class="num">01</span><span class="txt">Both deal with the <strong>life and personality</strong> of the Holy Prophet Muhammad ﷺ.</span></div>
+        <div class="kp-row"><span class="num">02</span><span class="txt">Both are <strong>second sources of Islamic Law</strong> (after the Quran). Hadith more directly, Seerat contextually.</span></div>
+        <div class="kp-row"><span class="num">03</span><span class="txt">Both rely on the <strong>narrations of the Companions (Sahaba)</strong> as primary sources.</span></div>
+        <div class="kp-row"><span class="num">04</span><span class="txt">Both are studied to <strong>understand and implement Islam correctly</strong> in daily life.</span></div>
+        <div class="kp-row"><span class="num">05</span><span class="txt">Hadith is often <strong>embedded within Seerat books</strong> — many Seerat narrations are themselves Ahadith.</span></div>
+      </div>
+    </div>
+
+    <div class="box note">
+      <div class="box-label">💡 Memory Trick</div>
+      <p>Think of it this way: <strong>Hadith = What the Prophet ﷺ SAID or DID (specific)</strong>. <strong>Seerat = The Prophet's ﷺ full STORY (comprehensive)</strong>. If Seerat is the whole ocean, then Hadith is one of the rivers that flows into it.</p>
+    </div>
+
+    <div class="mini-quiz">
+      <h4>🧪 Topic 2 — Checkpoint Quiz</h4>
+      <div class="quiz-q">
+        <div class="q-text">1. What is the most important difference between Seerat and Hadith regarding narration?</div>
+        <div class="options">
+          <button class="opt" onclick="checkAnswer(this, false, 'It is actually the other way around — Hadith requires Isnad, Seerat is more flexible.')">A. Seerat requires a strict chain of narrators (Isnad); Hadith does not.</button>
+          <button class="opt" onclick="checkAnswer(this, true, 'Correct! Hadith must have a verified chain of narrators (Isnad). Seerat can use broader historical sources.')">B. Hadith requires a strict chain of narrators (Isnad); Seerat can include broader historical accounts.</button>
+        </div>
+        <div class="q-feedback"></div>
+      </div>
+      <div class="quiz-q">
+        <div class="q-text">2. Which statement is a SIMILARITY between Seerat and Hadith?</div>
+        <div class="options">
+          <button class="opt" onclick="checkAnswer(this, true, 'Exactly right! Both focus on the Prophet ﷺ and both rely primarily on narrations from his Companions.')">A. Both deal with the life of the Prophet ﷺ and both rely on Sahaba narrations.</button>
+          <button class="opt" onclick="checkAnswer(this, false, 'This is a difference, not a similarity. Only Hadith has strict Isnad requirements.')">B. Both require exactly the same strict chain of narrators (Isnad).</button>
+        </div>
+        <div class="q-feedback"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TOPIC 3: Sources of Seerat ─────────────────────── -->
+  <section class="topic" id="t1-3">
+    <div class="topic-title">
+      <div class="marker">📚</div>
+      <h3>Topic 3: Sources of Seerat</h3>
+      <button class="check-btn" onclick="toggleDone(this,'t1-3')">✓</button>
+    </div>
+
+    <p>How do we actually know the details of the Prophet's ﷺ life? Scholars of Seerat gathered their information from multiple reliable sources. Here are the primary ones:</p>
+
+    <div class="kp-box">
+      <div class="kp-head">📖 Primary Sources of Seerat</div>
+      <div class="kp-body">
+        <div class="kp-row"><span class="num">1</span><span class="txt"><strong>The Holy Quran (القرآن الکریم):</strong> The Quran itself is the most authentic source. Many verses mention the Prophet's ﷺ life events directly (e.g., Surah Al-Ahzab on the Battle of Trench, Surah Al-Tawbah on events of Tabuk).</span></div>
+        <div class="kp-row"><span class="num">2</span><span class="txt"><strong>Hadith Literature (کتب احادیث):</strong> The six major Hadith collections (Kutub-e-Sittah) — including Bukhari, Muslim, Tirmidhi — contain thousands of accounts of the Prophet's ﷺ life, sayings, and actions.</span></div>
+        <div class="kp-row"><span class="num">3</span><span class="txt"><strong>Books of Seerat (کتب سیرت):</strong> Early scholars wrote dedicated biographies. The oldest surviving complete Seerat is <em>Seerat Ibn Hisham</em> (based on Ibn Ishaq's original). Others include Al-Waqidi's Maghazi and Ibn Sa'd's Tabaqat.</span></div>
+        <div class="kp-row"><span class="num">4</span><span class="txt"><strong>Books of Tabaqat (طبقات):</strong> Biographical dictionaries recording the lives of Companions and Taabi'een who were eyewitnesses. <em>Tabaqat Ibn Sa'd</em> is the most famous.</span></div>
+        <div class="kp-row"><span class="num">5</span><span class="txt"><strong>Pre-Islamic Poetry (جاہلی شاعری):</strong> Arabic poetry from before Islam reflects the social, cultural, and historical context of the Arabian Peninsula — helping us understand the world the Prophet ﷺ was sent into.</span></div>
+        <div class="kp-row"><span class="num">6</span><span class="txt"><strong>Books of Tafseer (کتب تفسیر):</strong> Quranic commentaries often explain the occasion of revelation (Asbab-un-Nuzool) — which are biographical events from the Prophet's ﷺ life.</span></div>
+        <div class="kp-row"><span class="num">7</span><span class="txt"><strong>Archaeology & Geography:</strong> Physical evidence from Makkah, Madinah, and surrounding regions — including sites of battles and trade routes — helps verify historical accounts.</span></div>
+      </div>
+    </div>
+
+    <div class="box exam">
+      <div class="box-label">🔴 Exam Tip — Must Know Authors</div>
+      <p>Know these names for your exam: <br>
+      • <strong>Ibn Ishaq (d. 767 CE)</strong> — Wrote the first major Seerat (original text, mostly preserved through Ibn Hisham).<br>
+      • <strong>Ibn Hisham (d. 833 CE)</strong> — Edited and preserved Ibn Ishaq's work; "<em>Seerat Ibn Hisham</em>" is the oldest surviving complete Seerat book.<br>
+      • <strong>Al-Waqidi (d. 823 CE)</strong> — Wrote "<em>Kitab al-Maghazi</em>" (Book of Battles).<br>
+      • <strong>Ibn Sa'd (d. 845 CE)</strong> — Wrote "<em>Tabaqat al-Kubra</em>" — major biographical dictionary.</p>
+    </div>
+
+    <div class="mini-quiz">
+      <h4>🧪 Topic 3 — Checkpoint Quiz</h4>
+      <div class="quiz-q">
+        <div class="q-text">1. What is the oldest surviving complete book of Seerat?</div>
+        <div class="options">
+          <button class="opt" onclick="checkAnswer(this, false, 'Sahih Bukhari is a Hadith collection, not a Seerat book.')">A. Sahih Bukhari by Imam Bukhari</button>
+          <button class="opt" onclick="checkAnswer(this, true, 'Excellent! Seerat Ibn Hisham (based on Ibn Ishaq\'s work) is the oldest surviving complete biography of the Prophet ﷺ.')">B. Seerat Ibn Hisham (edited from Ibn Ishaq's original work)</button>
+          <button class="opt" onclick="checkAnswer(this, false, 'Tabaqat al-Kubra is a biographical dictionary by Ibn Sa\'d, not the oldest Seerat.')">C. Tabaqat al-Kubra by Ibn Sa'd</button>
+        </div>
+        <div class="q-feedback"></div>
+      </div>
+      <div class="quiz-q">
+        <div class="q-text">2. Why is the Holy Quran itself considered a source of Seerat?</div>
+        <div class="options">
+          <button class="opt" onclick="checkAnswer(this, false, 'The Quran does not contain stories for entertainment — it contains divine guidance and historical facts.')">A. Because it contains entertaining stories about the Prophet ﷺ.</button>
+          <button class="opt" onclick="checkAnswer(this, true, 'Correct! Many Quranic verses were revealed about specific events in the Prophet\'s ﷺ life, making them direct biographical records.')">B. Because many verses directly mention events from the Prophet's ﷺ life and give us authentic historical information.</button>
+        </div>
+        <div class="q-feedback"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="star-div"><span class="star-center">✦ ✦ ✦</span></div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       CHAPTER 2: CORE TOPICS
+       ══════════════════════════════════════════════════════════ -->
+  <div class="ch-header">
+    <div class="ch-num">Chapter 02 of 03</div>
+    <div class="ch-arabic">خصائصِ کبریٰ اور ادوار</div>
+    <h2>Miracles, Periods & Preaching</h2>
+    <p class="ch-desc">Explore the unique qualities and miracles of the Prophet ﷺ, the summary of Makki and Madani periods, and the strategy of spreading Islam.</p>
+  </div>
+
+  <!-- ── TOPIC 4: Khassais-e-Kubra ──────────────────────── -->
+  <section class="topic" id="t2-1">
+    <div class="topic-title">
+      <div class="marker">⭐</div>
+      <h3>Topic 4: Khassais-e-Kubra — Major Characteristics & Miracles</h3>
+      <button class="check-btn" onclick="toggleDone(this,'t2-1')">✓</button>
+    </div>
+
+    <p><strong>Khassais-e-Kubra (خصائصِ کبریٰ)</strong> literally means <em>"the grand/major specialities."</em> These are the unique characteristics, privileges, and miracles that Allah ﷻ granted exclusively to the Prophet Muhammad ﷺ — things that distinguished him from all other prophets and all of humanity.</p>
+
+    <div class="box def">
+      <div class="box-label">📖 Definition — Khassais</div>
+      <p>Khassais (plural of Khaasiyya) means <strong>special characteristics or exclusive features</strong>. "Kubra" means "great/major." Together, Khassais-e-Kubra refers to the <strong>major exclusive specialities that Allah ﷻ bestowed upon the Prophet ﷺ alone</strong>, distinguishing him from all other creation.</p>
+    </div>
+
+    <h4 style="color:var(--gold2);font-family:var(--sans);margin:1.4rem 0 0.6rem;font-size:1rem;">Categories of Khassais</h4>
+
+    <div class="char-grid">
+      <div class="char-card">
+        <div class="char-icon">🌍</div>
+        <div class="char-title">Universal Prophethood</div>
+        <div class="char-desc">All previous prophets were sent to one specific nation or people. Prophet Muhammad ﷺ was sent as a <em>mercy to ALL of mankind and jinn</em> until the Day of Judgment. (Quran 21:107)</div>
+      </div>
+      <div class="char-card">
+        <div class="char-icon">🔚</div>
+        <div class="char-title">Khatam-un-Nabiyyeen (Seal of Prophets)</div>
+        <div class="char-desc">He ﷺ is the final and last prophet. No prophet will come after him. His Shariah (law) is complete and perfect for all time. (Quran 33:40)</div>
+      </div>
+      <div class="char-card">
+        <div class="char-icon">🕌</div>
+        <div class="char-title">The Entire Earth as a Mosque</div>
+        <div class="char-desc">While previous prophets could only pray in designated places, the Prophet ﷺ was given the privilege that the entire Earth was made a place of worship and purification for his Ummah.</div>
+      </div>
+      <div class="char-card">
+        <div class="char-icon">🏳️</div>
+        <div class="char-title">Ghanaim (War Spoils) Made Halal</div>
+        <div class="char-desc">The spoils of war were forbidden for previous prophets' nations. They were made permissible for the Prophet's ﷺ Ummah — a specific Khaasiyya of this Ummah.</div>
+      </div>
+      <div class="char-card">
+        <div class="char-icon">🌙</div>
+        <div class="char-title">Isra and Miraj</div>
+        <div class="char-desc">The miraculous night journey from Makkah to Jerusalem (Isra) and ascent through the heavens to meet Allah ﷻ (Miraj) — a physical and spiritual journey granted to no other prophet.</div>
+      </div>
+      <div class="char-card">
+        <div class="char-icon">📖</div>
+        <div class="char-title">The Quran — An Everlasting Miracle</div>
+        <div class="char-desc">Every previous prophet's miracles ended with their death. The Quran is a living, eternal miracle — its linguistic, scientific, and prophetic content remains unchallenged after 1,400+ years.</div>
+      </div>
+      <div class="char-card">
+        <div class="char-icon">🤲</div>
+        <div class="char-title">Intercession (Shafa'at-e-Kubra)</div>
+        <div class="char-desc">On the Day of Judgment, Prophet Muhammad ﷺ will be given the "Grand Intercession" — the Maqam-e-Mahmud — to intercede for all of humanity.</div>
+      </div>
+      <div class="char-card">
+        <div class="char-icon">🏆</div>
+        <div class="char-title">Liwa-ul-Hamd (The Banner of Praise)</div>
+        <div class="char-desc">On the Day of Judgment, all prophets will gather under the banner of Prophet Muhammad ﷺ — a supreme honor given to no other prophet.</div>
+      </div>
+    </div>
+
+    <div class="box exam">
+      <div class="box-label">🔴 Exam Focus — Two Key Quran References</div>
+      <p><strong>Quran 21:107:</strong> "We have not sent you except as a mercy to all the worlds." (Rahmatallil-Aalameen)<br>
+      <strong>Quran 33:40:</strong> "Muhammad is not the father of any of your men, but he is the Messenger of Allah and the Seal of the Prophets." (Khatam-un-Nabiyyeen)</p>
+    </div>
+
+    <div class="mini-quiz">
+      <h4>🧪 Topic 4 — Checkpoint Quiz</h4>
+      <div class="quiz-q">
+        <div class="q-text">1. What does "Khatam-un-Nabiyyeen" mean, and which verse mentions it?</div>
+        <div class="options">
+          <button class="opt" onclick="checkAnswer(this, false, 'No, "First of Prophets" would be referring to Adam (AS), and this is not correct for the Prophet ﷺ.')">A. First of all Prophets — Surah Al-Baqarah (2:1)</button>
+          <button class="opt" onclick="checkAnswer(this, true, 'Correct! Khatam-un-Nabiyyeen means Seal/Last of Prophets, and it is mentioned in Surah Al-Ahzab, verse 40.')">B. Seal (Last) of all Prophets — Surah Al-Ahzab (33:40)</button>
+        </div>
+        <div class="q-feedback"></div>
+      </div>
+      <div class="quiz-q">
+        <div class="q-text">2. What makes the Quran the most unique miracle compared to miracles of previous prophets?</div>
+        <div class="options">
+          <button class="opt" onclick="checkAnswer(this, false, 'The Quran was not just for Arabs — it is a universal miracle for all humanity.')">A. It was written specifically for the Arab people and their language only.</button>
+          <button class="opt" onclick="checkAnswer(this, true, 'Exactly right! Other prophets\' miracles ended with their deaths. The Quran is a living, eternal miracle that continues to challenge and guide humanity.')">B. It is an eternal, living miracle that continues today — unlike miracles of other prophets which ended at their death.</button>
+        </div>
+        <div class="q-feedback"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TOPIC 5: Makki & Madani Periods ─────────────────── -->
+  <section class="topic" id="t2-2">
+    <div class="topic-title">
+      <div class="marker">🕌</div>
+      <h3>Topic 5: Summary of the Makki and Madani Periods</h3>
+      <button class="check-btn" onclick="toggleDone(this,'t2-2')">✓</button>
+    </div>
+
+    <p>The prophetic mission of the Prophet ﷺ is divided into two major phases based on location: <strong>the Makki Period</strong> (before Hijra) and <strong>the Madani Period</strong> (after Hijra). Each phase had a very different nature, focus, and strategy.</p>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>⬛ Makki Period</th>
+            <th>🟢 Madani Period</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Duration</td><td>13 years (610–622 CE)</td><td>10 years (622–632 CE)</td></tr>
+          <tr><td>Location</td><td>Makkah al-Mukarramah</td><td>Madinah al-Munawwarah</td></tr>
+          <tr><td>Main Focus</td><td>Aqeedah (Belief): Tawheed, Akhirah, Prophethood</td><td>Ibaadat, Laws (Shariah), State-building</td></tr>
+          <tr><td>Political Status</td><td>Minority, persecuted, weak</td><td>Leader of a growing Islamic State</td></tr>
+          <tr><td>Quranic Themes</td><td>Short, powerful Surahs — Tawheed & warning</td><td>Long Surahs — laws, social justice, contracts</td></tr>
+          <tr><td>Key Events</td><td>First revelation, Hijra, Persecution, Boycott</td><td>Constitution of Madinah, Battles, Conquest of Makkah</td></tr>
+          <tr><td>Da'wah Strategy</td><td>Secret then public — through wisdom and patience</td><td>Open, political, military, diplomatic</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4 style="color:var(--gold2);font-family:var(--sans);margin:1.4rem 0 0.6rem;font-size:1rem;">The Makki Period — Key Timeline</h4>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-head">610 CE — First Revelation (Age 40)</div>
+        <div class="tl-body">Prophet Muhammad ﷺ received the first revelation in Cave Hira. The first revealed verses were Surah Al-Alaq (96:1-5): "Read in the name of your Lord who created."</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-head">610–613 CE — Secret Da'wah (3 Years)</div>
+        <div class="tl-body">Islam was spread quietly among close, trusted people: Khadijah RA, Abu Bakr RA, Ali RA, and Zaid ibn Haritha RA were among the very first Muslims.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-head">613 CE — Public Preaching Begins</div>
+        <div class="tl-body">Allah ﷻ commanded: "Warn your closest relatives" (26:214). The Prophet ﷺ began open Da'wah — and faced severe opposition, mockery, and persecution from Quraysh.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-head">615 CE — Migration to Abyssinia</div>
+        <div class="tl-body">Some Muslims migrated to the Christian kingdom of Abyssinia under the just King Negus (Najashi) to escape Quraishi persecution. The first Hijra in Islamic history.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-head">619 CE — Year of Sorrow (Aam-ul-Huzn)</div>
+        <div class="tl-body">Both Khadijah RA (beloved wife) and Abu Talib (uncle and protector) passed away in the same year — a deeply painful time for the Prophet ﷺ.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-head">620 CE — Isra and Miraj</div>
+        <div class="tl-body">The miraculous night journey — from Makkah to Jerusalem, then ascent through the seven heavens. Salah (prayer 5 times daily) was made obligatory during Miraj.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-head">622 CE — The Great Hijra to Madinah</div>
+        <div class="tl-body">The turning point of Islamic history. The Prophet ﷺ migrated to Madinah. This event marks Year 1 of the Islamic calendar (Hijri Calendar).</div>
+      </div>
+    </div>
+
+    <h4 style="color:var(--emerald);font-family:var(--sans);margin:1.4rem 0 0.6rem;font-size:1rem;">The Madani Period — Key Highlights</h4>
+    <ul class="bl">
+      <li><strong>Masjid-e-Nabawi:</strong> The Prophet's ﷺ mosque built — became the center of the Islamic state, education, and community.</li>
+      <li><strong>Brotherhood (Muwaakhat):</strong> The Prophet ﷺ established brotherhood between Ansaar (helpers of Madinah) and Muhajireen (migrants from Makkah) — one of the most extraordinary acts of social engineering in history.</li>
+      <li><strong>Constitution of Madinah (Meesaq-e-Madinah):</strong> The first written constitution in history — establishing rights and responsibilities of all communities (Muslims, Jews, and others) living in Madinah.</li>
+      <li><strong>Major Battles:</strong> Badr (624), Uhud (625), Ahzab/Khandaq (627) — testing and strengthening the Muslim community.</li>
+      <li><strong>Treaty of Hudaybiyyah (628):</strong> Apparent compromise, massive strategic victory — opened doors to peaceful Da'wah across Arabia.</li>
+      <li><strong>Conquest of Makkah — Fatah Makkah (630 CE):</strong> The Prophet ﷺ entered Makkah peacefully with 10,000 companions — declared general amnesty, destroyed idols in the Ka'bah.</li>
+      <li><strong>Farewell Pilgrimage & Hajjat-ul-Wida (632 CE):</strong> Final sermon delivered on Mount Arafat — a complete code of life for humanity.</li>
+    </ul>
+
+    <div class="mini-quiz">
+      <h4>🧪 Topic 5 — Checkpoint Quiz</h4>
+      <div class="quiz-q">
+        <div class="q-text">1. How long was the Makki Period of the Prophet's ﷺ mission?</div>
+        <div class="options">
+          <button class="opt" onclick="checkAnswer(this, false, '10 years was the Madani Period, not the Makki Period.')">A. 10 years</button>
+          <button class="opt" onclick="checkAnswer(this, true, 'Correct! The Makki Period lasted 13 years, from the first revelation in 610 CE to Hijra in 622 CE.')">B. 13 years</button>
+          <button class="opt" onclick="checkAnswer(this, false, '23 years is the total time of prophethood (Makki + Madani combined), not just the Makki Period.')">C. 23 years</button>
+        </div>
+        <div class="q-feedback"></div>
+      </div>
+      <div class="quiz-q">
+        <div class="q-text">2. What is the "Constitution of Madinah" (Meesaq-e-Madinah) famous for?</div>
+        <div class="options">
+          <button class="opt" onclick="checkAnswer(this, false, 'The Quran is the primary source of Islamic law — the Constitution of Madinah was a political-social document.')">A. It was the first complete text of the Holy Quran compiled in one place.</button>
+          <button class="opt" onclick="checkAnswer(this, true, 'Exactly! The Constitution of Madinah is historically recognized as the first written constitution establishing a multi-community state, with rights for all.')">B. It was the first written constitution in history, defining the rights and responsibilities of all communities in Madinah.</button>
+        </div>
+        <div class="q-feedback"></div>
+      </div>
+      <div class="quiz-q">
+        <div class="q-text">3. What was the main theme and focus of Da'wah during the Makki Period?</div>
+        <div class="options">
+          <button class="opt" onclick="checkAnswer(this, false, 'Laws (Fiqh) and battle rules were mainly revealed in the Madani Period.')">A. Teaching detailed Islamic laws, Fiqh, and rules of war.</button>
+          <button class="opt" onclick="checkAnswer(this, true, 'Perfect! The Makki Period focused on building correct belief (Aqeedah) — especially Tawheed (Oneness of Allah), the Afterlife, and Prophethood.')">B. Building correct Aqeedah (belief) — especially Tawheed, Akhirah, and Prophethood.</button>
+        </div>
+        <div class="q-feedback"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TOPIC 6: Private & Public Preaching ─────────────── -->
+  <section class="topic" id="t2-3">
+    <div class="topic-title">
+      <div class="marker">📣</div>
+      <h3>Topic 6: Private (Secret) and Public Preaching of Islam</h3>
+      <button class="check-btn" onclick="toggleDone(this,'t2-3')">✓</button>
+    </div>
+
+    <p>The Prophet's ﷺ Da'wah strategy was wise and phased. It did not begin with a public announcement — it began quietly, privately, and then expanded systematically based on Divine command.</p>
+
+    <h4 style="color:var(--gold2);font-family:var(--sans);margin:1.4rem 0 0.6rem;font-size:1rem;">Phase 1 — Secret (Private) Preaching: Da'wat-e-Khufya (3 Years: 610–613 CE)</h4>
+
+    <div class="box def">
+      <div class="box-label">📖 Definition — Da'wat-e-Khufya</div>
+      <p><strong>Da'wat-e-Khufya</strong> (Secret Da'wah) refers to the initial 3-year phase when the Prophet ﷺ spread Islam privately and quietly among his most trusted inner circle, without public proclamation, to avoid immediate violent persecution.</p>
+    </div>
+
+    <p>The first Muslims — the Saabiqoon-ul-Awwalon (the foremost early Muslims) — accepted Islam in this phase:</p>
+    <ul class="bl">
+      <li><strong>Khadijah bint Khuwaylid (RA):</strong> First woman and first adult to accept Islam — the Prophet's ﷺ beloved wife and greatest supporter.</li>
+      <li><strong>Abu Bakr al-Siddiq (RA):</strong> First free adult man — immediately spread Islam to his own social circle.</li>
+      <li><strong>Ali ibn Abi Talib (RA):</strong> First child to accept Islam — the Prophet's ﷺ young cousin.</li>
+      <li><strong>Zaid ibn Haritha (RA):</strong> First freed slave to accept Islam.</li>
+    </ul>
+
+    <div class="box note">
+      <div class="box-label">💡 Why Secret? — The Wisdom Behind It</div>
+      <p>The early Muslim community was tiny and fragile. A sudden public announcement would have invited immediate, organized, and violent suppression by the powerful Quraish of Makkah — before Islam could even take root. The secret phase allowed the first Muslims to strengthen their faith, build a core community, and prepare spiritually for what lay ahead.</p>
+    </div>
+
+    <h4 style="color:var(--emerald);font-family:var(--sans);margin:1.4rem 0 0.6rem;font-size:1rem;">Phase 2 — Public Preaching: Da'wat-e-Aam (613 CE onwards)</h4>
+
+    <div class="box def">
+      <div class="box-label">📖 Definition — Da'wat-e-Aam</div>
+      <p><strong>Da'wat-e-Aam</strong> (Public Da'wah) began when Allah ﷻ revealed the command: <em>"Warn your closest relatives"</em> (Surah Ash-Shu'ara 26:214) and then <em>"Proclaim openly what you are commanded"</em> (Surah Al-Hijr 15:94). From this point, the Prophet ﷺ began calling all of humanity to Islam — openly and without concealment.</p>
+    </div>
+
+    <div class="box arabic-quote">
+      <div class="aq-text">وَأَنذِرْ عَشِيرَتَكَ الْأَقْرَبِينَ</div>
+      <div class="aq-trans">"And warn your closest relatives." — Surah Ash-Shu'ara (26:214)</div>
+      <div class="aq-ref">This was the divine command that began the Public Preaching phase.</div>
+    </div>
+
+    <p>The Prophet ﷺ called his clan to Mount Safa and proclaimed: <em>"If I told you that an army was behind this mountain about to attack you, would you believe me?"</em> They said, "Yes, we have never heard you lie." He then declared: <em>"Then I warn you of a severe punishment (from Allah) ahead."</em></p>
+
+    <div class="compare-grid">
+      <div class="c-card left">
+        <div class="c-title">🤫 Da'wat-e-Khufya (Secret)</div>
+        <ul class="c-list">
+          <li>Duration: 3 years (610–613 CE)</li>
+          <li>Small inner circle only</li>
+          <li>In private homes (House of Arqam)</li>
+          <li>No public proclamation</li>
+          <li>Focus: Building core community</li>
+          <li>Approximately 40 early Muslims</li>
+        </ul>
+      </div>
+      <div class="c-card right">
+        <div class="c-title">📣 Da'wat-e-Aam (Public)</div>
+        <ul class="c-list">
+          <li>Started: 613 CE (Year 4 of Prophethood)</li>
+          <li>All people — tribe, city, humanity</li>
+          <li>In markets, at Ka'bah, on hilltops</li>
+          <li>Open proclamation of Islam</li>
+          <li>Focus: Universal message of Islam</li>
+          <li>Led to rapid growth and persecution</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mini-quiz">
+      <h4>🧪 Topic 6 — Checkpoint Quiz</h4>
+      <div class="quiz-q">
+        <div class="q-text">1. Who were the FIRST four people to accept Islam during the secret Da'wah phase?</div>
+        <div class="options">
+          <button class="opt" onclick="checkAnswer(this, false, 'Umar ibn al-Khattab RA accepted Islam later, during the public Da\'wah phase.')">A. Khadijah RA, Umar RA, Uthman RA, and Ibn Masood RA</button>
+          <button class="opt" onclick="checkAnswer(this, true, 'Correct! These four were the Saabiqoon — the very first to accept Islam: the Prophet\'s wife, his closest friend, his young cousin, and his freed servant.')">B. Khadijah RA, Abu Bakr RA, Ali RA, and Zaid ibn Haritha RA</button>
+        </div>
+        <div class="q-feedback"></div>
+      </div>
+      <div class="quiz-q">
+        <div class="q-text">2. Which Quranic verse is known as the divine command that launched the Public Preaching phase?</div>
+        <div class="options">
+          <button class="opt" onclick="checkAnswer(this, true, 'Correct! This verse commanded the Prophet ﷺ to warn his nearest relatives — the starting point of open Da\'wah.')">A. Surah Ash-Shu'ara (26:214) — "Warn your closest relatives."</button>
+          <button class="opt" onclick="checkAnswer(this, false, 'Surah Al-Alaq (96:1) was the first revelation — "Read!" — not the command to begin public Da\'wah.')">B. Surah Al-Alaq (96:1) — "Read in the name of your Lord."</button>
+        </div>
+        <div class="q-feedback"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="star-div"><span class="star-center">✦ ✦ ✦</span></div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       CHAPTER 3: CHARACTER & MISSION
+       ══════════════════════════════════════════════════════════ -->
+  <div class="ch-header">
+    <div class="ch-num">Chapter 03 of 03</div>
+    <div class="ch-arabic">حقوق و جمالِ مصطفیٰ ﷺ</div>
+    <h2>Rights, Beauty & Mission of Mustafa ﷺ</h2>
+    <p class="ch-desc">Understand the rights that the Prophet ﷺ has over us, his unparalleled character and beauty, and his methodology as the world's greatest preacher.</p>
+  </div>
+
+  <!-- ── TOPIC 7: Rights & Beauty of Mustafa ﷺ ──────────── -->
+  <section class="topic" id="t3-1">
+    <div class="topic-title">
+      <div class="marker">💛</div>
+      <h3>Topic 7: The Rights and Beauty of Mustafa ﷺ</h3>
+      <button class="check-btn" onclick="toggleDone(this,'t3-1')">✓</button>
+    </div>
+
+    <p>The Prophet Muhammad ﷺ has certain <strong>Huqooq (Rights)</strong> that are obligatory upon every Muslim. Alongside these rights, the Prophet ﷺ was gifted with an extraordinary <strong>physical and moral beauty (Husn o Jamal)</strong> that has no parallel in all of human history.</p>
+
+    <h4 style="color:var(--gold2);font-family:var(--sans);margin:1.4rem 0 0.6rem;font-size:1rem;"> Rights of the Prophet ﷺ — Huqooq-e-Mustafa</h4>
+
+    <div class="kp-box">
+      <div class="kp-head">⭐ The Essential Rights Every Muslim Owes the Prophet ﷺ</div>
+      <div class="kp-body">
+        <div class="kp-row"><span class="num">1</span><span class="txt"><strong>Imaan (Belief):</strong> To believe with full conviction that Muhammad ﷺ is the true and final Messenger of Allah. This is a pillar of Iman itself.</span></div>
+        <div class="kp-row"><span class="num">2</span><span class="txt"><strong>Muhabbat (Love):</strong> To love the Prophet ﷺ more than one's parents, children, and one's own self. The Prophet ﷺ said: <em>"None of you truly believes until I am more beloved to him than his parents, his children, and all people."</em> (Bukhari)</span></div>
+        <div class="kp-row"><span class="num">3</span><span class="txt"><strong>Itaa'at (Obedience):</strong> To obey the Prophet's ﷺ commands completely. Quran: "Whoever obeys the Messenger has obeyed Allah." (4:80)</span></div>
+        <div class="kp-row"><span class="num">4</span><span class="txt"><strong>Ittiba (Following):</strong> To follow his Sunnah — his way of living — in worship, dealings, family life, and all aspects of conduct.</span></div>
+        <div class="kp-row"><span class="num">5</span><span class="txt"><strong>Ta'zeer and Tawqeer (Respect & Honor):</strong> To deeply honor and dignify him ﷺ — never to disrespect, mock, or speak ill of him in any manner.</span></div>
+        <div class="kp-row"><span class="num">6</span><span class="txt"><strong>Tasdeek (Affirmation):</strong> To affirm and accept everything he ﷺ said and informed us about — regarding this world and the hereafter — without hesitation or doubt.</span></div>
+        <div class="kp-row"><span class="num">7</span><span class="txt"><strong>Da'wah and Propagation:</strong> To spread his message and Sunnah to others — continuing the work of his mission.</span></div>
+      </div>
+    </div>
+
+    <h4 style="color:var(--emerald);font-family:var(--sans);margin:1.4rem 0 0.6rem;font-size:1rem;"> Physical & Moral Beauty (Husn o Jamal) of the Prophet ﷺ</h4>
+
+    <div class="box arabic-quote">
+      <div class="aq-text">مَا رَأَيْتُ قَبْلَهُ وَلَا بَعْدَهُ مِثْلَهُ ﷺ</div>
+      <div class="aq-trans">"I have not seen anyone like him ﷺ — neither before him nor after him."</div>
+      <div class="aq-ref">— Words of many Companions describing the Prophet ﷺ</div>
+    </div>
+
+    <div class="compare-grid">
+      <div class="c-card left">
+        <div class="c-title">✨ Physical Beauty (Husn-e-Zaahiri)</div>
+        <ul class="c-list">
+          <li>Medium to tall stature — neither too tall nor short</li>
+          <li>His face radiated light — described as "the full moon"</li>
+          <li>Hair that was wavy, neither straight nor very curly</li>
+          <li>Beautiful, dark, wide eyes with long eyelashes</li>
+          <li>White teeth with slight gap — his smile was captivating</li>
+          <li>Broad shoulders, powerful but not heavy build</li>
+          <li>Fragrance — described as the most pleasant scent</li>
+        </ul>
+      </div>
+      <div class="c-card right">
+        <div class="c-title">🌹 Moral Beauty (Husn-e-Baatini)</div>
+        <ul class="c-list">
+          <li><strong>Al-Amin (The Trustworthy)</strong> — even enemies trusted him</li>
+          <li><strong>Al-Sadiq (The Truthful)</strong> — never uttered a falsehood</li>
+          <li>Extraordinary patience under severe persecution</li>
+          <li>Forgiveness — forgave his worst enemies at Makkah's conquest</li>
+          <li>Humility — sat with the poor, mended his own shoes</li>
+          <li>Courage — stood firm alone in the fiercest battles</li>
+          <li>Mercy — wept for his Ummah in his prayers</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="box eg">
+      <div class="box-label">🌍 Example — The Power of His Character</div>
+      <p>When the Prophet ﷺ conquered Makkah with 10,000 soldiers — the very people who had tortured, expelled, and tried to kill him — he did not take revenge. Instead, he declared: <strong>"Go — you are all free."</strong> This single act of extraordinary mercy converted thousands who had been his bitterest enemies. No military victory could have achieved what his character achieved.</p>
+    </div>
+
+    <div class="mini-quiz">
+      <h4>🧪 Topic 7 — Checkpoint Quiz</h4>
+      <div class="quiz-q">
+        <div class="q-text">1. What does "Itaa'at" (one of the rights of the Prophet ﷺ) mean?</div>
+        <div class="options">
+          <button class="opt" onclick="checkAnswer(this, false, 'Love (Muhabbat) is a separate right. Itaa\'at specifically means obedience.')">A. To love the Prophet ﷺ above all others.</button>
+          <button class="opt" onclick="checkAnswer(this, true, 'Correct! Itaa\'at means complete obedience to the Prophet\'s ﷺ commands and his Sunnah.')">B. To obey the Prophet's ﷺ commands completely.</button>
+        </div>
+        <div class="q-feedback"></div>
+      </div>
+      <div class="quiz-q">
+        <div class="q-text">2. In Hadith, the Prophet ﷺ says true Iman (faith) is only complete when he is loved more than:</div>
+        <div class="options">
+          <button class="opt" onclick="checkAnswer(this, false, 'Loving Allah ﷻ above everything is a separate concept; the Hadith specifically compares to human relationships.')">A. Allah ﷻ and all of creation.</button>
+          <button class="opt" onclick="checkAnswer(this, true, 'Correct! The Hadith in Bukhari states: "None of you truly believes until I am more beloved to him than his parents, his children, and all people."')">B. One's own parents, children, and one's own self.</button>
+        </div>
+        <div class="q-feedback"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TOPIC 8: Prophet as Da'ee ──────────────────────── -->
+  <section class="topic" id="t3-2">
+    <div class="topic-title">
+      <div class="marker">🌿</div>
+      <h3>Topic 8: Prophet Muhammad ﷺ as a Da'ee (Caller to Islam)</h3>
+      <button class="check-btn" onclick="toggleDone(this,'t3-2')">✓</button>
+    </div>
+
+    <p>A <strong>Da'ee (داعی)</strong> is one who calls others to the path of Allah — a preacher, an inviter, a guide. The Prophet Muhammad ﷺ was not only a Da'ee — he was the <strong>greatest Da'ee in all of human history</strong>, and his methodology is the ultimate model for anyone doing Islamic work today.</p>
+
+    <div class="box def">
+      <div class="box-label">📖 Definition — Da'ee and Da'wah</div>
+      <p><strong>Da'wah (دعوة)</strong> literally means "to call" or "to invite." In Islamic terminology, it means <em>inviting people to the religion of Islam — to Tawheed, correct belief, and righteous living — with wisdom, good counsel, and beautiful argument</em>. A <strong>Da'ee</strong> is the person who performs Da'wah.</p>
+    </div>
+
+    <div class="box arabic-quote">
+      <div class="aq-text">اُدْعُ إِلَىٰ سَبِيلِ رَبِّكَ بِالْحِكْمَةِ وَالْمَوْعِظَةِ الْحَسَنَةِ</div>
+      <div class="aq-trans">"Invite to the way of your Lord with wisdom and good instruction, and argue with them in the best manner." — Surah Al-Nahl (16:125)</div>
+      <div class="aq-ref">This is the foundational verse of Da'wah methodology — extremely important for exams.</div>
+    </div>
+
+    <h4 style="color:var(--gold2);font-family:var(--sans);margin:1.4rem 0 0.6rem;font-size:1rem;">The Prophet's ﷺ Da'wah Methodology — Key Principles</h4>
+
+    <div class="char-grid">
+      <div class="char-card">
+        <div class="char-icon">🧠</div>
+        <div class="char-title">Hikmah (Wisdom)</div>
+        <div class="char-desc">He ﷺ always used the right words at the right time with the right person. He knew when to speak gently and when to be firm. He adapted his message to the audience's level.</div>
+      </div>
+      <div class="char-card">
+        <div class="char-icon">💬</div>
+        <div class="char-title">Maw'izah Hasanah (Good Counsel)</div>
+        <div class="char-desc">He ﷺ preached with sincere, heartfelt, and beautiful words — not aggressive lectures. He appealed to people's minds and hearts through stories, analogies, and gentle reminders.</div>
+      </div>
+      <div class="char-card">
+        <div class="char-icon">🕊️</div>
+        <div class="char-title">Hilm (Gentleness & Patience)</div>
+        <div class="char-desc">Despite horrific persecution — stones thrown, filth poured on him, family members killed — he ﷺ never responded with hatred. He prayed for his enemies' guidance.</div>
+      </div>
+      <div class="char-card">
+        <div class="char-icon">🌐</div>
+        <div class="char-title">Universal Message</div>
+        <div class="char-desc">He ﷺ sent letters to the kings of Persia, Rome, Egypt, and Abyssinia — inviting them to Islam. His Da'wah was truly global and diplomatic, not limited to Arabia.</div>
+      </div>
+      <div class="char-card">
+        <div class="char-icon">💡</div>
+        <div class="char-title">Personal Example (Uswah)</div>
+        <div class="char-desc">He ﷺ did not just preach — he LIVED what he preached. There was zero gap between his words and his actions. This personal example was his most powerful Da'wah tool.</div>
+      </div>
+      <div class="char-card">
+        <div class="char-icon">❤️</div>
+        <div class="char-title">Compassion for the Ummah</div>
+        <div class="char-desc">He ﷺ wept in his night prayers for his Ummah. He called himself "a father figure to his believers." His concern for humanity was genuine, visible, and unlimited.</div>
+      </div>
+    </div>
+
+    <h4 style="color:var(--emerald);font-family:var(--sans);margin:1.4rem 0 0.6rem;font-size:1rem;">Da'wah Through Different Means</h4>
+    <ul class="bl">
+      <li><strong>Personal Da'wah:</strong> One-on-one conversations with individuals — tailored to their specific concerns and beliefs.</li>
+      <li><strong>Collective Da'wah:</strong> Addressing gatherings, markets (like 'Ukaz), and tribal meetings during Hajj season.</li>
+      <li><strong>Written Da'wah:</strong> Letters sent to rulers of Persia (Kisra), Rome (Caesar), Egypt (Muqawqis), and others.</li>
+      <li><strong>Da'wah by Action:</strong> His own personal life — honesty in trade, justice in judgment, mercy in leadership — was itself Da'wah.</li>
+      <li><strong>Da'wah by the Quran:</strong> Reciting Quranic verses — whose miraculous language was itself a form of Da'wah that touched hearts instantly.</li>
+    </ul>
+
+    <div class="box exam">
+      <div class="box-label">🔴 Exam Must-Know — The 3 Methods of Da'wah (Surah Al-Nahl 16:125)</div>
+      <p>This verse gives us the <strong>three methods</strong> of Da'wah:<br>
+      1. <strong>Hikmah (Wisdom)</strong> — for intellectuals and scholars; rational, evidence-based argument.<br>
+      2. <strong>Maw'izah Hasanah (Good Counsel)</strong> — for common people; sincere, warm, emotional appeal.<br>
+      3. <strong>Mujaaladah Billati Hiya Ahsan (Best Debate)</strong> — for those who argue; responding with the best, most fair counter-argument — not insults.<br>
+      <em>Always quote 16:125 in your exam answer on Da'wah methodology!</em></p>
+    </div>
+
+    <div class="box eg">
+      <div class="box-label">🌍 Example of the Prophet's ﷺ Da'wah Wisdom</div>
+      <p>When a young man came to the Prophet ﷺ and said "Give me permission to commit Zina (fornication)," instead of scolding him harshly, the Prophet ﷺ sat him down and asked: "Would you like it if someone did this to your mother? Your sister? Your daughter?" Each time the man said "No!" — and by the end of the conversation, the man's heart had completely changed. This is Hikmah in action — meeting people where they are.</p>
+    </div>
+
+    <div class="mini-quiz">
+      <h4>🧪 Topic 8 — Final Checkpoint Quiz</h4>
+      <div class="quiz-q">
+        <div class="q-text">1. What are the three methods of Da'wah mentioned in Surah Al-Nahl (16:125)?</div>
+        <div class="options">
+          <button class="opt" onclick="checkAnswer(this, false, 'These are not from the verse. The three methods are Hikmah, Maw\'izah Hasanah, and best debate.')">A. Recitation, Prayer, and Charity.</button>
+          <button class="opt" onclick="checkAnswer(this, true, 'Excellent! Surah Al-Nahl 16:125 gives us these three methods: Wisdom, Good Counsel, and Best Debate — the complete Da\'wah framework.')">B. Hikmah (Wisdom), Maw'izah Hasanah (Good Counsel), and best manner of debate.</button>
+        </div>
+        <div class="q-feedback"></div>
+      </div>
+      <div class="quiz-q">
+        <div class="q-text">2. To which foreign rulers did the Prophet ﷺ send written letters of Da'wah?</div>
+        <div class="options">
+          <button class="opt" onclick="checkAnswer(this, true, 'Correct! The Prophet ﷺ sent letters to the rulers of Persia, Rome, Egypt, and Abyssinia — showing that his Da\'wah was global and diplomatic.')">A. The rulers of Persia, Rome, Egypt, and Abyssinia (among others).</button>
+          <button class="opt" onclick="checkAnswer(this, false, 'The Prophet ﷺ pre-dated China and India as major contact points; his letters went to Persia, Rome, and Egypt.')">B. The rulers of China, India, and Spain only.</button>
+        </div>
+        <div class="q-feedback"></div>
+      </div>
+      <div class="quiz-q">
+        <div class="q-text">3. What is the most important personal quality that made the Prophet's ﷺ Da'wah so powerful?</div>
+        <div class="options">
+          <button class="opt" onclick="checkAnswer(this, false, 'Military strength was secondary — many people accepted Islam without any military pressure, purely due to his character.')">A. His military strength and political power.</button>
+          <button class="opt" onclick="checkAnswer(this, true, 'Absolutely right! His personal example (Uswah) — perfect alignment between his words and actions — was his most powerful Da\'wah tool. People could not deny what they saw.')">B. His personal example (Uswah) — he fully lived what he preached, with zero gap between words and action.</button>
+        </div>
+        <div class="q-feedback"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="star-div"><span class="star-center">✦ ✦ ✦</span></div>
+
+  <!-- ============================================================ FOOTER -->
+  <footer style="text-align:center;padding:2rem 0;font-family:var(--sans);font-size:12px;color:var(--text3);border-top:1px solid var(--border);">
+    <div style="font-family:var(--arabic);font-size:1.4rem;color:var(--gold);margin-bottom:0.5rem;">اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّد</div>
+    <div style="color:var(--text2);margin-bottom:0.3rem;font-style:italic;font-family:var(--serif);">"O Allah, send blessings upon Muhammad and upon the family of Muhammad."</div>
+    <div style="margin-top:0.8rem;">Prepared for <strong style="color:var(--text2)">Mudassir</strong> · University of Malakand · BS Economics · Islamiat (Seerat-un-Nabi ﷺ)</div>
+    <div style="margin-top:0.3rem;">Interactive Study Guide — All 8 Topics Covered</div>
+  </footer>
+
+</div></div>
+
+<!-- ============================================================ SCRIPTS -->
+<script>
+// ── IntersectionObserver (efficiency fix: track active item in variable) ──
+let activeNavItem = null;
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      const id = e.target.id;
+      const newNav = document.querySelector(`.nav-item[data-target="${id}"]`);
+      if (newNav && newNav !== activeNavItem) {
+        if (activeNavItem) activeNavItem.classList.remove('active');
+        newNav.classList.add('active');
+        activeNavItem = newNav;
+      }
+    }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.topic').forEach(t => observer.observe(t));
+
+// ── Nav click scroll (also close mobile sidebar on click) ──
+document.querySelectorAll('.nav-item[data-target]').forEach(item => {
+  item.addEventListener('click', () => {
+    const target = document.getElementById(item.dataset.target);
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // close mobile sidebar
+    document.getElementById('sidebar').classList.remove('mobile-open');
+    document.getElementById('sidebarOverlay').classList.remove('open');
+  });
+});
+
+// ── Mobile hamburger menu ──
+const hamburgerBtn = document.getElementById('hamburgerBtn');
+const sidebar = document.getElementById('sidebar');
+const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+function openSidebar() {
+  sidebar.classList.add('mobile-open');
+  sidebarOverlay.classList.add('open');
+}
+function closeSidebar() {
+  sidebar.classList.remove('mobile-open');
+  sidebarOverlay.classList.remove('open');
+}
+hamburgerBtn.addEventListener('click', openSidebar);
+sidebarOverlay.addEventListener('click', closeSidebar);
+document.getElementById('sidebarCloseBtn').addEventListener('click', closeSidebar);
+
+// ── Progress tracking ──
+const totalTopics = document.querySelectorAll('.topic').length;
+document.getElementById('totalCount').textContent = totalTopics;
+
+function updateProgress() {
+  const done = document.querySelectorAll('.check-btn.checked').length;
+  const pct = Math.round((done / totalTopics) * 100);
+  document.getElementById('doneCount').textContent = done;
+  document.getElementById('topPct').textContent = pct + '%';
+  document.getElementById('topBar').style.width = pct + '%';
+  const circumference = 2 * Math.PI * 20;
+  const offset = circumference - (pct / 100) * circumference;
+  document.getElementById('ringFill').style.strokeDashoffset = offset;
+  document.getElementById('ringPct').textContent = pct + '%';
+}
+updateProgress();
+
+// ── localStorage helpers ──
+const STORAGE_KEY = 'seerat_progress';
+
+function getSavedProgress() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
+  catch { return []; }
+}
+
+function saveProgress(ids) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(ids));
+}
+
+function restoreProgress() {
+  const saved = getSavedProgress();
+  saved.forEach(id => {
+    const section = document.getElementById(id);
+    if (!section) return;
+    const btn = section.querySelector('.check-btn');
+    if (btn && !btn.classList.contains('checked')) {
+      btn.classList.add('checked');
+    }
+    const navItem = document.querySelector(`.nav-item[data-target="${id}"]`);
+    if (navItem) navItem.classList.add('done');
+  });
+  updateProgress();
+}
+
+function toggleDone(btn, id) {
+  btn.classList.toggle('checked');
+  const navItem = document.querySelector(`.nav-item[data-target="${id}"]`);
+  if (navItem) navItem.classList.toggle('done');
+
+  // Sync to localStorage
+  const saved = getSavedProgress();
+  if (btn.classList.contains('checked')) {
+    if (!saved.includes(id)) saved.push(id);
+  } else {
+    const idx = saved.indexOf(id);
+    if (idx !== -1) saved.splice(idx, 1);
+  }
+  saveProgress(saved);
+
+  updateProgress();
+}
+
+// ── Quiz (improved: retry on wrong, lock only on correct) ──
+function checkAnswer(btn, isCorrect, feedback) {
+  if (isCorrect) {
+    // Lock all options and mark correct/wrong
+    const options = btn.parentElement.querySelectorAll('.opt');
+    options.forEach(opt => {
+      opt.disabled = true;
+      if (opt !== btn && !opt.classList.contains('wrong')) {
+        opt.classList.add('wrong');
+      }
+    });
+    btn.classList.add('correct');
+    const fbDiv = btn.parentElement.nextElementSibling;
+    fbDiv.textContent = '\u2705 ' + feedback;
+    fbDiv.className = 'q-feedback show ok';
+  } else {
+    btn.disabled = true;
+    btn.classList.add('wrong');
+    const fbDiv = btn.parentElement.nextElementSibling;
+    fbDiv.textContent = '\u274c ' + feedback;
+    fbDiv.className = 'q-feedback show fail';
+  }
+}
+
+// Restore saved progress on load
+restoreProgress();
+</script>
+
+<!-- ============================================================ LANGUAGE SYSTEM -->
+<script>
+(function(){
+  const d = s => document.querySelector(s);
+  const da = s => [...document.querySelectorAll(s)];
+
+  // All Urdu translations: [selector, urdu_innerHTML, use_textContent?]
+  const UR = [
+    // ── Topbar ──
+    ['#tbTitle',       'سیرت النبی ﷺ'],
+    ['#tbSub',         '— انٹریکٹو مطالعاتی رہنما'],
+    // ── Sidebar ──
+    ['.sidebar-logo .badge',  'سیرت · بی ایس اکنامکس'],
+    ['.sidebar-logo h1',      'سیرت النبی ﷺ'],
+    ['.sidebar-logo p',       'اسلامیات · پہلا سمسٹر · یونیورسٹی آف ملاکنڈ'],
+    ['.progress-ring-wrap .info .label', 'آپ کی پیشرفت'],
+    // Nav section labels
+    ['.sidebar .nav-section:nth-child(3) .nav-section-label', 'باب اوّل — تعارف'],
+    ['.sidebar .nav-section:nth-child(4) .nav-section-label', 'باب دوم — بنیادی موضوعات'],
+    ['.sidebar .nav-section:nth-child(5) .nav-section-label', 'باب سوم — کردار اور مشن'],
+    // Nav items (keep inner .dot div)
+    ['[data-target="t1-1"]', '<div class="dot"></div>سیرت کا تعارف'],
+    ['[data-target="t1-2"]', '<div class="dot"></div>سیرت اور حدیث'],
+    ['[data-target="t1-3"]', '<div class="dot"></div>سیرت کے مآخذ'],
+    ['[data-target="t2-1"]', '<div class="dot"></div>خصائصِ کبریٰ'],
+    ['[data-target="t2-2"]', '<div class="dot"></div>مکی اور مدنی ادوار'],
+    ['[data-target="t2-3"]', '<div class="dot"></div>خفیہ اور عوامی تبلیغ'],
+    ['[data-target="t3-1"]', '<div class="dot"></div>حقوقِ مصطفیٰ ﷺ اور حسنِ جمال'],
+    ['[data-target="t3-2"]', '<div class="dot"></div>نبی ﷺ بحیثیتِ داعی'],
+    // ── Hero ──
+    ['.hero-eyebrow', '<span></span>انٹریکٹو خود تعلیمی ایڈیشن<span></span>'],
+    ['.hero h1',      'سیرت النبی<br><span class="accent">ﷺ</span>'],
+    ['.hero-desc',    'نبی کریم محمد ﷺ کی حیات، کردار اور مشن کا مطالعہ کریں — مرحلہ وار، واضح تشریحات، حقیقی مثالوں اور کوئز چیک پوائنٹس کے ساتھ — تاکہ آپ اپنا امتحان بہترین انداز میں دے سکیں۔'],
+    ['.hero-stats .stat-pill:nth-child(1)', '☪️ <strong>۸</strong>&nbsp;موضوعات شامل'],
+    ['.hero-stats .stat-pill:nth-child(2)', '📖 <strong>تعریفات</strong>&nbsp;اور عربی اصطلاحات'],
+    ['.hero-stats .stat-pill:nth-child(3)', '🧪 <strong>مختصر امتحانات</strong>&nbsp;شامل'],
+    ['.hero-stats .stat-pill:nth-child(4)', '⭐ <strong>امتحانی نکات</strong>&nbsp;نمایاں'],
+    // ── Chapter Headers ──
+    ['.ch-header:nth-of-type(1) .ch-num',   'باب ۰۱ از ۰۳'],
+    ['.ch-header:nth-of-type(1) h2',        'سیرت کا تعارف'],
+    ['.ch-header:nth-of-type(1) .ch-desc',  'سمجھیں کہ سیرت کا اصل مفہوم کیا ہے، یہ کیوں اہم ہے، یہ حدیث سے کیسے مختلف ہے، اور علماء اپنی معلومات کہاں سے حاصل کرتے ہیں۔'],
+    ['.ch-header:nth-of-type(2) .ch-num',   'باب ۰۲ از ۰۳'],
+    ['.ch-header:nth-of-type(2) h2',        'معجزات، ادوار اور تبلیغ'],
+    ['.ch-header:nth-of-type(2) .ch-desc',  'نبی ﷺ کی منفرد خصوصیات اور معجزات، مکی و مدنی ادوار کا خلاصہ، اور اسلام کی تبلیغ کی حکمت عملی کا مطالعہ کریں۔'],
+    ['.ch-header:nth-of-type(3) .ch-num',   'باب ۰۳ از ۰۳'],
+    ['.ch-header:nth-of-type(3) h2',        'حقوق، جمال اور مشنِ مصطفیٰ ﷺ'],
+    ['.ch-header:nth-of-type(3) .ch-desc',  'نبی ﷺ کے ہم پر حقوق، آپ ﷺ کا بے مثال کردار اور جمال، اور داعی اعظم کے طور پر آپ ﷺ کا منہاج سمجھیں۔'],
+    // ── Topic 1 ──
+    ['#t1-1 .topic-title h3', 'موضوع ۱: سیرت کا تعارف — تعریفات، اہمیت اور ضرورت'],
+    ['#t1-1 > p:first-of-type', 'آئیں بالکل ابتداء سے شروع کریں۔ نبی ﷺ کی حیات کا مطالعہ کرنے سے پہلے ہمیں یہ سمجھنا ضروری ہے کہ <strong>"سیرت" کا لفظ دراصل کیا معنی رکھتا ہے</strong> — عربی زبان میں بھی اور علماء کی اصطلاح میں بھی۔'],
+    ['#t1-1 h4:nth-of-type(1)', 'لغوی تعریف'],
+    ['#t1-1 .box.def:nth-of-type(1) .box-label', '📖 عربی اصل: سَ یَ رَ (سا-یا-را)'],
+    ['#t1-1 .box.def:nth-of-type(1) p', 'لفظ <strong>سیرت</strong> عربی اصل <em>سا-یا-را</em> (سار) سے ماخوذ ہے جس کا مطلب ہے <strong>چلنا، سفر کرنا یا کسی راستے پر گامزن ہونا</strong>۔ اصل عربی استعمال میں "سیرت" کا مطلب ہے کسی شخص کا <strong>طرزِ زندگی، طرزِ عمل، برتاؤ اور رہن سہن</strong> — یعنی وہ راستہ جس پر وہ زندگی بھر چلتا رہا۔'],
+    ['#t1-1 .box.arabic-quote .aq-trans', '"سیرت = طرزِ زندگی، طرزِ عمل اور کردارِ انسانی۔"'],
+    ['#t1-1 h4:nth-of-type(2)', 'اصطلاحی تعریف'],
+    ['#t1-1 .box.def:nth-of-type(2) .box-label', '📖 سیرت النبی ﷺ کی اصطلاحی تعریف'],
+    ['#t1-1 .box.def:nth-of-type(2) p', '<strong>سیرت النبی ﷺ</strong> وہ علمی کاوش ہے جو نبی کریم محمد ﷺ کی <strong>مکمل سوانح عمری</strong> کو محفوظ کرتی ہے — جس میں آپ ﷺ کی ولادت، بچپن، نبوت، غزوات، معاہدات، خانگی زندگی، تعلیمات، عبادت، کردار اور آخری ایام سب شامل ہیں — تاکہ مسلمان زندگی کے ہر پہلو میں آپ ﷺ کے کامل نمونے کو سمجھ کر اس پر عمل کر سکیں۔'],
+    ['#t1-1 .box.eg .box-label', '🌍 سادہ حقیقی مثال'],
+    ['#t1-1 .box.eg p', 'سیرت کو ایک انتہائی تفصیلی اور قابلِ اعتماد سوانح عمری کی طرح سمجھیں۔ جیسے آپ قائداعظم کے بارے میں پڑھتے ہیں تاکہ جانیں انہوں نے پاکستان کیسے بنایا — ویسے ہی ہم سیرت اس لیے پڑھتے ہیں کہ نبی ﷺ کی زندگی، گفتگو، قیادت اور عبادت کا مکمل علم حاصل ہو۔ فرق یہ ہے کہ سیرت <em>لامحدود زیادہ اہم</em> ہے کیونکہ یہ قیامت تک پوری انسانیت کے لیے نمونہ ہے۔'],
+    ['#t1-1 h4:nth-of-type(3)', 'سیرت کی اہمیت'],
+    ['#t1-1 > p:nth-of-type(2)', 'سیرت کا مطالعہ نہ صرف دلچسپ، بلکہ ہر مسلمان کے لیے <em>مطلقاً ضروری</em> کیوں ہے؟ یہاں اہم وجوہات پیش کی جاتی ہیں:'],
+    ['#t1-1 .kp-box .kp-head', '⭐ امتحانی اہمیت: سیرت اہم ہونے کی ۷ وجوہات'],
+    ['#t1-1 .box.exam .box-label', '🔴 امتحانی الرٹ — یاد رکھنے والی آیت'],
+    ['#t1-1 .box.exam p', '<strong>سورۃ الاحزاب (۳۳:۲۱):</strong> <em>"لَقَدْ كَانَ لَكُمْ فِي رَسُولِ اللَّهِ أُسْوَةٌ حَسَنَةٌ"</em> — "بے شک تمہارے لیے اللہ کے رسول میں بہترین نمونہ ہے۔" یہ آیت سیرت کی <em>ضرورت</em> کی سب سے بڑی دلیل ہے۔ اسے امتحان میں ضرور لکھیں!'],
+    ['#t1-1 .mini-quiz h4', '🧪 موضوع ۱ — جانچ کوئز'],
+    // ── Topic 2 ──
+    ['#t1-2 .topic-title h3', 'موضوع ۲: سیرت اور حدیث — فرق اور مشترکات'],
+    ['#t1-2 > p:first-of-type', 'بہت سے طالب علم سیرت اور حدیث کو گڈمڈ کر دیتے ہیں۔ اگرچہ یہ دونوں گہرے انداز میں جڑے ہوئے ہیں، لیکن یہ <strong>الگ الگ علوم</strong> ہیں جن کی تعریفات، طریقے اور مقاصد مختلف ہیں۔ واضح موازنہ آپ کو کسی بھی امتحان میں مدد دے گا۔'],
+    ['#t1-2 .c-card.left .c-title', '📜 سیرت (سیرت)'],
+    ['#t1-2 .c-card.right .c-title', '💬 حدیث (حدیث)'],
+    ['#t1-2 h4', 'سیرت اور حدیث میں مشترکات'],
+    ['#t1-2 .kp-box .kp-head', '🔗 مشترک باتیں'],
+    ['#t1-2 .box.note .box-label', '💡 یادداشت کی ترکیب'],
+    ['#t1-2 .box.note p', 'اس طرح سمجھیں: <strong>حدیث = نبی ﷺ نے کیا فرمایا یا کیا (مخصوص)</strong>۔ <strong>سیرت = نبی ﷺ کی مکمل داستانِ حیات (جامع)</strong>۔ اگر سیرت سمندر ہے تو حدیث اس میں بہنے والا ایک دریا ہے۔'],
+    ['#t1-2 .mini-quiz h4', '🧪 موضوع ۲ — جانچ کوئز'],
+    // ── Topic 3 ──
+    ['#t1-3 .topic-title h3', 'موضوع ۳: سیرت کے مآخذ'],
+    ['#t1-3 > p:first-of-type', 'ہم نبی ﷺ کی حیات کی تفصیلات کیسے جانتے ہیں؟ سیرت کے علماء نے متعدد معتبر مآخذ سے معلومات اکٹھی کیں۔ یہاں بنیادی مآخذ پیش کیے جاتے ہیں:'],
+    ['#t1-3 .kp-box .kp-head', '📖 سیرت کے بنیادی مآخذ'],
+    ['#t1-3 .box.exam .box-label', '🔴 امتحانی نکتہ — ضروری مصنفین'],
+    ['#t1-3 .mini-quiz h4', '🧪 موضوع ۳ — جانچ کوئز'],
+    // ── Topic 4 ──
+    ['#t2-1 .topic-title h3', 'موضوع ۴: خصائصِ کبریٰ — بڑی خصوصیات اور معجزات'],
+    ['#t2-1 > p:first-of-type', '<strong>خصائصِ کبریٰ</strong> کا مطلب ہے <em>"بڑی منفرد خصوصیات۔"</em> یہ وہ منفرد صفات، مراعات اور معجزات ہیں جو اللہ ﷻ نے خاص طور پر نبی کریم محمد ﷺ کو عطا فرمائے — وہ باتیں جو آپ ﷺ کو تمام انبیاء اور تمام انسانوں سے ممتاز کرتی ہیں۔'],
+    ['#t2-1 .box.def .box-label', '📖 تعریف — خصائص'],
+    ['#t2-1 .box.def p', 'خصائص (خاصیّہ کی جمع) کا مطلب ہے <strong>خاص خصوصیات یا منفرد صفات</strong>۔ "کبریٰ" کا مطلب ہے "عظیم/بڑا"۔ مل کر خصائصِ کبریٰ سے مراد وہ <strong>اہم منفرد خصوصیات ہیں جو اللہ ﷻ نے صرف نبی ﷺ کو عطا فرمائیں</strong>، جو آپ ﷺ کو تمام مخلوق سے ممتاز کرتی ہیں۔'],
+    ['#t2-1 h4', 'خصائص کی اقسام'],
+    ['#t2-1 .box.exam .box-label', '🔴 امتحانی فوکس — دو اہم قرآنی حوالہ جات'],
+    ['#t2-1 .mini-quiz h4', '🧪 موضوع ۴ — جانچ کوئز'],
+    // ── Topic 5 ──
+    ['#t2-2 .topic-title h3', 'موضوع ۵: مکی اور مدنی ادوار کا خلاصہ'],
+    ['#t2-2 > p:first-of-type', 'نبی ﷺ کی نبوت کو مقام کی بنیاد پر دو بڑے ادوار میں تقسیم کیا جاتا ہے: <strong>مکی دور</strong> (ہجرت سے پہلے) اور <strong>مدنی دور</strong> (ہجرت کے بعد)۔ ہر دور کی نوعیت، توجہ اور حکمت عملی بالکل مختلف تھی۔'],
+    ['#t2-2 h4:nth-of-type(1)', 'مکی دور — اہم واقعات'],
+    ['#t2-2 h4:nth-of-type(2)', 'مدنی دور — اہم جھلکیاں'],
+    ['#t2-2 .mini-quiz h4', '🧪 موضوع ۵ — جانچ کوئز'],
+    // ── Topic 6 ──
+    ['#t2-3 .topic-title h3', 'موضوع ۶: اسلام کی خفیہ اور عوامی تبلیغ'],
+    ['#t2-3 > p:first-of-type', 'نبی ﷺ کی دعوتی حکمت عملی دانشمندانہ اور مرحلہ وار تھی۔ اس کا آغاز عوامی اعلان سے نہیں ہوا — یہ خاموشی سے، پرائیویٹ طریقے سے شروع ہوئی اور پھر الہی حکم کی بنیاد پر منظم طریقے سے پھیلی۔'],
+    ['#t2-3 h4:nth-of-type(1)', 'مرحلہ ۱ — خفیہ تبلیغ: دعوتِ خُفیہ (۳ سال: ۶۱۰–۶۱۳ء)'],
+    ['#t2-3 .box.def .box-label', '📖 تعریف — دعوتِ خُفیہ'],
+    ['#t2-3 .box.def p', '<strong>دعوتِ خُفیہ</strong> (خفیہ دعوت) سے مراد وہ ابتدائی ۳ سالہ دور ہے جس میں نبی ﷺ نے اسلام کو پرائیویٹ اور خاموشی سے اپنے قریب ترین اور معتبر حلقے میں پھیلایا، بغیر کسی عوامی اعلان کے، تاکہ فوری اور منظم تشدد سے بچا جا سکے۔'],
+    ['#t2-3 > p:nth-of-type(2)', 'پہلے مسلمان — سابقونِ اولون (سب سے پہلے قبولِ اسلام کرنے والے) — اسی مرحلے میں مسلمان ہوئے:'],
+    ['#t2-3 .box.note .box-label', '💡 خفیہ کیوں؟ — اس کے پیچھے حکمت'],
+    ['#t2-3 .box.note p', 'ابتدائی مسلمانوں کی جماعت بہت چھوٹی اور نازک تھی۔ اچانک عوامی اعلان مکہ کے طاقتور قریش کی طرف سے فوری، منظم اور پرتشدد دبائو کو دعوت دیتا — اس سے پہلے کہ اسلام جڑ پکڑ پاتا۔ خفیہ مرحلے نے پہلے مسلمانوں کو اپنے ایمان کو مضبوط کرنے، مرکزی جماعت بنانے اور آنے والی آزمائشوں کے لیے روحانی تیاری کا موقع دیا۔'],
+    ['#t2-3 h4:nth-of-type(2)', 'مرحلہ ۲ — عوامی تبلیغ: دعوتِ عام (۶۱۳ء کے بعد)'],
+    ['#t2-3 .box.def:nth-of-type(2) .box-label', '📖 تعریف — دعوتِ عام'],
+    ['#t2-3 .box.arabic-quote .aq-trans', '"اور اپنے قریب ترین رشتہ داروں کو خبردار کریں۔" — سورۃ الشعراء (۲۶:۲۱۴)'],
+    ['#t2-3 .box.arabic-quote .aq-ref', 'یہ وہ الہی حکم ہے جس نے عوامی تبلیغ کے مرحلے کا آغاز کیا۔'],
+    ['#t2-3 > p:nth-of-type(3)', 'نبی ﷺ نے اپنے قبیلے کو کوہِ صفا پر بلایا اور فرمایا: <em>"اگر میں آپ کو بتاؤں کہ اس پہاڑ کے پیچھے ایک لشکر آپ پر حملہ کرنے والا ہے، تو کیا آپ یقین کریں گے؟"</em> انہوں نے کہا: "ہاں، ہم نے آپ کو کبھی جھوٹا نہیں سنا۔" آپ ﷺ نے پھر فرمایا: <em>"تو میں آپ کو آنے والے شدید عذاب سے خبردار کرتا ہوں۔"</em>'],
+    ['#t2-3 .c-card.left .c-title', '🤫 دعوتِ خُفیہ (خفیہ)'],
+    ['#t2-3 .c-card.right .c-title', '📣 دعوتِ عام (عوامی)'],
+    ['#t2-3 .mini-quiz h4', '🧪 موضوع ۶ — جانچ کوئز'],
+    // ── Topic 7 ──
+    ['#t3-1 .topic-title h3', 'موضوع ۷: حقوقِ مصطفیٰ ﷺ اور حسنِ جمال'],
+    ['#t3-1 > p:first-of-type', 'نبی کریم محمد ﷺ کے کچھ <strong>حقوق (Huqooq)</strong> ہیں جو ہر مسلمان پر واجب ہیں۔ ان حقوق کے ساتھ ساتھ نبی ﷺ کو ایک بے مثال <strong>ظاہری اور باطنی حسنِ جمال</strong> عطا کیا گیا تھا جس کی پوری تاریخِ انسانی میں کوئی نظیر نہیں۔'],
+    ['#t3-1 h4:nth-of-type(1)', 'نبی ﷺ کے حقوق — حقوقِ مصطفیٰ'],
+    ['#t3-1 .kp-box .kp-head', '⭐ ہر مسلمان پر نبی ﷺ کے واجب الادا حقوق'],
+    ['#t3-1 h4:nth-of-type(2)', 'ظاہری اور باطنی خوبصورتی — حسنِ ظاہری و باطنی'],
+    ['#t3-1 .box.arabic-quote .aq-trans', '"میں نے آپ ﷺ جیسا نہ آپ ﷺ سے پہلے دیکھا اور نہ آپ ﷺ کے بعد۔"'],
+    ['#t3-1 .box.arabic-quote .aq-ref', '— آپ ﷺ کو بیان کرتے ہوئے بہت سے صحابہ کرام کے الفاظ'],
+    ['#t3-1 .c-card.left .c-title', '✨ ظاہری حسن (حسنِ ظاہری)'],
+    ['#t3-1 .c-card.right .c-title', '🌹 باطنی حسن (حسنِ باطنی)'],
+    ['#t3-1 .box.eg .box-label', '🌍 مثال — آپ ﷺ کے کردار کی طاقت'],
+    ['#t3-1 .box.eg p', 'جب نبی ﷺ نے ۱۰،۰۰۰ صحابہ کے ساتھ مکہ فتح کیا — وہی لوگ جنہوں نے آپ ﷺ کو ستایا، نکالا اور قتل کرنے کی کوشش کی — آپ ﷺ نے بدلہ نہیں لیا۔ بلکہ آپ ﷺ نے اعلان فرمایا: <strong>"جاؤ — تم سب آزاد ہو۔"</strong> رحمت کے اس ایک عمل نے ہزاروں کو مسلمان کر دیا۔ کوئی فوجی فتح وہ نہیں کر سکتی جو آپ ﷺ کے کردار نے کر دیا۔'],
+    ['#t3-1 .mini-quiz h4', '🧪 موضوع ۷ — جانچ کوئز'],
+    // ── Topic 8 ──
+    ['#t3-2 .topic-title h3', 'موضوع ۸: نبی محمد ﷺ بحیثیتِ داعی (اسلام کی طرف بلانے والے)'],
+    ['#t3-2 > p:first-of-type', '<strong>داعی (داعی)</strong> وہ شخص ہے جو دوسروں کو اللہ کے راستے کی طرف بلاتا ہے — ایک مبلّغ، مدعو کرنے والا، رہنما۔ نبی محمد ﷺ نہ صرف ایک داعی تھے — آپ ﷺ <strong>پوری تاریخِ انسانی کے سب سے بڑے داعی</strong> تھے، اور آپ ﷺ کا منہاج آج بھی اسلامی کام کرنے والوں کے لیے بہترین نمونہ ہے۔'],
+    ['#t3-2 .box.def .box-label', '📖 تعریف — داعی اور دعوت'],
+    ['#t3-2 .box.def p', '<strong>دعوت (دعوة)</strong> کا لغوی مطلب ہے "بلانا" یا "دعوت دینا"۔ اصطلاح میں اس سے مراد ہے <em>لوگوں کو دینِ اسلام کی طرف — توحید، صحیح عقیدے اور نیک زندگی کی طرف — حکمت، اچھے وعظ اور بہترین دلیل کے ساتھ بلانا</em>۔ <strong>داعی</strong> وہ شخص ہے جو دعوت دیتا ہے۔'],
+    ['#t3-2 .box.arabic-quote .aq-trans', '"اپنے رب کے راستے کی طرف حکمت اور اچھے وعظ کے ساتھ بلائیں، اور ان سے بہترین انداز میں بحث کریں۔" — سورۃ النحل (۱۶:۱۲۵)'],
+    ['#t3-2 .box.arabic-quote .aq-ref', 'یہ دعوت کے منہاج کی بنیادی آیت ہے — امتحان کے لیے انتہائی اہم۔'],
+    ['#t3-2 h4:nth-of-type(1)', 'نبی ﷺ کا دعوتی منہاج — اہم اصول'],
+    ['#t3-2 h4:nth-of-type(2)', 'مختلف ذرائع سے دعوت'],
+    ['#t3-2 .box.exam .box-label', '🔴 امتحانی ضروری معلومات — دعوت کے ۳ طریقے (سورۃ النحل ۱۶:۱۲۵)'],
+    ['#t3-2 .box.exam p', 'یہ آیت ہمیں دعوت کے <strong>تین طریقے</strong> دیتی ہے:<br>۱۔ <strong>حکمت</strong> — علماء اور دانشوروں کے لیے؛ عقلی اور دلیل پر مبنی استدلال۔<br>۲۔ <strong>موعظۂ حسنہ</strong> — عام لوگوں کے لیے؛ مخلصانہ، گرم جوشی سے جذباتی اپیل۔<br>۳۔ <strong>مجادلہ بالتی ہی احسن</strong> — بحث کرنے والوں کے لیے؛ بہترین اور انصاف پر مبنی جواب — گالی نہیں۔<br><em>دعوتی منہاج پر امتحانی جواب میں ہمیشہ ۱۶:۱۲۵ کا حوالہ ضرور دیں!</em>'],
+    ['#t3-2 .box.eg .box-label', '🌍 نبی ﷺ کی دعوتی حکمت کی مثال'],
+    ['#t3-2 .box.eg p', 'جب ایک نوجوان نبی ﷺ کے پاس آیا اور کہا "مجھے زنا کی اجازت دیں"، تو آپ ﷺ نے اسے سختی سے نہیں ڈانٹا۔ بلکہ آپ ﷺ نے اسے بٹھایا اور پوچھا: "کیا تم یہ پسند کرتے اگر کوئی تمہاری ماں کے ساتھ ایسا کرتا؟ تمہاری بہن کے ساتھ؟" ہر بار اس نے کہا "نہیں!" — اور گفتگو کے آخر میں اس کا دل مکمل طور پر بدل گیا۔ یہ حکمت عملی میں ہے — لوگوں تک ان کی سطح پر پہنچنا۔'],
+    ['#t3-2 .mini-quiz h4', '🧪 موضوع ۸ — حتمی جانچ کوئز'],
+    // ── Footer ──
+    ['footer .aq-trans, footer div:nth-child(2)', '"یا اللہ، محمد ﷺ پر اور آلِ محمد ﷺ پر رحمت نازل فرما۔"'],
+  ];
+
+  // Build a CSS-selector → English snapshot map before first translation
+  const EN_SNAP = {};
+  function captureEnglish() {
+    UR.forEach(([sel]) => {
+      const el = d(sel);
+      if (el && !EN_SNAP[sel]) EN_SNAP[sel] = el.innerHTML;
+    });
+  }
+
+  function applyUrdu() {
+    UR.forEach(([sel, urHtml]) => {
+      const el = d(sel);
+      if (el) el.innerHTML = urHtml;
+    });
+    // Fix nav-item dot references after innerHTML swap
+    da('.nav-item .dot').forEach(dot => {
+      if (!dot.classList.contains('dot')) dot.classList.add('dot');
+    });
+    // Re-attach dot active/done state is CSS-driven, no JS needed
+    document.body.classList.add('urdu-mode');
+    document.getElementById('langBtn').textContent = 'English';
+    document.documentElement.lang = 'ur';
+    // Translate "topics" text node in count div
+    const countDiv = d('.progress-ring-wrap .info .count');
+    if (countDiv) {
+      const lastNode = countDiv.lastChild;
+      if (lastNode && lastNode.nodeType === 3) lastNode.textContent = ' موضوعات';
+    }
+  }
+
+  function applyEnglish() {
+    UR.forEach(([sel]) => {
+      const el = d(sel);
+      if (el && EN_SNAP[sel] !== undefined) el.innerHTML = EN_SNAP[sel];
+    });
+    document.body.classList.remove('urdu-mode');
+    document.getElementById('langBtn').textContent = 'اردو';
+    document.documentElement.lang = 'en';
+    const countDiv = d('.progress-ring-wrap .info .count');
+    if (countDiv) {
+      const lastNode = countDiv.lastChild;
+      if (lastNode && lastNode.nodeType === 3) lastNode.textContent = ' topics';
+    }
+  }
+
+  window.toggleLang = function() {
+    const isUrdu = document.body.classList.contains('urdu-mode');
+    if (isUrdu) { applyEnglish(); localStorage.setItem('seerat_lang','en'); }
+    else         { applyUrdu();   localStorage.setItem('seerat_lang','ur'); }
+    // Re-wire nav click listeners (innerHTML swap removes event listeners on dot divs, not on buttons)
+    // Nav buttons' click listeners were added to the buttons themselves — that's fine.
+  };
+
+  // Initialise
+  captureEnglish();
+  if (localStorage.getItem('seerat_lang') === 'ur') applyUrdu();
+})();
+</script>
+</body>
+</html>
