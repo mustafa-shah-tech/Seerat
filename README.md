@@ -4,7 +4,9 @@
   # Seerat-un-Nabi ﷺ — Interactive Study Guide
   **Islamiat · 1st Semester · BS Economics · University of Malakand**
 
-  [![View Live Site](https://img.shields.io/badge/View_Live_Site-Ready-success?style=for-the-badge&logo=github)](https://mustafa-shah-tech.github.io/Seerat/)
+  <a href="https://mustafa-shah-tech.github.io/Seerat/" target="_blank">
+    <img src="https://img.shields.io/badge/View_Live_Site-Ready-success?style=for-the-badge&logo=github" alt="View Live Site">
+  </a>
 </div>
 
 <br/>
