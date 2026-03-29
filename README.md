@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://mustafa-shah-tech.github.io/Seerat/stack-of-books_5832416.png" alt="Seerat un Nabi Study Guide Icon" width="100"/>
+  <img src="https://cdn-icons-png.flaticon.com/512/5832/5832416.png" alt="Seerat un Nabi Study Guide Icon" width="100"/>
 
   # Seerat-un-Nabi ﷺ — Interactive Study Guide
   **Islamiat · 1st Semester · BS Economics · University of Malakand**
