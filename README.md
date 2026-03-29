@@ -1,7 +1,7 @@
 # Seerat-un-Nabi ﷺ — Interactive Study Guide
 
 [![View Live Site](https://img.shields.io/badge/View_Live_Site-Ready-success?style=for-the-badge&logo=github)](https://mustafa-shah-tech.github.io/Seerat/)
-[![Urdu Content](https://img.shields.io/badge/Language-English_%7C_Urdu-blue?style=for-the-badge)](#)
+
 
 A modern, responsive, and interactive web-based study guide for the **Seerat-un-Nabi ﷺ** course (Islamiat, 1st Semester, BS Economics, University of Malakand).
 
