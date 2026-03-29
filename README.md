@@ -4,11 +4,10 @@
 
 A modern, responsive, and interactive web-based study guide for the **Seerat-un-Nabi ﷺ** course (Islamiat, 1st Semester, BS Economics, University of Malakand).
 
-This project transforms traditional course material into an engaging, self-paced learning experience with progress tracking, interactive quizzes, and bilingual support (English / Urdu).
+This project transforms traditional course material into an engaging, self-paced learning experience with progress tracking and interactive quizzes.
 
 ## 🌟 Features
 
-*   **Bilingual Translation (English & Urdu):** Seamlessly toggle between English and Urdu. The UI instantly adapts to Right-to-Left (RTL) layout and applies elegant Arabic/Urdu typography.
 *   **Interactive Progress Tracking:**
     *   Visual progress ring showing completion percentage.
     *   Top progress bar and topic counter.
@@ -29,7 +28,6 @@ This project transforms traditional course material into an engaging, self-paced
     *   DOM manipulation and event handling.
     *   `IntersectionObserver` for scroll-spy navigation.
     *   `localStorage` for persistent progress saving.
-    *   Custom translation engine for on-the-fly English to Urdu switching.
 
 ## 📥 How to Run Locally
 
@@ -54,7 +52,6 @@ The application is fully optimized for mobile viewing:
 Your progress is saved securely in your own browser using `localStorage`. 
 *   Checking off a topic saves it.
 *   Refreshing or reopening the page restores your exact progress, updated charts, and navigation state.
-*   Language preference (English/Urdu) is also remembered across sessions.
 
 ## 📝 License
 
