@@ -254,17 +254,19 @@ a:hover{text-decoration:underline}
 .topic{
   margin:2.5rem 0;opacity:0;transform:translateY(18px);
   transition:opacity 0.55s ease,transform 0.55s ease;
+  direction: rtl; font-family: var(--arabic); font-size: 1.05rem; line-height: 2;
 }
 .topic.visible{opacity:1;transform:none}
-.topic-title{display:flex;align-items:center;gap:0.75rem;margin-bottom:1.2rem;}
-.topic-title h3{font-family:var(--sans);font-size:1.2rem;font-weight:700;color:var(--white);}
+.topic-title{display:flex;align-items:center;gap:0.75rem;margin-bottom:1.2rem; direction: rtl;}
+.topic-title h3{font-family:var(--arabic);font-size:1.4rem;font-weight:700;color:var(--white);}
 .marker{
   width:34px;height:34px;border-radius:9px;background:var(--gold-dim);
   border:1px solid rgba(212,168,67,0.3);display:flex;align-items:center;
   justify-content:center;font-size:15px;flex-shrink:0;
 }
 .check-btn{
-  margin-left:auto;width:27px;height:27px;border-radius:50%;
+  margin-right:auto; margin-left:0; /* Flipped for RTL */
+  width:27px;height:27px;border-radius:50%;
   border:2px solid var(--border2);background:transparent;cursor:pointer;
   display:flex;align-items:center;justify-content:center;font-size:13px;
   transition:all 0.2s;flex-shrink:0;color:transparent;
@@ -272,16 +274,16 @@ a:hover{text-decoration:underline}
 .check-btn:hover{border-color:var(--emerald);background:var(--em-dim)}
 .check-btn.checked{border-color:var(--emerald);background:var(--emerald);color:var(--bg)}
 
-p{margin-bottom:0.9rem;color:var(--text);font-size:1rem}
+p{margin-bottom:0.9rem;color:var(--text);font-size:1.05rem; font-family: var(--arabic);}
 
 /* ============================================================
    BOXES
    ============================================================ */
-.box{border-radius:var(--radius);padding:1.25rem 1.5rem;margin:1.4rem 0;border-left:4px solid;position:relative;}
-.box .box-label{font-family:var(--sans);font-size:9.5px;letter-spacing:2.5px;text-transform:uppercase;font-weight:700;margin-bottom:0.5rem;display:flex;align-items:center;gap:0.4rem;}
-.box p{margin:0 0 0.4rem;font-size:0.93rem}
+.box{border-radius:var(--radius);padding:1.25rem 1.5rem;margin:1.4rem 0;border-right:4px solid;border-left:none;position:relative;}
+.box .box-label{font-family:var(--arabic);font-size:1.1rem;font-weight:700;margin-bottom:0.5rem;display:flex;align-items:center;gap:0.4rem;}
+.box p{margin:0 0 0.4rem;font-size:1.05rem}
 .box p:last-child{margin-bottom:0}
-.box ul{margin-top:0.4rem}
+.box ul{margin-top:0.4rem; padding-right: 1.5rem;}
 
 .box.def{background:var(--gold-dim);border-color:var(--gold)}
 .box.def .box-label{color:var(--gold)}
@@ -292,8 +294,8 @@ p{margin-bottom:0.9rem;color:var(--text);font-size:1rem}
 .box.note{background:var(--amber-dim);border-color:var(--amber)}
 .box.note .box-label{color:var(--amber)}
 .box.arabic-quote{
-  background:linear-gradient(135deg,rgba(212,168,67,0.08),transparent);
-  border-color:var(--gold);border-left:none;border-top:2px solid var(--gold);
+  background:linear-gradient(225deg,rgba(212,168,67,0.08),transparent);
+  border-color:var(--gold);border-right:none;border-top:2px solid var(--gold);
   text-align:center;padding:1.5rem;
 }
 .box.arabic-quote .aq-text{
@@ -312,19 +314,19 @@ p{margin-bottom:0.9rem;color:var(--text);font-size:1rem}
   border-radius:var(--radius);margin:1.4rem 0;overflow:hidden;
 }
 .kp-head{
-  background:var(--bg3);padding:0.5rem 1rem;
-  font-family:var(--sans);font-size:9.5px;letter-spacing:2px;
-  text-transform:uppercase;color:var(--text3);border-bottom:1px solid var(--border);
+  background:var(--bg3);padding:0.7rem 1rem;
+  font-family:var(--arabic);font-size:1.1rem;
+  color:var(--text3);border-bottom:1px solid var(--border);
 }
 .kp-body{padding:1.2rem 1.5rem;}
 .kp-body .kp-row{
   display:flex;align-items:baseline;gap:0.75rem;
   padding:0.45rem 0;border-bottom:1px solid rgba(255,255,255,0.04);
-  font-size:0.93rem;
+  font-size:1.05rem; font-family: var(--arabic);
 }
 .kp-body .kp-row:last-child{border-bottom:none}
 .kp-body .kp-row .num{
-  font-family:var(--mono);font-size:10px;color:var(--gold);
+  font-family:var(--mono);font-size:11px;color:var(--gold);
   background:var(--gold-dim);padding:1px 6px;border-radius:3px;flex-shrink:0;
 }
 .kp-body .kp-row .txt{color:var(--text)}
@@ -353,14 +355,14 @@ tbody tr:hover td{background:rgba(255,255,255,0.02)}
    ============================================================ */
 .bl{list-style:none;padding:0;margin:0.8rem 0 1rem}
 .bl li{
-  padding:0.38rem 0 0.38rem 1.7rem;position:relative;
-  font-size:0.95rem;color:var(--text);
+  padding:0.38rem 1.7rem 0.38rem 0;position:relative;
+  font-size:1.05rem;color:var(--text); font-family: var(--arabic);
   border-bottom:1px solid rgba(255,255,255,0.04);
 }
 .bl li:last-child{border-bottom:none}
 .bl li::before{
   content:'◆';color:var(--gold);font-size:7px;
-  position:absolute;left:2px;top:0.7rem;
+  position:absolute;right:2px;top:1rem;
 }
 
 /* ============================================================
@@ -408,14 +410,14 @@ tbody tr:hover td{background:rgba(255,255,255,0.02)}
   border-radius:var(--radius);padding:1.2rem;
 }
 .c-card .c-title{
-  font-family:var(--sans);font-size:12px;font-weight:700;
-  letter-spacing:1px;text-transform:uppercase;margin-bottom:0.8rem;
+  font-family:var(--arabic);font-size:1.2rem;font-weight:700;
+  margin-bottom:0.8rem;
   padding-bottom:0.5rem;border-bottom:1px solid var(--border);
 }
 .c-card.left .c-title{color:var(--gold)}
 .c-card.right .c-title{color:var(--emerald)}
 .c-card .c-list{list-style:none;padding:0;}
-.c-card .c-list li{font-size:0.88rem;color:var(--text);padding:0.3rem 0;border-bottom:1px solid rgba(255,255,255,0.04);}
+.c-card .c-list li{font-size:1.05rem; font-family: var(--arabic); color:var(--text);padding:0.3rem 0;border-bottom:1px solid rgba(255,255,255,0.04);}
 .c-card .c-list li:last-child{border-bottom:none}
 .c-card .c-list li::before{content:'• ';color:var(--text3)}
 
@@ -432,25 +434,25 @@ tbody tr:hover td{background:rgba(255,255,255,0.02)}
   background:linear-gradient(90deg,var(--gold),var(--emerald),var(--gold));
 }
 .mini-quiz h4{
-  font-family:var(--sans);font-size:1rem;color:var(--gold);
+  font-family:var(--arabic);font-size:1.2rem;color:var(--gold);
   margin-bottom:1.2rem;display:flex;align-items:center;gap:0.5rem;
 }
 .quiz-q{margin-bottom:1.7rem;}
 .quiz-q:last-child{margin-bottom:0;}
-.q-text{font-family:var(--sans);font-size:0.93rem;color:var(--white);margin-bottom:0.8rem;font-weight:500;line-height:1.5;}
+.q-text{font-family:var(--arabic);font-size:1.1rem;color:var(--white);margin-bottom:0.8rem;font-weight:500;line-height:1.8;}
 .options{display:flex;flex-direction:column;gap:0.45rem;}
 .opt{
   background:var(--bg3);border:1px solid var(--border2);
   border-radius:7px;padding:0.65rem 1rem;
-  font-family:var(--sans);font-size:0.88rem;color:var(--text);
-  cursor:pointer;text-align:left;transition:all 0.2s;
+  font-family:var(--arabic);font-size:1rem;color:var(--text);
+  cursor:pointer;text-align:right;transition:all 0.2s;
 }
 .opt:hover:not(:disabled){border-color:var(--gold);background:var(--gold-dim);}
 .opt.correct{border-color:var(--emerald)!important;background:var(--em-dim)!important;color:var(--emerald)!important;}
 .opt.wrong{border-color:var(--rose)!important;background:var(--rose-dim)!important;color:var(--rose)!important;}
 .opt:disabled{cursor:default;}
 .q-feedback{
-  font-family:var(--sans);font-size:0.84rem;margin-top:0.5rem;
+  font-family:var(--arabic);font-size:0.95rem;margin-top:0.5rem;
   padding:0.6rem 0.9rem;border-radius:6px;display:none;
 }
 .q-feedback.show{display:block;}
@@ -621,53 +623,53 @@ tbody tr:hover td{background:rgba(255,255,255,0.02)}
   <section class="topic" id="t1-1">
     <div class="topic-title">
       <div class="marker">📜</div>
-      <h3>Topic 1: Introduction to Seerat — Definitions, Importance & Necessity</h3>
+      <h3>موضوع ۱: سیرت کا تعارف — تعریفات، اہمیت اور ضرورت</h3>
       <button class="check-btn" onclick="toggleDone(this,'t1-1')">✓</button>
     </div>
 
-    <p>Let us start from the very beginning. Before we can study the life of the Prophet ﷺ, we need to understand <strong>what the word "Seerat" actually means</strong> — both in the Arabic language and as a technical term used by scholars.</p>
+    <p>آئیں بالکل ابتداء سے شروع کریں۔ نبی ﷺ کی حیات کا مطالعہ کرنے سے پہلے ہمیں یہ سمجھنا ضروری ہے کہ <strong>"سیرت" کا لفظ دراصل کیا معنی رکھتا ہے</strong> — عربی زبان میں بھی اور علماء کی اصطلاح میں بھی۔</p>
 
-    <h4 style="color:var(--gold2);font-family:var(--sans);margin:1.4rem 0 0.6rem;font-size:1rem;"> Literal (Lugawi) Definition</h4>
+    <h4 style="color:var(--gold2);font-family:var(--arabic);margin:1.4rem 0 0.6rem;font-size:1.2rem;">لغوی تعریف</h4>
     <div class="box def">
-      <div class="box-label">📖 Arabic Root: س ي ر (Sa-Ya-Ra)</div>
-      <p>The word <strong>Seerat (سیرت)</strong> comes from the Arabic root <em>Sa-Ya-Ra</em> (سار), which means <strong>to walk, to travel, or to move along a path</strong>. In its original Arabic usage, "Seerat" means a person's <strong>way of life, conduct, behavior, and manner of living</strong> — literally the "path" they walk through life.</p>
+      <div class="box-label">📖 عربی اصل: سَ یَ رَ (سا-یا-را)</div>
+      <p>لفظ <strong>سیرت</strong> عربی اصل <em>سا-یا-را</em> (سار) سے ماخوذ ہے جس کا مطلب ہے <strong>چلنا، سفر کرنا یا کسی راستے پر گامزن ہونا</strong>۔ اصل عربی استعمال میں "سیرت" کا مطلب ہے کسی شخص کا <strong>طرزِ زندگی، طرزِ عمل، برتاؤ اور رہن سہن</strong> — یعنی وہ راستہ جس پر وہ زندگی بھر چلتا رہا۔</p>
     </div>
 
     <div class="box arabic-quote">
       <div class="aq-text">سیرت = طریقہ زندگی، طرزِ عمل، سیرت و کردار</div>
-      <div class="aq-trans">"Seerat = The way of life, manner of conduct, and character of a person."</div>
+      <div class="aq-trans">"سیرت = طرزِ زندگی، طرزِ عمل اور کردارِ انسانی۔"</div>
     </div>
 
-    <h4 style="color:var(--gold2);font-family:var(--sans);margin:1.4rem 0 0.6rem;font-size:1rem;"> Technical (Istilaahi) Definition</h4>
+    <h4 style="color:var(--gold2);font-family:var(--arabic);margin:1.4rem 0 0.6rem;font-size:1.2rem;">اصطلاحی تعریف</h4>
     <div class="box def">
-      <div class="box-label">📖 Technical Definition of Seerat-un-Nabi ﷺ</div>
-      <p><strong>Seerat-un-Nabi ﷺ</strong> is the scholarly discipline that records and studies the <strong>complete biography of the Prophet Muhammad ﷺ</strong> — including his birth, childhood, prophethood, battles, treaties, family life, teachings, worship, character, and final days — so that Muslims can understand and follow his perfect example in every aspect of life.</p>
+      <div class="box-label">📖 سیرت النبی ﷺ کی اصطلاحی تعریف</div>
+      <p><strong>سیرت النبی ﷺ</strong> وہ علمی کاوش ہے جو نبی کریم محمد ﷺ کی <strong>مکمل سوانح عمری</strong> کو محفوظ کرتی ہے — جس میں آپ ﷺ کی ولادت، بچپن، نبوت، غزوات، معاہدات، خانگی زندگی، تعلیمات، عبادت، کردار اور آخری ایام سب شامل ہیں — تاکہ مسلمان زندگی کے ہر پہلو میں آپ ﷺ کے کامل نمونے کو سمجھ کر اس پر عمل کر سکیں۔</p>
     </div>
 
     <div class="box eg">
-      <div class="box-label">🌍 Simple Real-Life Example</div>
-      <p>Think of Seerat like a very detailed and trustworthy biography. Just like you might read about Quaid-e-Azam to understand how he built Pakistan — his speeches, decisions, and character — we read Seerat to understand everything about how the Prophet ﷺ lived, spoke, led, and worshipped. Except Seerat is <em>infinitely more important</em> because it is a model for all of humanity until the Day of Judgment.</p>
+      <div class="box-label">🌍 سادہ حقیقی مثال</div>
+      <p>سیرت کو ایک انتہائی تفصیلی اور قابلِ اعتماد سوانح عمری کی طرح سمجھیں۔ جیسے آپ قائداعظم کے بارے میں پڑھتے ہیں تاکہ جانیں انہوں نے پاکستان کیسے بنایا — ویسے ہی ہم سیرت اس لیے پڑھتے ہیں کہ نبی ﷺ کی زندگی، گفتگو، قیادت اور عبادت کا مکمل علم حاصل ہو۔ فرق یہ ہے کہ سیرت <em>لامحدود زیادہ اہم</em> ہے کیونکہ یہ قیامت تک پوری انسانیت کے لیے نمونہ ہے۔</p>
     </div>
 
-    <h4 style="color:var(--emerald);font-family:var(--sans);margin:1.4rem 0 0.6rem;font-size:1rem;"> Importance of Seerat</h4>
-    <p>Why is studying Seerat not just interesting, but <em>absolutely necessary</em> for every Muslim? Here are the key reasons:</p>
+    <h4 style="color:var(--emerald);font-family:var(--arabic);margin:1.4rem 0 0.6rem;font-size:1.2rem;">سیرت کی اہمیت</h4>
+    <p>سیرت کا مطالعہ نہ صرف دلچسپ، بلکہ ہر مسلمان کے لیے <em>مطلقاً ضروری</em> کیوں ہے؟ یہاں اہم وجوہات پیش کی جاتی ہیں:</p>
 
     <div class="kp-box">
-      <div class="kp-head">⭐ Exam-Key: 7 Reasons Why Seerat is Important</div>
+      <div class="kp-head">⭐ امتحانی اہمیت: سیرت اہم ہونے کی ۷ وجوہات</div>
       <div class="kp-body">
-        <div class="kp-row"><span class="num">01</span><span class="txt"><strong>Quranic Command:</strong> Allah ﷻ commands us: "Indeed, in the Messenger of Allah you have an excellent example (Uswah Hasanah)." (Al-Ahzab 33:21). Studying Seerat is how we know this example.</span></div>
-        <div class="kp-row"><span class="num">02</span><span class="txt"><strong>Understanding the Quran:</strong> Many Quranic verses were revealed in response to specific events in the Prophet's ﷺ life. Without Seerat, we cannot fully understand the context of those verses.</span></div>
-        <div class="kp-row"><span class="num">03</span><span class="txt"><strong>Strengthening Imaan (Faith):</strong> Reading about the struggles, miracles, and sacrifices of the Prophet ﷺ deeply increases our love and faith.</span></div>
-        <div class="kp-row"><span class="num">04</span><span class="txt"><strong>A Complete Life Guide:</strong> Seerat covers personal life, family, politics, trade, war, and worship — it is a complete manual for human life.</span></div>
-        <div class="kp-row"><span class="num">05</span><span class="txt"><strong>Completing Iman:</strong> Believing in the Prophet ﷺ is a pillar of faith. Knowing his life deepens this belief from the heart.</span></div>
-        <div class="kp-row"><span class="num">06</span><span class="txt"><strong>Preserving Islamic History:</strong> Seerat preserves the authentic history of early Islam, protecting it from distortion.</span></div>
-        <div class="kp-row"><span class="num">07</span><span class="txt"><strong>Countering Misconceptions:</strong> With a solid knowledge of Seerat, Muslims can respond to false claims and misrepresentations about Islam and the Prophet ﷺ.</span></div>
+        <div class="kp-row"><span class="num">01</span><span class="txt"><strong>قرآنی حکم:</strong> اللہ ﷻ ہمیں حکم دیتا ہے: "بلاشبہ تمہارے لیے رسول اللہ میں بہترین نمونہ ہے (اسوہ حسنہ)۔" (الاحزاب 33:21)۔ اس نمونے کو جاننے کا ذریعہ سیرت کا مطالعہ ہے۔</span></div>
+        <div class="kp-row"><span class="num">02</span><span class="txt"><strong>قرآن کو سمجھنا:</strong> قرآن کی بہت سی آیات نبی ﷺ کی زندگی کے مخصوص واقعات کے جواب میں نازل ہوئیں۔ سیرت کے بغیر ہم ان آیات کے پس منظر کو پوری طرح نہیں سمجھ سکتے۔</span></div>
+        <div class="kp-row"><span class="num">03</span><span class="txt"><strong>ایمان مضبوط کرنا (ایمان):</strong> نبی ﷺ کی جدوجہد، معجزات اور قربانیوں کے بارے میں پڑھنے سے ہماری محبت اور ایمان میں گہرا اضافہ ہوتا ہے۔</span></div>
+        <div class="kp-row"><span class="num">04</span><span class="txt"><strong>ایک مکمل زندگی کا رہنما:</strong> سیرت ذاتی زندگی، خاندان، سیاست، تجارت، جنگ اور عبادت کا احاطہ کرتی ہے — یہ انسانی زندگی کا ایک مکمل ہدایت نامہ ہے۔</span></div>
+        <div class="kp-row"><span class="num">05</span><span class="txt"><strong>ایمان کی تکمیل:</strong> نبی ﷺ پر ایمان لانا ایمان کا ایک ستون ہے۔ آپ ﷺ کی زندگی کو جاننے سے دل سے اس عقیدے کو تقویت ملتی ہے۔</span></div>
+        <div class="kp-row"><span class="num">06</span><span class="txt"><strong>اسلامی تاریخ کا تحفظ:</strong> سیرت ابتدائی اسلام کی مستند تاریخ کو محفوظ رکھتی ہے، اور اسے تحریف سے بچاتی ہے۔</span></div>
+        <div class="kp-row"><span class="num">07</span><span class="txt"><strong>غلط فہمیوں کا ازالہ:</strong> سیرت کے ٹھوس علم کے ساتھ، مسلمان اسلام اور نبی ﷺ کے بارے میں جھوٹے دعوؤں اور غلط بیانیوں کا جواب دے سکتے ہیں۔</span></div>
       </div>
     </div>
 
     <div class="box exam">
-      <div class="box-label">🔴 Exam Alert — Quran Reference to Memorize</div>
-      <p><strong>Surah Al-Ahzab (33:21):</strong> <em>"Laqad kaana lakum fi Rasoolillahi uswatun hasanah"</em> — "Verily, in the Messenger of Allah you have a most excellent example." This verse is the #1 proof of the <em>necessity</em> of studying Seerat. Always quote it in your exam answer!</p>
+      <div class="box-label">🔴 امتحانی الرٹ — یاد رکھنے والی آیت</div>
+      <p><strong>سورۃ الاحزاب (۳۳:۲۱):</strong> <em>"لَقَدْ كَانَ لَكُمْ فِي رَسُولِ اللَّهِ أُسْوَةٌ حَسَنَةٌ"</em> — "بے شک تمہارے لیے اللہ کے رسول میں بہترین نمونہ ہے۔" یہ آیت سیرت کی <em>ضرورت</em> کی سب سے بڑی دلیل ہے۔ اسے امتحان میں ضرور لکھیں!</p>
     </div>
 
     <div class="mini-quiz">
@@ -705,54 +707,48 @@ tbody tr:hover td{background:rgba(255,255,255,0.02)}
   <section class="topic" id="t1-2">
     <div class="topic-title">
       <div class="marker">⚖️</div>
-      <h3>Topic 2: Differences & Similarities — Seerat and Hadith</h3>
+      <h3>موضوع ۲: سیرت اور حدیث — فرق اور مشترکات</h3>
       <button class="check-btn" onclick="toggleDone(this,'t1-2')">✓</button>
     </div>
 
-    <p>Many students confuse Seerat with Hadith. While they are deeply connected and share some similarities, they are <strong>distinct sciences</strong> with different definitions, methods, and purposes. A clear comparison will help you answer this in any exam.</p>
+    <p>بہت سے طالب علم سیرت اور حدیث کو گڈمڈ کر دیتے ہیں۔ اگرچہ یہ دونوں گہرے انداز میں جڑے ہوئے ہیں، لیکن یہ <strong>الگ الگ علوم</strong> ہیں جن کی تعریفات، طریقے اور مقاصد مختلف ہیں۔ واضح موازنہ آپ کو کسی بھی امتحان میں مدد دے گا۔</p>
 
     <div class="compare-grid">
       <div class="c-card left">
-        <div class="c-title">📜 Seerat (سیرت)</div>
+        <div class="c-title">📜 سیرت (Seerat)</div>
         <ul class="c-list">
-          <li>Comprehensive biography of the Prophet ﷺ</li>
-          <li>Covers the full life — birth to death</li>
-          <li>Includes all events: battles, treaties, travel</li>
-          <li>Does NOT require a detailed chain of narrators (Isnad)</li>
-          <li>Can include non-Hadith sources (historians, Sahaba accounts)</li>
-          <li>Subject: <strong>Events and Biography</strong></li>
-          <li>Focus: <em>Historical narrative</em></li>
+          <li><strong>مرکز:</strong> تاریخی سوانح عمری (ولادت سے وفات تک)۔</li>
+          <li><strong>مواد:</strong> غزوات، معاہدات، جسمانی حلیہ، ریاست، اور واقعات کی ترتیب۔</li>
+          <li><strong>مقصد:</strong> نبوی دور کے مجموعی واقعات اور سیاق و سباق کو سمجھنا۔</li>
         </ul>
       </div>
       <div class="c-card right">
-        <div class="c-title">💬 Hadith (حدیث)</div>
+        <div class="c-title">💬 حدیث (Hadith)</div>
         <ul class="c-list">
-          <li>Records of the Prophet's ﷺ sayings, actions, approvals</li>
-          <li>Can be from any period of his life</li>
-          <li>Can be a single short statement or action</li>
-          <li><strong>Requires a verified chain of narrators (Isnad)</strong></li>
-          <li>Strictly authenticated through science of Rijaal (narrator analysis)</li>
-          <li>Subject: <strong>Laws, guidance, and conduct</strong></li>
-          <li>Focus: <em>Legal and religious rulings</em></li>
+          <li><strong>مرکز:</strong> مخصوص اقوال، افعال، اور تقریرات۔</li>
+          <li><strong>مواد:</strong> احکام (فقہ)، عقائد، آداب، اور قانونی تفصیلات۔</li>
+          <li><strong>مقصد:</strong> اسلامی قوانین، احکامات، اور عقائد کا استنباط کرنا۔</li>
         </ul>
       </div>
     </div>
 
-    <h4 style="color:var(--emerald);font-family:var(--sans);margin:1.4rem 0 0.6rem;font-size:1rem;">Similarities Between Seerat and Hadith</h4>
+    <h4 style="color:var(--emerald);font-family:var(--arabic);margin:1.4rem 0 0.6rem;font-size:1.2rem;">سیرت اور حدیث میں مشترکات</h4>
+    <p>یہ دونوں مکمل طور پر الگ نہیں ہیں۔ درحقیقت، حدیث سیرت کے بنیادی مآخذ میں سے ایک ہے۔</p>
+    
     <div class="kp-box">
-      <div class="kp-head">🔗 What They Share</div>
+      <div class="kp-head">🔗 مشترک باتیں</div>
       <div class="kp-body">
-        <div class="kp-row"><span class="num">01</span><span class="txt">Both deal with the <strong>life and personality</strong> of the Holy Prophet Muhammad ﷺ.</span></div>
-        <div class="kp-row"><span class="num">02</span><span class="txt">Both are <strong>second sources of Islamic Law</strong> (after the Quran). Hadith more directly, Seerat contextually.</span></div>
-        <div class="kp-row"><span class="num">03</span><span class="txt">Both rely on the <strong>narrations of the Companions (Sahaba)</strong> as primary sources.</span></div>
-        <div class="kp-row"><span class="num">04</span><span class="txt">Both are studied to <strong>understand and implement Islam correctly</strong> in daily life.</span></div>
-        <div class="kp-row"><span class="num">05</span><span class="txt">Hadith is often <strong>embedded within Seerat books</strong> — many Seerat narrations are themselves Ahadith.</span></div>
+        <div class="kp-row"><span class="num">01</span><span class="txt">دونوں کا تعلق نبی کریم ﷺ کی <strong>ذات اور حیات</strong> سے ہے۔</span></div>
+        <div class="kp-row"><span class="num">02</span><span class="txt">دونوں قرآن کے بعد <strong>اسلامی قانون کے ثانوی مآخذ</strong> ہیں۔</span></div>
+        <div class="kp-row"><span class="num">03</span><span class="txt">دونوں بنیادی طور پر <strong>صحابہ کرامؓ کی روایات</strong> پر انحصار کرتے ہیں۔</span></div>
+        <div class="kp-row"><span class="num">04</span><span class="txt">دونوں کا مطالعہ اسلام کو صحیح طریقے سے سمجھنے اور عملی زندگی میں نافذ کرنے کے لیے کیا جاتا ہے۔</span></div>
+        <div class="kp-row"><span class="num">05</span><span class="txt">حدیث اکثر <strong>سیرت کی کتابوں میں شامل</strong> ہوتی ہے — سیرت کی بہت سی روایات خود احادیث ہیں۔</span></div>
       </div>
     </div>
 
     <div class="box note">
-      <div class="box-label">💡 Memory Trick</div>
-      <p>Think of it this way: <strong>Hadith = What the Prophet ﷺ SAID or DID (specific)</strong>. <strong>Seerat = The Prophet's ﷺ full STORY (comprehensive)</strong>. If Seerat is the whole ocean, then Hadith is one of the rivers that flows into it.</p>
+      <div class="box-label">💡 یادداشت کی ترکیب</div>
+      <p>اس طرح سمجھیں: <strong>حدیث = نبی ﷺ نے کیا فرمایا یا کیا (مخصوص)</strong>۔ <strong>سیرت = نبی ﷺ کی مکمل داستانِ حیات (جامع)</strong>۔ اگر سیرت سمندر ہے تو حدیث اس میں بہنے والا ایک دریا ہے۔</p>
     </div>
 
     <div class="mini-quiz">
@@ -780,50 +776,50 @@ tbody tr:hover td{background:rgba(255,255,255,0.02)}
   <section class="topic" id="t1-3">
     <div class="topic-title">
       <div class="marker">📚</div>
-      <h3>Topic 3: Sources of Seerat</h3>
+      <h3>موضوع ۳: سیرت کے مآخذ</h3>
       <button class="check-btn" onclick="toggleDone(this,'t1-3')">✓</button>
     </div>
 
-    <p>How do we actually know the details of the Prophet's ﷺ life? Scholars of Seerat gathered their information from multiple reliable sources. Here are the primary ones:</p>
+    <p>ہم نبی ﷺ کی حیات کی تفصیلات کیسے جانتے ہیں؟ سیرت کے علماء نے متعدد معتبر مآخذ سے معلومات اکٹھی کیں۔ یہاں بنیادی مآخذ پیش کیے جاتے ہیں:</p>
 
     <div class="kp-box">
-      <div class="kp-head">📖 Primary Sources of Seerat</div>
+      <div class="kp-head">📖 سیرت کے بنیادی مآخذ</div>
       <div class="kp-body">
-        <div class="kp-row"><span class="num">1</span><span class="txt"><strong>The Holy Quran (القرآن الکریم):</strong> The Quran itself is the most authentic source. Many verses mention the Prophet's ﷺ life events directly (e.g., Surah Al-Ahzab on the Battle of Trench, Surah Al-Tawbah on events of Tabuk).</span></div>
-        <div class="kp-row"><span class="num">2</span><span class="txt"><strong>Hadith Literature (کتب احادیث):</strong> The six major Hadith collections (Kutub-e-Sittah) — including Bukhari, Muslim, Tirmidhi — contain thousands of accounts of the Prophet's ﷺ life, sayings, and actions.</span></div>
-        <div class="kp-row"><span class="num">3</span><span class="txt"><strong>Books of Seerat (کتب سیرت):</strong> Early scholars wrote dedicated biographies. The oldest surviving complete Seerat is <em>Seerat Ibn Hisham</em> (based on Ibn Ishaq's original). Others include Al-Waqidi's Maghazi and Ibn Sa'd's Tabaqat.</span></div>
-        <div class="kp-row"><span class="num">4</span><span class="txt"><strong>Books of Tabaqat (طبقات):</strong> Biographical dictionaries recording the lives of Companions and Taabi'een who were eyewitnesses. <em>Tabaqat Ibn Sa'd</em> is the most famous.</span></div>
-        <div class="kp-row"><span class="num">5</span><span class="txt"><strong>Pre-Islamic Poetry (جاہلی شاعری):</strong> Arabic poetry from before Islam reflects the social, cultural, and historical context of the Arabian Peninsula — helping us understand the world the Prophet ﷺ was sent into.</span></div>
-        <div class="kp-row"><span class="num">6</span><span class="txt"><strong>Books of Tafseer (کتب تفسیر):</strong> Quranic commentaries often explain the occasion of revelation (Asbab-un-Nuzool) — which are biographical events from the Prophet's ﷺ life.</span></div>
-        <div class="kp-row"><span class="num">7</span><span class="txt"><strong>Archaeology & Geography:</strong> Physical evidence from Makkah, Madinah, and surrounding regions — including sites of battles and trade routes — helps verify historical accounts.</span></div>
+        <div class="kp-row"><span class="num">1</span><span class="txt"><strong>قرآنِ مجید:</strong> قرآن بذات خود سب سے مستند ماخذ ہے۔ بہت سی آیات میں نبی ﷺ کی زندگی کے واقعات کا براہ راست ذکر ہے (مثلاً غزوہ خندق پر سورۃ الاحزاب، تبوک پر سورۃ التوبہ)۔</span></div>
+        <div class="kp-row"><span class="num">2</span><span class="txt"><strong>احادیث کی کتابیں:</strong> احادیث کے چھ بڑے مجموعوں (کتبِ ستہ) — بشمول بخاری، مسلم، ترمذی — میں نبی ﷺ کی زندگی، اقوال اور افعال کی ہزاروں روایات موجود ہیں۔</span></div>
+        <div class="kp-row"><span class="num">3</span><span class="txt"><strong>کتبِ سیرت:</strong> ابتدائی علماء نے باقاعدہ سوانح عمریاں لکھیں۔ سب سے پرانی محفوظ مکمل سیرت <em>سیرت ابن ہشام</em> ہے (جو ابن اسحاق کی اصل پر مبنی ہے)۔ دیگر میں واقدی کی المغازی اور ابن سعد کی طبقات شامل ہیں۔</span></div>
+        <div class="kp-row"><span class="num">4</span><span class="txt"><strong>کتبِ طبقات:</strong> سوانحی لغات جو آنکھوں دیکھے صحابہ اور تابعین کی زندگیوں کو محفوظ کرتی ہیں۔ <em>طبقات ابن سعد</em> سب سے مشہور ہے۔</span></div>
+        <div class="kp-row"><span class="num">5</span><span class="txt"><strong>اسلام سے قبل کی شاعری (جاہلی شاعری):</strong> اسلام سے پہلے کی عربی شاعری جزیرہ نما عرب کے سماجی، ثقافتی اور تاریخی پس منظر کی عکاسی کرتی ہے — اس سے ہمیں اس دنیا کو سمجھنے میں مدد ملتی ہے جس میں نبی ﷺ مبعوث ہوئے۔</span></div>
+        <div class="kp-row"><span class="num">6</span><span class="txt"><strong>کتبِ تفسیر:</strong> قرآنی تفاسیر اکثر نزول کے مواقع (اسباب النزول) کی وضاحت کرتی ہیں — جو دراصل نبی ﷺ کی زندگی کے سوانحی واقعات ہیں۔</span></div>
+        <div class="kp-row"><span class="num">7</span><span class="txt"><strong>آثارِ قدیمہ اور جغرافیہ:</strong> مکہ، مدینہ اور گردونواح کے علاقوں — بشمول میدانِ جنگ اور تجارتی راستوں — سے ملنے والے طبعی شواہد تاریخی روایات کی تصدیق میں مدد دیتے ہیں۔</span></div>
       </div>
     </div>
 
     <div class="box exam">
-      <div class="box-label">🔴 Exam Tip — Must Know Authors</div>
-      <p>Know these names for your exam: <br>
-      • <strong>Ibn Ishaq (d. 767 CE)</strong> — Wrote the first major Seerat (original text, mostly preserved through Ibn Hisham).<br>
-      • <strong>Ibn Hisham (d. 833 CE)</strong> — Edited and preserved Ibn Ishaq's work; "<em>Seerat Ibn Hisham</em>" is the oldest surviving complete Seerat book.<br>
-      • <strong>Al-Waqidi (d. 823 CE)</strong> — Wrote "<em>Kitab al-Maghazi</em>" (Book of Battles).<br>
-      • <strong>Ibn Sa'd (d. 845 CE)</strong> — Wrote "<em>Tabaqat al-Kubra</em>" — major biographical dictionary.</p>
+      <div class="box-label">🔴 امتحانی نکتہ — ضروری مصنفین</div>
+      <p>امتحان کے لیے یہ نام ضرور یاد رکھیں:<br>
+      • <strong>ابن اسحاق (وفات 767 عیسوی)</strong> — پہلی بڑی سیرت لکھی (اصل متن، زیادہ تر ابن ہشام کے ذریعے محفوظ ہے)۔<br>
+      • <strong>ابن ہشام (وفات 833 عیسوی)</strong> — ابن اسحاق کے کام کی تدوین کی اور اسے محفوظ کیا؛ <em>"سیرت ابن ہشام"</em> سب سے پرانی محفوظ مکمل سیرت کی کتاب ہے۔<br>
+      • <strong>الواقدی (وفات 823 عیسوی)</strong> — <em>"کتاب المغازی"</em> (جنگوں کی کتاب) لکھی۔<br>
+      • <strong>ابن سعد (وفات 845 عیسوی)</strong> — <em>"طبقات الکبریٰ"</em> لکھی — جو ایک بڑی سوانحی لغت ہے۔</p>
     </div>
 
     <div class="mini-quiz">
-      <h4>🧪 Topic 3 — Checkpoint Quiz</h4>
+      <h4>🧪 موضوع ۳ — جانچ کوئز</h4>
       <div class="quiz-q">
-        <div class="q-text">1. What is the oldest surviving complete book of Seerat?</div>
+        <div class="q-text">۱۔ سیرت کی سب سے پرانی اور مکمل محفوظ کتاب کون سی ہے؟</div>
         <div class="options">
-          <button class="opt" onclick="checkAnswer(this, false, 'Sahih Bukhari is a Hadith collection, not a Seerat book.')">A. Sahih Bukhari by Imam Bukhari</button>
-          <button class="opt" onclick="checkAnswer(this, true, 'Excellent! Seerat Ibn Hisham (based on Ibn Ishaq\'s work) is the oldest surviving complete biography of the Prophet ﷺ.')">B. Seerat Ibn Hisham (edited from Ibn Ishaq's original work)</button>
-          <button class="opt" onclick="checkAnswer(this, false, 'Tabaqat al-Kubra is a biographical dictionary by Ibn Sa\'d, not the oldest Seerat.')">C. Tabaqat al-Kubra by Ibn Sa'd</button>
+          <button class="opt" onclick="checkAnswer(this, false, 'صحیح بخاری حدیث کی کتاب ہے، سیرت کی۔')">الف۔ صحیح بخاری از امام بخاری</button>
+          <button class="opt" onclick="checkAnswer(this, true, 'بہترین! سیرت ابن ہشام (جو ابن اسحاق کے کام پر مبنی ہے) نبی ﷺ کی سب سے پرانی محفوظ مکمل سوانح عمری ہے۔')">ب۔ سیرت ابن ہشام (ابن اسحاق کے اصل کام سے مدون)</button>
+          <button class="opt" onclick="checkAnswer(this, false, 'طبقات الکبریٰ ابن سعد کی سوانحی لغت ہے، سب سے قدیم سیرت نہیں۔')">ج۔ طبقات الکبریٰ از ابن سعد</button>
         </div>
         <div class="q-feedback"></div>
       </div>
       <div class="quiz-q">
-        <div class="q-text">2. Why is the Holy Quran itself considered a source of Seerat?</div>
+        <div class="q-text">۲۔ قرآنِ مجید کو بذات خود سیرت کا ماخذ کیوں سمجھا جاتا ہے؟</div>
         <div class="options">
-          <button class="opt" onclick="checkAnswer(this, false, 'The Quran does not contain stories for entertainment — it contains divine guidance and historical facts.')">A. Because it contains entertaining stories about the Prophet ﷺ.</button>
-          <button class="opt" onclick="checkAnswer(this, true, 'Correct! Many Quranic verses were revealed about specific events in the Prophet\'s ﷺ life, making them direct biographical records.')">B. Because many verses directly mention events from the Prophet's ﷺ life and give us authentic historical information.</button>
+          <button class="opt" onclick="checkAnswer(this, false, 'قرآن میں تفریح کے لیے کہانیاں نہیں ہوتیں — اس میں الہی رہنمائی اور تاریخی حقائق ہیں۔')">الف۔ کیونکہ اس میں نبی ﷺ کے بارے میں دلچسپ کہانیاں ہیں۔</button>
+          <button class="opt" onclick="checkAnswer(this, true, 'بالکل درست! بہت سی قرآنی آیات براہ راست نبی ﷺ کی زندگی کے واقعات کا ذکر کرتی ہیں اور ہمیں مستند تاریخی معلومات دیتی ہیں۔')">ب۔ کیونکہ بہت سی آیات براہ راست نبی ﷺ کی زندگی کے واقعات کا ذکر کرتی ہیں اور ہمیں مستند تاریخی معلومات دیتی ہیں۔</button>
         </div>
         <div class="q-feedback"></div>
       </div>
@@ -846,83 +842,83 @@ tbody tr:hover td{background:rgba(255,255,255,0.02)}
   <section class="topic" id="t2-1">
     <div class="topic-title">
       <div class="marker">⭐</div>
-      <h3>Topic 4: Khassais-e-Kubra — Major Characteristics & Miracles</h3>
+      <h3>موضوع ۴: خصائصِ کبریٰ — بڑی خصوصیات اور معجزات</h3>
       <button class="check-btn" onclick="toggleDone(this,'t2-1')">✓</button>
     </div>
 
-    <p><strong>Khassais-e-Kubra (خصائصِ کبریٰ)</strong> literally means <em>"the grand/major specialities."</em> These are the unique characteristics, privileges, and miracles that Allah ﷻ granted exclusively to the Prophet Muhammad ﷺ — things that distinguished him from all other prophets and all of humanity.</p>
+    <p><strong>خصائصِ کبریٰ</strong> کا مطلب ہے <em>"بڑی منفرد خصوصیات۔"</em> یہ وہ منفرد صفات، مراعات اور معجزات ہیں جو اللہ ﷻ نے خاص طور پر نبی کریم محمد ﷺ کو عطا فرمائے — وہ باتیں جو آپ ﷺ کو تمام انبیاء اور تمام انسانوں سے ممتاز کرتی ہیں۔</p>
 
     <div class="box def">
-      <div class="box-label">📖 Definition — Khassais</div>
-      <p>Khassais (plural of Khaasiyya) means <strong>special characteristics or exclusive features</strong>. "Kubra" means "great/major." Together, Khassais-e-Kubra refers to the <strong>major exclusive specialities that Allah ﷻ bestowed upon the Prophet ﷺ alone</strong>, distinguishing him from all other creation.</p>
+      <div class="box-label">📖 تعریف — خصائص</div>
+      <p>خصائص (خاصیّہ کی جمع) کا مطلب ہے <strong>خاص خصوصیات یا منفرد صفات</strong>۔ "کبریٰ" کا مطلب ہے "عظیم/بڑا"۔ مل کر خصائصِ کبریٰ سے مراد وہ <strong>اہم منفرد خصوصیات ہیں جو اللہ ﷻ نے صرف نبی ﷺ کو عطا فرمائیں</strong>، جو آپ ﷺ کو تمام مخلوق سے ممتاز کرتی ہیں۔</p>
     </div>
 
-    <h4 style="color:var(--gold2);font-family:var(--sans);margin:1.4rem 0 0.6rem;font-size:1rem;">Categories of Khassais</h4>
+    <h4 style="color:var(--gold2);font-family:var(--arabic);margin:1.4rem 0 0.6rem;font-size:1.2rem;">خصائص کی اقسام</h4>
 
     <div class="char-grid">
       <div class="char-card">
         <div class="char-icon">🌍</div>
-        <div class="char-title">Universal Prophethood</div>
-        <div class="char-desc">All previous prophets were sent to one specific nation or people. Prophet Muhammad ﷺ was sent as a <em>mercy to ALL of mankind and jinn</em> until the Day of Judgment. (Quran 21:107)</div>
+        <div class="char-title">آفاقی نبوت</div>
+        <div class="char-desc">تمام پچھلے انبیاء کسی خاص قوم یا قبیلے کی طرف بھیجے گئے۔ نبی کریم ﷺ قیامت تک تمام <em>انسانوں اور جنوں کے لیے رحمت</em> بن کر بھیجے گئے۔ (القرآن 21:107)</div>
       </div>
       <div class="char-card">
         <div class="char-icon">🔚</div>
-        <div class="char-title">Khatam-un-Nabiyyeen (Seal of Prophets)</div>
-        <div class="char-desc">He ﷺ is the final and last prophet. No prophet will come after him. His Shariah (law) is complete and perfect for all time. (Quran 33:40)</div>
+        <div class="char-title">خاتم النبیین (نبیوں کی مہر)</div>
+        <div class="char-desc">آپ ﷺ آخری اور حتمی نبی ہیں۔ آپ ﷺ کے بعد کوئی نبی نہیں آئے گا۔ آپ ﷺ کی شریعت (قانون) تمام زمانوں کے لیے مکمل ہے۔ (القرآن 33:40)</div>
       </div>
       <div class="char-card">
         <div class="char-icon">🕌</div>
-        <div class="char-title">The Entire Earth as a Mosque</div>
-        <div class="char-desc">While previous prophets could only pray in designated places, the Prophet ﷺ was given the privilege that the entire Earth was made a place of worship and purification for his Ummah.</div>
+        <div class="char-title">پوری زمین بحیثیتِ مسجد</div>
+        <div class="char-desc">پچھلے انبیاء صرف مخصوص جگہوں پر عبادت کر سکتے تھے، لیکن نبی ﷺ کو یہ اعزاز دیا گیا کہ آپ ﷺ کی امت کے لیے پوری زمین کو عبادت اور پاکیزگی کی جگہ بنا دیا گیا۔</div>
       </div>
       <div class="char-card">
         <div class="char-icon">🏳️</div>
-        <div class="char-title">Ghanaim (War Spoils) Made Halal</div>
-        <div class="char-desc">The spoils of war were forbidden for previous prophets' nations. They were made permissible for the Prophet's ﷺ Ummah — a specific Khaasiyya of this Ummah.</div>
+        <div class="char-title">مالِ غنیمت کا حلال ہونا</div>
+        <div class="char-desc">گزشتہ انبیاء کی امتوں کے لیے مالِ غنیمت حرام تھا۔ اسے نبی ﷺ کی امت کے لیے حلال کیا گیا — جو اس امت کا ایک خاص خاصہ ہے۔</div>
       </div>
       <div class="char-card">
         <div class="char-icon">🌙</div>
-        <div class="char-title">Isra and Miraj</div>
-        <div class="char-desc">The miraculous night journey from Makkah to Jerusalem (Isra) and ascent through the heavens to meet Allah ﷻ (Miraj) — a physical and spiritual journey granted to no other prophet.</div>
+        <div class="char-title">اسراء اور معراج</div>
+        <div class="char-desc">مکہ سے یروشلم تک کا معجزاتی رات کا سفر (اسراء) اور اللہ ﷻ سے ملنے کے لیے سات آسمانوں کا سفر (معراج) — ایک ایسا جسمانی اور روحانی سفر جو کسی اور نبی کو نہیں دیا گیا۔</div>
       </div>
       <div class="char-card">
         <div class="char-icon">📖</div>
-        <div class="char-title">The Quran — An Everlasting Miracle</div>
-        <div class="char-desc">Every previous prophet's miracles ended with their death. The Quran is a living, eternal miracle — its linguistic, scientific, and prophetic content remains unchallenged after 1,400+ years.</div>
+        <div class="char-title">قرآن — ایک لازوال معجزہ</div>
+        <div class="char-desc">پچھلے تمام انبیاء کے معجزات ان کی موت کے ساتھ ختم ہو گئے۔ قرآن ایک زندہ، ابدی معجزہ ہے — اس کا لسانی، سائنسی اور پیشین گوئیوں پر مبنی مواد 1,400+ سال بعد بھی ناقابلِ تسخیر ہے۔</div>
       </div>
       <div class="char-card">
         <div class="char-icon">🤲</div>
-        <div class="char-title">Intercession (Shafa'at-e-Kubra)</div>
-        <div class="char-desc">On the Day of Judgment, Prophet Muhammad ﷺ will be given the "Grand Intercession" — the Maqam-e-Mahmud — to intercede for all of humanity.</div>
+        <div class="char-title">شفاعت (شفاعتِ کبریٰ)</div>
+        <div class="char-desc">قیامت کے دن، نبی کریم ﷺ کو "مقامِ محمود" (شفاعتِ کبریٰ) عطا کیا جائے گا تاکہ آپ ﷺ تمام انسانیت کے لیے سفارش کریں۔</div>
       </div>
       <div class="char-card">
         <div class="char-icon">🏆</div>
-        <div class="char-title">Liwa-ul-Hamd (The Banner of Praise)</div>
-        <div class="char-desc">On the Day of Judgment, all prophets will gather under the banner of Prophet Muhammad ﷺ — a supreme honor given to no other prophet.</div>
+        <div class="char-title">لواء الحمد (حمد کا جھنڈا)</div>
+        <div class="char-desc">قیامت کے دن، تمام انبیاء نبی کریم ﷺ کے جھنڈے کے نیچے جمع ہوں گے — یہ ایک ایسا عظیم اعزاز ہے جو کسی اور نبی کو نہیں دیا گیا۔</div>
       </div>
     </div>
 
     <div class="box exam">
-      <div class="box-label">🔴 Exam Focus — Two Key Quran References</div>
-      <p><strong>Quran 21:107:</strong> "We have not sent you except as a mercy to all the worlds." (Rahmatallil-Aalameen)<br>
-      <strong>Quran 33:40:</strong> "Muhammad is not the father of any of your men, but he is the Messenger of Allah and the Seal of the Prophets." (Khatam-un-Nabiyyeen)</p>
+      <div class="box-label">🔴 امتحانی فوکس — دو اہم قرآنی حوالہ جات</div>
+      <p><strong>سورۃ الانبیاء (21:107):</strong> "ہم نے آپ کو نہیں بھیجا مگر تمام جہانوں کے لیے رحمت بنا کر۔" (رحمۃ للعالمین)<br>
+      <strong>سورۃ الاحزاب (33:40):</strong> "محمد تمہارے مردوں میں سے کسی کے والد نہیں، بلکہ وہ اللہ کے رسول اور نبوت کی مہر ہیں۔" (خاتم النبیین)</p>
     </div>
 
     <div class="mini-quiz">
-      <h4>🧪 Topic 4 — Checkpoint Quiz</h4>
+      <h4>🧪 موضوع ۴ — جانچ کوئز</h4>
       <div class="quiz-q">
-        <div class="q-text">1. What does "Khatam-un-Nabiyyeen" mean, and which verse mentions it?</div>
+        <div class="q-text">۱۔ "خاتم النبیین" کا کیا مطلب ہے، اور اس کا ذکر کس سورت میں ہے؟</div>
         <div class="options">
-          <button class="opt" onclick="checkAnswer(this, false, 'No, "First of Prophets" would be referring to Adam (AS), and this is not correct for the Prophet ﷺ.')">A. First of all Prophets — Surah Al-Baqarah (2:1)</button>
-          <button class="opt" onclick="checkAnswer(this, true, 'Correct! Khatam-un-Nabiyyeen means Seal/Last of Prophets, and it is mentioned in Surah Al-Ahzab, verse 40.')">B. Seal (Last) of all Prophets — Surah Al-Ahzab (33:40)</button>
+          <button class="opt" onclick="checkAnswer(this, false, 'نہیں، "تمام انبیاء میں پہلے" سے مراد حضرت آدم (علیہ السلام) ہوں گے، اور یہ نبی ﷺ کے لیے درست نہیں ہے۔')">الف۔ تمام انبیاء میں پہلے — سورۃ البقرہ (2:1)</button>
+          <button class="opt" onclick="checkAnswer(this, true, 'درست! خاتم النبیین کا مطلب ہے انبیاء کی مہر/آخری نبی، اور یہ سورۃ الاحزاب کی آیت 40 میں ہے۔')">ب۔ انبیاء کی مہر (آخری نبی) — سورۃ الاحزاب (33:40)</button>
         </div>
         <div class="q-feedback"></div>
       </div>
       <div class="quiz-q">
-        <div class="q-text">2. What makes the Quran the most unique miracle compared to miracles of previous prophets?</div>
+        <div class="q-text">۲۔ قرآن پچھلے انبیاء کے معجزات کے مقابلے میں سب سے منفرد معجزہ کیوں ہے؟</div>
         <div class="options">
-          <button class="opt" onclick="checkAnswer(this, false, 'The Quran was not just for Arabs — it is a universal miracle for all humanity.')">A. It was written specifically for the Arab people and their language only.</button>
-          <button class="opt" onclick="checkAnswer(this, true, 'Exactly right! Other prophets\' miracles ended with their deaths. The Quran is a living, eternal miracle that continues to challenge and guide humanity.')">B. It is an eternal, living miracle that continues today — unlike miracles of other prophets which ended at their death.</button>
+          <button class="opt" onclick="checkAnswer(this, false, 'قرآن صرف عربوں کے لیے نہیں تھا — یہ تمام انسانیت کے لیے ایک آفاقی معجزہ ہے۔')">الف۔ یہ صرف عرب لوگوں اور ان کی زبان کے لیے لکھا گیا تھا۔</button>
+          <button class="opt" onclick="checkAnswer(this, true, 'بالکل درست! دوسرے انبیاء کے معجزات ان کی موت پر ختم ہو گئے۔ قرآن ایک زندہ، ابدی معجزہ ہے جو آج بھی انسانیت کو چیلنج اور رہنمائی کر رہا ہے۔')">ب۔ یہ ایک ابدی، ابدی معجزہ ہے جو آج بھی جاری ہے — دوسرے انبیاء کے برعکس جن کے معجزات ان کی موت پر ختم ہو گئے۔</button>
         </div>
         <div class="q-feedback"></div>
       </div>
@@ -1037,87 +1033,87 @@ tbody tr:hover td{background:rgba(255,255,255,0.02)}
   <section class="topic" id="t2-3">
     <div class="topic-title">
       <div class="marker">📣</div>
-      <h3>Topic 6: Private (Secret) and Public Preaching of Islam</h3>
+      <h3>موضوع ۶: اسلام کی خفیہ اور عوامی تبلیغ</h3>
       <button class="check-btn" onclick="toggleDone(this,'t2-3')">✓</button>
     </div>
 
-    <p>The Prophet's ﷺ Da'wah strategy was wise and phased. It did not begin with a public announcement — it began quietly, privately, and then expanded systematically based on Divine command.</p>
+    <p>نبی ﷺ کی دعوتی حکمت عملی دانشمندانہ اور مرحلہ وار تھی۔ اس کا آغاز عوامی اعلان سے نہیں ہوا — یہ خاموشی سے، پرائیویٹ طریقے سے شروع ہوئی اور پھر الہی حکم کی بنیاد پر منظم طریقے سے پھیلی۔</p>
 
-    <h4 style="color:var(--gold2);font-family:var(--sans);margin:1.4rem 0 0.6rem;font-size:1rem;">Phase 1 — Secret (Private) Preaching: Da'wat-e-Khufya (3 Years: 610–613 CE)</h4>
+    <h4 style="color:var(--gold2);font-family:var(--arabic);margin:1.4rem 0 0.6rem;font-size:1.2rem;">مرحلہ ۱ — خفیہ تبلیغ: دعوتِ خُفیہ (۳ سال: ۶۱۰–۶۱۳ء)</h4>
 
     <div class="box def">
-      <div class="box-label">📖 Definition — Da'wat-e-Khufya</div>
-      <p><strong>Da'wat-e-Khufya</strong> (Secret Da'wah) refers to the initial 3-year phase when the Prophet ﷺ spread Islam privately and quietly among his most trusted inner circle, without public proclamation, to avoid immediate violent persecution.</p>
+      <div class="box-label">📖 تعریف — دعوتِ خُفیہ</div>
+      <p><strong>دعوتِ خُفیہ</strong> (خفیہ دعوت) سے مراد وہ ابتدائی ۳ سالہ دور ہے جس میں نبی ﷺ نے اسلام کو پرائیویٹ اور خاموشی سے اپنے قریب ترین اور معتبر حلقے میں پھیلایا، بغیر کسی عوامی اعلان کے، تاکہ فوری اور منظم تشدد سے بچا جا سکے۔</p>
     </div>
 
-    <p>The first Muslims — the Saabiqoon-ul-Awwalon (the foremost early Muslims) — accepted Islam in this phase:</p>
+    <p>پہلے مسلمان — سابقونِ اولون (سب سے پہلے قبولِ اسلام کرنے والے) — اسی مرحلے میں مسلمان ہوئے:</p>
     <ul class="bl">
-      <li><strong>Khadijah bint Khuwaylid (RA):</strong> First woman and first adult to accept Islam — the Prophet's ﷺ beloved wife and greatest supporter.</li>
-      <li><strong>Abu Bakr al-Siddiq (RA):</strong> First free adult man — immediately spread Islam to his own social circle.</li>
-      <li><strong>Ali ibn Abi Talib (RA):</strong> First child to accept Islam — the Prophet's ﷺ young cousin.</li>
-      <li><strong>Zaid ibn Haritha (RA):</strong> First freed slave to accept Islam.</li>
+      <li><strong>خدیجہ بنت خویلد (رضی اللہ عنہا):</strong> اسلام لانے والی پہلی خاتون اور پہلی بالغ — نبی ﷺ کی پیاری بیوی اور سب سے بڑی حامی۔</li>
+      <li><strong>ابوبکر صدیق (رضی اللہ عنہ):</strong> اسلام لانے والے پہلے آزاد بالغ مرد — انہوں نے فوراً اپنے سماجی حلقے میں اسلام پھیلایا۔</li>
+      <li><strong>علی ابن ابی طالب (رضی اللہ عنہ):</strong> اسلام لانے والے پہلے بچے — نبی ﷺ کے نوجوان کزن۔</li>
+      <li><strong>زید بن حارثہ (رضی اللہ عنہ):</strong> اسلام لانے والے پہلے آزاد کردہ غلام۔</li>
     </ul>
 
     <div class="box note">
-      <div class="box-label">💡 Why Secret? — The Wisdom Behind It</div>
-      <p>The early Muslim community was tiny and fragile. A sudden public announcement would have invited immediate, organized, and violent suppression by the powerful Quraish of Makkah — before Islam could even take root. The secret phase allowed the first Muslims to strengthen their faith, build a core community, and prepare spiritually for what lay ahead.</p>
+      <div class="box-label">💡 خفیہ کیوں؟ — اس کے پیچھے حکمت</div>
+      <p>ابتدائی مسلمانوں کی جماعت بہت چھوٹی اور نازک تھی۔ اچانک عوامی اعلان مکہ کے طاقتور قریش کی طرف سے فوری، منظم اور پرتشدد دبائو کو دعوت دیتا — اس سے پہلے کہ اسلام جڑ پکڑ پاتا۔ خفیہ مرحلے نے پہلے مسلمانوں کو اپنے ایمان کو مضبوط کرنے، مرکزی جماعت بنانے اور آنے والی آزمائشوں کے لیے روحانی تیاری کا موقع دیا۔</p>
     </div>
 
-    <h4 style="color:var(--emerald);font-family:var(--sans);margin:1.4rem 0 0.6rem;font-size:1rem;">Phase 2 — Public Preaching: Da'wat-e-Aam (613 CE onwards)</h4>
+    <h4 style="color:var(--emerald);font-family:var(--arabic);margin:1.4rem 0 0.6rem;font-size:1.2rem;">مرحلہ ۲ — عوامی تبلیغ: دعوتِ عام (۶۱۳ء کے بعد)</h4>
 
     <div class="box def">
-      <div class="box-label">📖 Definition — Da'wat-e-Aam</div>
-      <p><strong>Da'wat-e-Aam</strong> (Public Da'wah) began when Allah ﷻ revealed the command: <em>"Warn your closest relatives"</em> (Surah Ash-Shu'ara 26:214) and then <em>"Proclaim openly what you are commanded"</em> (Surah Al-Hijr 15:94). From this point, the Prophet ﷺ began calling all of humanity to Islam — openly and without concealment.</p>
+      <div class="box-label">📖 تعریف — دعوتِ عام</div>
+      <p><strong>دعوتِ عام</strong> (عوامی دعوت) کا آغاز اس وقت ہوا جب اللہ ﷻ نے حکم نازل کیا: <em>"اور اپنے قریبی رشتہ داروں کو ڈراؤ"</em> (سورۃ الشعراء 26:214) اور پھر <em>"جو حکم دیا گیا ہے اسے کھلے عام بیان کرو"</em> (سورۃ الحجر 15:94)۔ اس موڑ سے نبی ﷺ نے تمام انسانیت کو کھلے عام اور بغیر کسی پردے کے اسلام کی طرف بلانا شروع کیا۔</p>
     </div>
 
     <div class="box arabic-quote">
       <div class="aq-text">وَأَنذِرْ عَشِيرَتَكَ الْأَقْرَبِينَ</div>
-      <div class="aq-trans">"And warn your closest relatives." — Surah Ash-Shu'ara (26:214)</div>
-      <div class="aq-ref">This was the divine command that began the Public Preaching phase.</div>
+      <div class="aq-trans">"اور اپنے قریب ترین رشتہ داروں کو خبردار کریں۔" — سورۃ الشعراء (۲۶:۲۱۴)</div>
+      <div class="aq-ref">یہ وہ الہی حکم ہے جس نے عوامی تبلیغ کے مرحلے کا آغاز کیا۔</div>
     </div>
 
-    <p>The Prophet ﷺ called his clan to Mount Safa and proclaimed: <em>"If I told you that an army was behind this mountain about to attack you, would you believe me?"</em> They said, "Yes, we have never heard you lie." He then declared: <em>"Then I warn you of a severe punishment (from Allah) ahead."</em></p>
+    <p>نبی ﷺ نے اپنے قبیلے کو کوہِ صفا پر بلایا اور فرمایا: <em>"اگر میں آپ کو بتاؤں کہ اس پہاڑ کے پیچھے ایک لشکر آپ پر حملہ کرنے والا ہے، تو کیا آپ یقین کریں گے؟"</em> انہوں نے کہا: "ہاں، ہم نے آپ کو کبھی جھوٹا نہیں سنا۔" آپ ﷺ نے پھر فرمایا: <em>"تو میں آپ کو آنے والے شدید عذاب سے خبردار کرتا ہوں۔"</em></p>
 
     <div class="compare-grid">
       <div class="c-card left">
-        <div class="c-title">🤫 Da'wat-e-Khufya (Secret)</div>
+        <div class="c-title">🤫 دعوتِ خُفیہ (خفیہ)</div>
         <ul class="c-list">
-          <li>Duration: 3 years (610–613 CE)</li>
-          <li>Small inner circle only</li>
-          <li>In private homes (House of Arqam)</li>
-          <li>No public proclamation</li>
-          <li>Focus: Building core community</li>
-          <li>Approximately 40 early Muslims</li>
+          <li>دورانیہ: ۳ سال (۶۱۰–۶۱۳ عیسوی)</li>
+          <li>صرف چھوٹا سا اندرونی حلقہ</li>
+          <li>نجی گھروں میں (دارِ ارقم)</li>
+          <li>کوئی عوامی اعلان نہیں</li>
+          <li>توجہ: بنیادی جماعت بنانا</li>
+          <li>تقریباً ۴۰ ابتدائی مسلمان</li>
         </ul>
       </div>
       <div class="c-card right">
-        <div class="c-title">📣 Da'wat-e-Aam (Public)</div>
+        <div class="c-title">📣 دعوتِ عام (عوامی)</div>
         <ul class="c-list">
-          <li>Started: 613 CE (Year 4 of Prophethood)</li>
-          <li>All people — tribe, city, humanity</li>
-          <li>In markets, at Ka'bah, on hilltops</li>
-          <li>Open proclamation of Islam</li>
-          <li>Focus: Universal message of Islam</li>
-          <li>Led to rapid growth and persecution</li>
+          <li>آغاز: ۶۱۳ عیسوی (نبوت کا چوتھا سال)</li>
+          <li>تمام لوگ — قبیلہ، شہر، انسانیت</li>
+          <li>بازاروں، کعبہ، پہاڑوں پر</li>
+          <li>اسلام کا کھلا اعلان</li>
+          <li>توجہ: اسلام کا آفاقی پیغام</li>
+          <li>نتیجہ: تیزی سے پھیلاؤ اور ظلم و ستم</li>
         </ul>
       </div>
     </div>
 
     <div class="mini-quiz">
-      <h4>🧪 Topic 6 — Checkpoint Quiz</h4>
+      <h4>🧪 موضوع ۶ — جانچ کوئز</h4>
       <div class="quiz-q">
-        <div class="q-text">1. Who were the FIRST four people to accept Islam during the secret Da'wah phase?</div>
+        <div class="q-text">۱۔ وہ کون سے پہلے چار افراد تھے جنہوں نے خفیہ دعوت کے مرحلے میں اسلام قبول کیا؟</div>
         <div class="options">
-          <button class="opt" onclick="checkAnswer(this, false, 'Umar ibn al-Khattab RA accepted Islam later, during the public Da\'wah phase.')">A. Khadijah RA, Umar RA, Uthman RA, and Ibn Masood RA</button>
-          <button class="opt" onclick="checkAnswer(this, true, 'Correct! These four were the Saabiqoon — the very first to accept Islam: the Prophet\'s wife, his closest friend, his young cousin, and his freed servant.')">B. Khadijah RA, Abu Bakr RA, Ali RA, and Zaid ibn Haritha RA</button>
+          <button class="opt" onclick="checkAnswer(this, false, 'حضرت عمر رضی اللہ عنہ نے بعد میں، عوامی دعوت کے مرحلے میں اسلام قبول کیا۔')">الف۔ خدیجہؓ، عمرؓ، عثمانؓ، اور ابن مسعودؓ</button>
+          <button class="opt" onclick="checkAnswer(this, true, 'بالکل درست! یہ چار سابقون تھے — سب سے پہلے اسلام قبول کرنے والے: نبی ﷺ کی بیوی، آپ کا قریبی دوست، آپ کا نوعمر کزن، اور آپ کا آزاد کردہ غلام۔')">ب۔ خدیجہؓ، ابوبکرؓ، علیؓ، اور زید بن حارثہؓ</button>
         </div>
         <div class="q-feedback"></div>
       </div>
       <div class="quiz-q">
-        <div class="q-text">2. Which Quranic verse is known as the divine command that launched the Public Preaching phase?</div>
+        <div class="q-text">۲۔ کون سی قرآنی آیت کو وہ الہی حکم سمجھا جاتا ہے جس نے عوامی تبلیغ کے مرحلے کا آغاز کیا؟</div>
         <div class="options">
-          <button class="opt" onclick="checkAnswer(this, true, 'Correct! This verse commanded the Prophet ﷺ to warn his nearest relatives — the starting point of open Da\'wah.')">A. Surah Ash-Shu'ara (26:214) — "Warn your closest relatives."</button>
-          <button class="opt" onclick="checkAnswer(this, false, 'Surah Al-Alaq (96:1) was the first revelation — "Read!" — not the command to begin public Da\'wah.')">B. Surah Al-Alaq (96:1) — "Read in the name of your Lord."</button>
+          <button class="opt" onclick="checkAnswer(this, true, 'درست! اس آیت نے نبی ﷺ کو اپنے قریبی رشتہ داروں کو خبردار کرنے کا حکم دیا — یہ کھلی دعوت کا نقطہ آغاز تھا۔')">الف۔ سورۃ الشعراء (26:214) — "اپنے قریبی رشتہ داروں کو خبردار کریں۔"</button>
+          <button class="opt" onclick="checkAnswer(this, false, 'سورۃ العلق (96:1) پہلی وحی تھی — "پڑھو!" — نہ کہ عوامی دعوت شروع کرنے کا حکم۔')">ب۔ سورۃ العلق (96:1) — "پڑھو اپنے رب کے نام سے۔"</button>
         </div>
         <div class="q-feedback"></div>
       </div>
@@ -1140,82 +1136,82 @@ tbody tr:hover td{background:rgba(255,255,255,0.02)}
   <section class="topic" id="t3-1">
     <div class="topic-title">
       <div class="marker">💛</div>
-      <h3>Topic 7: The Rights and Beauty of Mustafa ﷺ</h3>
+      <h3>موضوع ۷: حقوق اور جمالِ مصطفیٰ ﷺ</h3>
       <button class="check-btn" onclick="toggleDone(this,'t3-1')">✓</button>
     </div>
 
-    <p>The Prophet Muhammad ﷺ has certain <strong>Huqooq (Rights)</strong> that are obligatory upon every Muslim. Alongside these rights, the Prophet ﷺ was gifted with an extraordinary <strong>physical and moral beauty (Husn o Jamal)</strong> that has no parallel in all of human history.</p>
+    <p>نبی کریم محمد ﷺ کے کچھ <strong>حقوق (Huqooq)</strong> ہیں جو ہر مسلمان پر فرض ہیں۔ ان حقوق کے ساتھ ساتھ، اللہ نے آپ ﷺ کو ایسا غیر معمولی <strong>جسمانی اور اخلاقی حسن (حسن و جمال)</strong> عطا کیا تھا جس کی پوری انسانی تاریخ میں کوئی مثال نہیں ملتی۔</p>
 
-    <h4 style="color:var(--gold2);font-family:var(--sans);margin:1.4rem 0 0.6rem;font-size:1rem;"> Rights of the Prophet ﷺ — Huqooq-e-Mustafa</h4>
+    <h4 style="color:var(--gold2);font-family:var(--arabic);margin:1.4rem 0 0.6rem;font-size:1.2rem;">نبی ﷺ کے حقوق — حقوقِ مصطفیٰ</h4>
 
     <div class="kp-box">
-      <div class="kp-head">⭐ The Essential Rights Every Muslim Owes the Prophet ﷺ</div>
+      <div class="kp-head">⭐ وہ لازمی حقوق جو ہر مسلمان پر نبی ﷺ کے لیے واجب ہیں</div>
       <div class="kp-body">
-        <div class="kp-row"><span class="num">1</span><span class="txt"><strong>Imaan (Belief):</strong> To believe with full conviction that Muhammad ﷺ is the true and final Messenger of Allah. This is a pillar of Iman itself.</span></div>
-        <div class="kp-row"><span class="num">2</span><span class="txt"><strong>Muhabbat (Love):</strong> To love the Prophet ﷺ more than one's parents, children, and one's own self. The Prophet ﷺ said: <em>"None of you truly believes until I am more beloved to him than his parents, his children, and all people."</em> (Bukhari)</span></div>
-        <div class="kp-row"><span class="num">3</span><span class="txt"><strong>Itaa'at (Obedience):</strong> To obey the Prophet's ﷺ commands completely. Quran: "Whoever obeys the Messenger has obeyed Allah." (4:80)</span></div>
-        <div class="kp-row"><span class="num">4</span><span class="txt"><strong>Ittiba (Following):</strong> To follow his Sunnah — his way of living — in worship, dealings, family life, and all aspects of conduct.</span></div>
-        <div class="kp-row"><span class="num">5</span><span class="txt"><strong>Ta'zeer and Tawqeer (Respect & Honor):</strong> To deeply honor and dignify him ﷺ — never to disrespect, mock, or speak ill of him in any manner.</span></div>
-        <div class="kp-row"><span class="num">6</span><span class="txt"><strong>Tasdeek (Affirmation):</strong> To affirm and accept everything he ﷺ said and informed us about — regarding this world and the hereafter — without hesitation or doubt.</span></div>
-        <div class="kp-row"><span class="num">7</span><span class="txt"><strong>Da'wah and Propagation:</strong> To spread his message and Sunnah to others — continuing the work of his mission.</span></div>
+        <div class="kp-row"><span class="num">1</span><span class="txt"><strong>ایمان:</strong> پورے یقین کے ساتھ ماننا کہ محمد ﷺ اللہ کے سچے اور آخری رسول ہیں۔ یہ خود ایمان کا ایک ستون ہے۔</span></div>
+        <div class="kp-row"><span class="num">2</span><span class="txt"><strong>محبت:</strong> نبی ﷺ سے اپنے والدین، بچوں اور اپنی جان سے بھی زیادہ محبت کرنا۔ نبی ﷺ نے فرمایا: <em>"تم میں سے کوئی اس وقت تک مومن نہیں ہو سکتا جب تک کہ میں اسے اس کے والدین، اولاد اور تمام لوگوں سے زیادہ محبوب نہ ہو جاؤں۔"</em> (بخاری)</span></div>
+        <div class="kp-row"><span class="num">3</span><span class="txt"><strong>اطاعت:</strong> نبی ﷺ کے احکامات کی مکمل پابندی کرنا۔ قرآن: "جس نے رسول کی اطاعت کی اس نے اللہ کی اطاعت کی۔" (4:80)</span></div>
+        <div class="kp-row"><span class="num">4</span><span class="txt"><strong>اتباع:</strong> آپ ﷺ کی سنت — یعنی آپ کے طرزِ زندگی — کی عبادات، معاملات، خاندانی زندگی اور طرزِ عمل کے ہر پہلو میں پیروی کرنا۔</span></div>
+        <div class="kp-row"><span class="num">5</span><span class="txt"><strong>تعظیم و توقیر:</strong> آپ ﷺ کی دل سے عزت اور تکریم کرنا — اور کبھی بھی کسی بھی طرح ان کی بے ادبی، مذاق یا برائی نہ کرنا۔</span></div>
+        <div class="kp-row"><span class="num">6</span><span class="txt"><strong>تصدیق:</strong> آپ ﷺ نے دنیا اور آخرت کے بارے میں جو کچھ بھی فرمایا یا خبر دی، اسے بغیر کسی ہچکچاہٹ یا شک کے سچ ماننا اور قبول کرنا۔</span></div>
+        <div class="kp-row"><span class="num">7</span><span class="txt"><strong>دعوت اور تبلیغ:</strong> آپ ﷺ کے پیغام اور سنت کو دوسروں تک پہنچانا — اور آپ ﷺ کے مشن کے کام کو جاری رکھنا۔</span></div>
       </div>
     </div>
 
-    <h4 style="color:var(--emerald);font-family:var(--sans);margin:1.4rem 0 0.6rem;font-size:1rem;"> Physical & Moral Beauty (Husn o Jamal) of the Prophet ﷺ</h4>
+    <h4 style="color:var(--emerald);font-family:var(--arabic);margin:1.4rem 0 0.6rem;font-size:1.2rem;">نبی ﷺ کا جسمانی اور اخلاقی حسن (حسن و جمال)</h4>
 
     <div class="box arabic-quote">
       <div class="aq-text">مَا رَأَيْتُ قَبْلَهُ وَلَا بَعْدَهُ مِثْلَهُ ﷺ</div>
-      <div class="aq-trans">"I have not seen anyone like him ﷺ — neither before him nor after him."</div>
-      <div class="aq-ref">— Words of many Companions describing the Prophet ﷺ</div>
+      <div class="aq-trans">"میں نے ان جیسا کسی کو نہیں دیکھا — نہ ان سے پہلے اور نہ ان کے بعد۔"</div>
+      <div class="aq-ref">— بہت سے صحابہ کرام کے نبی ﷺ کے بارے میں الفاظ</div>
     </div>
 
     <div class="compare-grid">
       <div class="c-card left">
-        <div class="c-title">✨ Physical Beauty (Husn-e-Zaahiri)</div>
+        <div class="c-title">✨ جسمانی حسن (حسنِ ظاہری)</div>
         <ul class="c-list">
-          <li>Medium to tall stature — neither too tall nor short</li>
-          <li>His face radiated light — described as "the full moon"</li>
-          <li>Hair that was wavy, neither straight nor very curly</li>
-          <li>Beautiful, dark, wide eyes with long eyelashes</li>
-          <li>White teeth with slight gap — his smile was captivating</li>
-          <li>Broad shoulders, powerful but not heavy build</li>
-          <li>Fragrance — described as the most pleasant scent</li>
+          <li>درمیانہ سے لمبا قد — نہ بہت لمبے اور نہ پست قد</li>
+          <li>چہرہ نورانی — جسے "چودھویں کا چاند" کہا گیا</li>
+          <li>بال قدرے گھنگھریالے، نہ بالکل سیدھے نہ بہت زیادہ گھنگھریالے</li>
+          <li>خوبصورت، سیاہ، بڑی آنکھیں لمبی پلکوں کے ساتھ</li>
+          <li>سفید دانت جن میں ہلکا سا فاصلہ تھا — مسکراہٹ دلفریب تھی</li>
+          <li>چوڑے کندھے، مضبوط مگر غیر معمولی بھاری جسم نہیں</li>
+          <li>خوشبو — جسے دنیا کی سب سے بہترین خوشبو کہا گیا</li>
         </ul>
       </div>
       <div class="c-card right">
-        <div class="c-title">🌹 Moral Beauty (Husn-e-Baatini)</div>
+        <div class="c-title">🌹 اخلاقی حسن (حسنِ باطنی)</div>
         <ul class="c-list">
-          <li><strong>Al-Amin (The Trustworthy)</strong> — even enemies trusted him</li>
-          <li><strong>Al-Sadiq (The Truthful)</strong> — never uttered a falsehood</li>
-          <li>Extraordinary patience under severe persecution</li>
-          <li>Forgiveness — forgave his worst enemies at Makkah's conquest</li>
-          <li>Humility — sat with the poor, mended his own shoes</li>
-          <li>Courage — stood firm alone in the fiercest battles</li>
-          <li>Mercy — wept for his Ummah in his prayers</li>
+          <li><strong>الامین (امانت دار)</strong> — دشمن بھی اعتبار کرتے تھے</li>
+          <li><strong>الصادق (سچے)</strong> — کبھی جھوٹ نہیں بولا</li>
+          <li>شدید ظلم و ستم پر غیر معمولی صبر</li>
+          <li>معافی — فتح مکہ پر بدترین دشمنوں کو معاف کر دیا</li>
+          <li>عاجزی — غریبوں کے ساتھ بیٹھے، اپنے جوتے خود گانٹھے</li>
+          <li>بہادری — مشکل ترین جنگوں میں ثابت قدم رہے</li>
+          <li>رحم دلی — اپنی نمازوں میں امت کے لیے روئے</li>
         </ul>
       </div>
     </div>
 
     <div class="box eg">
-      <div class="box-label">🌍 Example — The Power of His Character</div>
-      <p>When the Prophet ﷺ conquered Makkah with 10,000 soldiers — the very people who had tortured, expelled, and tried to kill him — he did not take revenge. Instead, he declared: <strong>"Go — you are all free."</strong> This single act of extraordinary mercy converted thousands who had been his bitterest enemies. No military victory could have achieved what his character achieved.</p>
+      <div class="box-label">🌍 مثال — آپ ﷺ کے کردار کی طاقت</div>
+      <p>جب نبی ﷺ نے 10,000 صحابہ کے ساتھ مکہ فتح کیا — وہی لوگ جنہوں نے آپ پر ظلم کیا، نکالا اور قتل کی کوشش کی تھی — تو آپ ﷺ نے بدلہ نہیں لیا۔ اس کے بجائے اعلان فرمایا: <strong>"جاؤ — تم سب آزاد ہو۔"</strong> اس غیر معمولی رحم دلی کے ایک عمل نے ہزاروں بدترین دشمنوں کو مسلمان کر دیا۔ جو کام کوئی فوجی فتح نہیں کر سکتی تھی، وہ آپ ﷺ کے کردار نے کر دکھایا۔</p>
     </div>
 
     <div class="mini-quiz">
-      <h4>🧪 Topic 7 — Checkpoint Quiz</h4>
+      <h4>🧪 موضوع ۷ — جانچ کوئز</h4>
       <div class="quiz-q">
-        <div class="q-text">1. What does "Itaa'at" (one of the rights of the Prophet ﷺ) mean?</div>
+        <div class="q-text">۱۔ "اطاعت" (جو نبی ﷺ کے حقوق میں سے ہے) کا کیا مطلب ہے؟</div>
         <div class="options">
-          <button class="opt" onclick="checkAnswer(this, false, 'Love (Muhabbat) is a separate right. Itaa\'at specifically means obedience.')">A. To love the Prophet ﷺ above all others.</button>
-          <button class="opt" onclick="checkAnswer(this, true, 'Correct! Itaa\'at means complete obedience to the Prophet\'s ﷺ commands and his Sunnah.')">B. To obey the Prophet's ﷺ commands completely.</button>
+          <button class="opt" onclick="checkAnswer(this, false, 'محبت ایک الگ حق ہے۔ اطاعت کا مطلب خاص طور پر فرمانبرداری ہے۔')">الف۔ نبی ﷺ سے سب سے زیادہ محبت کرنا۔</button>
+          <button class="opt" onclick="checkAnswer(this, true, 'بالکل! اطاعت کا مطلب نبی ﷺ کے احکامات اور سنت کی مکمل فرمانبرداری ہے۔')">ب۔ نبی ﷺ کے احکامات کی مکمل فرمانبرداری کرنا۔</button>
         </div>
         <div class="q-feedback"></div>
       </div>
       <div class="quiz-q">
-        <div class="q-text">2. In Hadith, the Prophet ﷺ says true Iman (faith) is only complete when he is loved more than:</div>
+        <div class="q-text">۲۔ حدیث میں، نبی ﷺ فرماتے ہیں کہ سچا ایمان صرف اس وقت مکمل ہوتا ہے جب مجھ سے ان لوگوں سے زیادہ محبت کی جائے:</div>
         <div class="options">
-          <button class="opt" onclick="checkAnswer(this, false, 'Loving Allah ﷻ above everything is a separate concept; the Hadith specifically compares to human relationships.')">A. Allah ﷻ and all of creation.</button>
-          <button class="opt" onclick="checkAnswer(this, true, 'Correct! The Hadith in Bukhari states: "None of you truly believes until I am more beloved to him than his parents, his children, and all people."')">B. One's own parents, children, and one's own self.</button>
+          <button class="opt" onclick="checkAnswer(this, false, 'اللہ ﷻ سے سب سے زیادہ محبت کرنا ایک الگ تصور ہے؛ یہ حدیث خاص طور پر انسانی رشتوں کا موازنہ کرتی ہے۔')">الف۔ اللہ ﷻ اور تمام مخلوقات سے۔</button>
+          <button class="opt" onclick="checkAnswer(this, true, 'صحیح! بخاری کی حدیث میں ہے: "تم میں سے کوئی اس وقت تک مومن نہیں ہوسکتا جب تک میں اسے اس کے والدین، اس کی اولاد اور تمام لوگوں سے زیادہ محبوب نہ ہو جاؤں۔"')">ب۔ اپنے والدین، بچوں اور اپنی جان سے۔</button>
         </div>
         <div class="q-feedback"></div>
       </div>
@@ -1226,104 +1222,104 @@ tbody tr:hover td{background:rgba(255,255,255,0.02)}
   <section class="topic" id="t3-2">
     <div class="topic-title">
       <div class="marker">🌿</div>
-      <h3>Topic 8: Prophet Muhammad ﷺ as a Da'ee (Caller to Islam)</h3>
+      <h3>موضوع ۸: نبی محمد ﷺ بحیثیت داعی (اسلام کی طرف بلانے والے)</h3>
       <button class="check-btn" onclick="toggleDone(this,'t3-2')">✓</button>
     </div>
 
-    <p>A <strong>Da'ee (داعی)</strong> is one who calls others to the path of Allah — a preacher, an inviter, a guide. The Prophet Muhammad ﷺ was not only a Da'ee — he was the <strong>greatest Da'ee in all of human history</strong>, and his methodology is the ultimate model for anyone doing Islamic work today.</p>
+    <p><strong>داعی</strong> وہ ہوتا ہے جو دوسروں کو اللہ کی راہ کی طرف بلاتا ہے — ایک مبلغ، بلانے والا، رہنما۔ نبی محمد ﷺ نہ صرف ایک داعی تھے — بلکہ آپ ﷺ <strong>پوری انسانی تاریخ کے سب سے عظیم داعی</strong> تھے، اور آپ کا طریقہ کار آج کے دور میں اسلامی کام کرنے والے ہر شخص کے لیے حتمی نمونہ ہے۔</p>
 
     <div class="box def">
-      <div class="box-label">📖 Definition — Da'ee and Da'wah</div>
-      <p><strong>Da'wah (دعوة)</strong> literally means "to call" or "to invite." In Islamic terminology, it means <em>inviting people to the religion of Islam — to Tawheed, correct belief, and righteous living — with wisdom, good counsel, and beautiful argument</em>. A <strong>Da'ee</strong> is the person who performs Da'wah.</p>
+      <div class="box-label">📖 تعریف — داعی اور دعوت</div>
+      <p><strong>دعوت</strong> کا لغوی معنی ہے "بلانا" یا "مدعو کرنا۔" اسلامی اصطلاح میں اس کا مطلب ہے <em>لوگوں کو دینِ اسلام — توحید، درست عقیدے اور نیک زندگی — کی طرف حکمت، اچھی نصیحت اور بہترین دلیل کے ساتھ بلانا</em>۔ <strong>داعی</strong> وہ شخص ہے جو دعوت کا یہ فرض ادا کرتا ہے۔</p>
     </div>
 
     <div class="box arabic-quote">
       <div class="aq-text">اُدْعُ إِلَىٰ سَبِيلِ رَبِّكَ بِالْحِكْمَةِ وَالْمَوْعِظَةِ الْحَسَنَةِ</div>
-      <div class="aq-trans">"Invite to the way of your Lord with wisdom and good instruction, and argue with them in the best manner." — Surah Al-Nahl (16:125)</div>
-      <div class="aq-ref">This is the foundational verse of Da'wah methodology — extremely important for exams.</div>
+      <div class="aq-trans">"اپنے رب کے راستے کی طرف بلائیں حکمت اور عمدہ نصیحت کے ساتھ، اور ان سے بحث کریں اس طریقے سے جو بہترین ہو۔" — سورۃ النحل (16:125)</div>
+      <div class="aq-ref">یہ دعوت کے طریقہ کار کی بنیادی آیت ہے — امتحانات کے لیے انتہائی اہم۔</div>
     </div>
 
-    <h4 style="color:var(--gold2);font-family:var(--sans);margin:1.4rem 0 0.6rem;font-size:1rem;">The Prophet's ﷺ Da'wah Methodology — Key Principles</h4>
+    <h4 style="color:var(--gold2);font-family:var(--arabic);margin:1.4rem 0 0.6rem;font-size:1.2rem;">نبی ﷺ کا دعوتی طریقہ کار — بنیادی اصول</h4>
 
     <div class="char-grid">
       <div class="char-card">
         <div class="char-icon">🧠</div>
-        <div class="char-title">Hikmah (Wisdom)</div>
-        <div class="char-desc">He ﷺ always used the right words at the right time with the right person. He knew when to speak gently and when to be firm. He adapted his message to the audience's level.</div>
+        <div class="char-title">حکمت (Wisdom)</div>
+        <div class="char-desc">آپ ﷺ نے ہمیشہ صحیح وقت پر صحیح شخص کے ساتھ صحیح الفاظ کا استعمال کیا۔ آپ جانتے تھے کہ کب نرمی سے بات کرنی ہے اور کب سختی سے۔ آپ نے اپنے پیغام کو سامعین کی سطح کے مطابق ڈھالا۔</div>
       </div>
       <div class="char-card">
         <div class="char-icon">💬</div>
-        <div class="char-title">Maw'izah Hasanah (Good Counsel)</div>
-        <div class="char-desc">He ﷺ preached with sincere, heartfelt, and beautiful words — not aggressive lectures. He appealed to people's minds and hearts through stories, analogies, and gentle reminders.</div>
+        <div class="char-title">موعظہ حسنہ (اچھی نصیحت)</div>
+        <div class="char-desc">آپ ﷺ نے مخلصانہ، دلی اور خوبصورت الفاظ کے ساتھ تبلیغ کی — جارحانہ لیکچرز کے ساتھ نہیں۔ آپ نے کہانیوں، مثالوں اور نرم یاد دہانیوں کے ذریعے لوگوں کے ذہنوں اور دلوں کو چھوا۔</div>
       </div>
       <div class="char-card">
         <div class="char-icon">🕊️</div>
-        <div class="char-title">Hilm (Gentleness & Patience)</div>
-        <div class="char-desc">Despite horrific persecution — stones thrown, filth poured on him, family members killed — he ﷺ never responded with hatred. He prayed for his enemies' guidance.</div>
+        <div class="char-title">حلم (نرمی اور صبر)</div>
+        <div class="char-desc">ہولناک ظلم و ستم کے باوجود — آپ پر پتھر مارے گئے، گندگی ڈالی گئی، خاندان کے افراد کو شہید کیا گیا — آپ ﷺ نے کبھی نفرت سے جواب نہیں دیا۔ آپ نے اپنے دشمنوں کی ہدایت کے لیے دعا کی۔</div>
       </div>
       <div class="char-card">
         <div class="char-icon">🌐</div>
-        <div class="char-title">Universal Message</div>
-        <div class="char-desc">He ﷺ sent letters to the kings of Persia, Rome, Egypt, and Abyssinia — inviting them to Islam. His Da'wah was truly global and diplomatic, not limited to Arabia.</div>
+        <div class="char-title">آفاقی پیغام</div>
+        <div class="char-desc">آپ ﷺ نے فارس، روم، مصر اور حبشہ کے بادشاہوں کو خط بھیجے — انہیں اسلام کی دعوت دی۔ آپ کی دعوت واقعی عالمی اور سفارتی تھی، صرف عرب تک محدود نہیں تھی۔</div>
       </div>
       <div class="char-card">
         <div class="char-icon">💡</div>
-        <div class="char-title">Personal Example (Uswah)</div>
-        <div class="char-desc">He ﷺ did not just preach — he LIVED what he preached. There was zero gap between his words and his actions. This personal example was his most powerful Da'wah tool.</div>
+        <div class="char-title">ذاتی نمونہ (اسوہ)</div>
+        <div class="char-desc">آپ ﷺ نے صرف تبلیغ نہیں کی — آپ نے اس پر عمل کر کے دکھایا جو آپ نے سکھایا۔ آپ کے الفاظ اور اعمال میں کوئی فرق نہیں تھا۔ یہ ذاتی نمونہ آپ کا سب سے طاقتور دعوتی ہتھیار تھا۔</div>
       </div>
       <div class="char-card">
         <div class="char-icon">❤️</div>
-        <div class="char-title">Compassion for the Ummah</div>
-        <div class="char-desc">He ﷺ wept in his night prayers for his Ummah. He called himself "a father figure to his believers." His concern for humanity was genuine, visible, and unlimited.</div>
+        <div class="char-title">امت کے لیے دردِ دل</div>
+        <div class="char-desc">آپ ﷺ اپنی رات کی نمازوں میں اپنی امت کے لیے روتے تھے۔ آپ نے خود کو "مومنوں کے لیے باپ کی طرح" قرار دیا۔ انسانیت کی فکر واقعی آپ میں لامحدود اور عیاں تھی۔</div>
       </div>
     </div>
 
-    <h4 style="color:var(--emerald);font-family:var(--sans);margin:1.4rem 0 0.6rem;font-size:1rem;">Da'wah Through Different Means</h4>
+    <h4 style="color:var(--emerald);font-family:var(--arabic);margin:1.4rem 0 0.6rem;font-size:1.2rem;">مختلف ذرائع سے دعوت</h4>
     <ul class="bl">
-      <li><strong>Personal Da'wah:</strong> One-on-one conversations with individuals — tailored to their specific concerns and beliefs.</li>
-      <li><strong>Collective Da'wah:</strong> Addressing gatherings, markets (like 'Ukaz), and tribal meetings during Hajj season.</li>
-      <li><strong>Written Da'wah:</strong> Letters sent to rulers of Persia (Kisra), Rome (Caesar), Egypt (Muqawqis), and others.</li>
-      <li><strong>Da'wah by Action:</strong> His own personal life — honesty in trade, justice in judgment, mercy in leadership — was itself Da'wah.</li>
-      <li><strong>Da'wah by the Quran:</strong> Reciting Quranic verses — whose miraculous language was itself a form of Da'wah that touched hearts instantly.</li>
+      <li><strong>انفرادی دعوت:</strong> لوگوں کے ساتھ ون آن ون گفتگو — ان کے مخصوص خدشات اور عقائد کے مطابق۔</li>
+      <li><strong>اجتماعی دعوت:</strong> محافل، بازاروں (جیسے عکاظ)، اور حج کے موسم میں قبائلی ملاقاتوں سے خطاب کرنا۔</li>
+      <li><strong>تحریری دعوت:</strong> فارس (کسریٰ)، روم (قیصر)، مصر (مقوقس) اور دیگر حکمرانوں کو بھیجے گئے خطوط۔</li>
+      <li><strong>عملی دعوت:</strong> آپ کی اپنی ذاتی زندگی — تجارت میں ایمانداری، فیصلے میں انصاف، قیادت میں رحم دلی — بذات خود دعوت تھی۔</li>
+      <li><strong>قرآن کے ذریعے دعوت:</strong> قرآنی آیات کی تلاوت — جس کی معجزانہ زبان بذات خود دعوت کی ایسی شکل تھی جو فوراً دلوں کو چھو لیتی تھی۔</li>
     </ul>
 
     <div class="box exam">
-      <div class="box-label">🔴 Exam Must-Know — The 3 Methods of Da'wah (Surah Al-Nahl 16:125)</div>
-      <p>This verse gives us the <strong>three methods</strong> of Da'wah:<br>
-      1. <strong>Hikmah (Wisdom)</strong> — for intellectuals and scholars; rational, evidence-based argument.<br>
-      2. <strong>Maw'izah Hasanah (Good Counsel)</strong> — for common people; sincere, warm, emotional appeal.<br>
-      3. <strong>Mujaaladah Billati Hiya Ahsan (Best Debate)</strong> — for those who argue; responding with the best, most fair counter-argument — not insults.<br>
-      <em>Always quote 16:125 in your exam answer on Da'wah methodology!</em></p>
+      <div class="box-label">🔴 امتحانی نکتہ — دعوت کے ۳ طریقے (سورۃ النحل 16:125)</div>
+      <p>یہ آیت ہمیں دعوت کے <strong>تین طریقے</strong> بتاتی ہے:<br>
+      1. <strong>حکمت (Wisdom)</strong> — دانشوروں اور پڑھے لکھے لوگوں کے لیے؛ عقلی، دلیل پر مبنی گفتگو۔<br>
+      2. <strong>موعظہ حسنہ (اچھی نصیحت)</strong> — عام لوگوں کے لیے؛ مخلصانہ، پُرجوش، جذباتی اپیل۔<br>
+      3. <strong>مجادلہ باللتی ھی احسن (بہترین بحث)</strong> — بحث کرنے والوں کے لیے؛ طعنوں سے نہیں، بلکہ بہترین اور منصفانہ جوابی دلیل کے ساتھ۔<br>
+      <em>دعوت کے طریقہ کار پر امتحانی جواب میں 16:125 کا حوالہ ضرور دیں!</em></p>
     </div>
 
     <div class="box eg">
-      <div class="box-label">🌍 Example of the Prophet's ﷺ Da'wah Wisdom</div>
-      <p>When a young man came to the Prophet ﷺ and said "Give me permission to commit Zina (fornication)," instead of scolding him harshly, the Prophet ﷺ sat him down and asked: "Would you like it if someone did this to your mother? Your sister? Your daughter?" Each time the man said "No!" — and by the end of the conversation, the man's heart had completely changed. This is Hikmah in action — meeting people where they are.</p>
+      <div class="box-label">🌍 مثال — نبی ﷺ کی دعوتی حکمت</div>
+      <p>جب ایک نوجوان نبی ﷺ کے پاس آیا اور کہا: "مجھے زنا کی اجازت دیجیے"، تو آپ ﷺ نے اسے سختی سے ڈانٹنے کے بجائے، اپنے پاس بٹھایا اور پوچھا: "کیا تم پسند کرو گے کہ کوئی تمہاری ماں کے ساتھ ایسا کرے؟ تمہاری بہن کے ساتھ؟ تمہاری بیٹی کے ساتھ؟" ہر بار اس نے کہا: "نہیں!" — اور گفتگو کے اختتام تک، اس شخص کا دل مکمل طور پر بدل چکا تھا۔ یہ ہے حکمت عملی — لوگوں کے ساتھ ان کی سوچ کی سطح پر جا کر بات کرنا۔</p>
     </div>
 
     <div class="mini-quiz">
-      <h4>🧪 Topic 8 — Final Checkpoint Quiz</h4>
+      <h4>🧪 موضوع ۸ — آخری کوئز</h4>
       <div class="quiz-q">
-        <div class="q-text">1. What are the three methods of Da'wah mentioned in Surah Al-Nahl (16:125)?</div>
+        <div class="q-text">۱۔ سورۃ النحل (16:125) میں دعوت کے کون سے تین طریقے بتائے گئے ہیں؟</div>
         <div class="options">
-          <button class="opt" onclick="checkAnswer(this, false, 'These are not from the verse. The three methods are Hikmah, Maw\'izah Hasanah, and best debate.')">A. Recitation, Prayer, and Charity.</button>
-          <button class="opt" onclick="checkAnswer(this, true, 'Excellent! Surah Al-Nahl 16:125 gives us these three methods: Wisdom, Good Counsel, and Best Debate — the complete Da\'wah framework.')">B. Hikmah (Wisdom), Maw'izah Hasanah (Good Counsel), and best manner of debate.</button>
+          <button class="opt" onclick="checkAnswer(this, false, 'یہ آیت کے حصے نہیں ہیں۔ تین طریقے حکمت، موعظہ حسنہ اور بہترین بحث ہیں۔')">الف۔ تلاوت، نماز، اور صدقہ۔</button>
+          <button class="opt" onclick="checkAnswer(this, true, 'بہترین! سورۃ النحل 16:125 ہمیں یہی تین طریقے دیتی ہے: حکمت، اچھی نصیحت، اور بہترین بحث — دعوت کا مکمل خاکہ۔')">ب۔ حکمت، موعظہ حسنہ، اور بحث کا بہترین طریقہ۔</button>
         </div>
         <div class="q-feedback"></div>
       </div>
       <div class="quiz-q">
-        <div class="q-text">2. To which foreign rulers did the Prophet ﷺ send written letters of Da'wah?</div>
+        <div class="q-text">۲۔ نبی ﷺ نے کن غیر ملکی حکمرانوں کو دعوت کے تحریری خطوط بھیجے؟</div>
         <div class="options">
-          <button class="opt" onclick="checkAnswer(this, true, 'Correct! The Prophet ﷺ sent letters to the rulers of Persia, Rome, Egypt, and Abyssinia — showing that his Da\'wah was global and diplomatic.')">A. The rulers of Persia, Rome, Egypt, and Abyssinia (among others).</button>
-          <button class="opt" onclick="checkAnswer(this, false, 'The Prophet ﷺ pre-dated China and India as major contact points; his letters went to Persia, Rome, and Egypt.')">B. The rulers of China, India, and Spain only.</button>
+          <button class="opt" onclick="checkAnswer(this, true, 'بالکل درست! نبی ﷺ نے روم، ایران، مصر اور حبشہ کے حکمرانوں کو خطوط بھیجے — جو ظاہر کرتا ہے کہ آپ کی دعوت عالمی اور سفارتی تھی۔')">الف۔ فارس، روم، مصر اور حبشہ کے حکمرانوں کو (دیگر کے علاوہ)۔</button>
+          <button class="opt" onclick="checkAnswer(this, false, 'نبی ﷺ کے خطوط روم، فارس اور مصر گئے تھے۔')">ب۔ صرف چین، ہندوستان اور سپین کے حکمرانوں کو۔</button>
         </div>
         <div class="q-feedback"></div>
       </div>
       <div class="quiz-q">
-        <div class="q-text">3. What is the most important personal quality that made the Prophet's ﷺ Da'wah so powerful?</div>
+        <div class="q-text">۳۔ وہ کون سی سب سے اہم ذاتی خوبی تھی جس نے نبی ﷺ کی دعوت کو اس قدر طاقتور بنایا؟</div>
         <div class="options">
-          <button class="opt" onclick="checkAnswer(this, false, 'Military strength was secondary — many people accepted Islam without any military pressure, purely due to his character.')">A. His military strength and political power.</button>
-          <button class="opt" onclick="checkAnswer(this, true, 'Absolutely right! His personal example (Uswah) — perfect alignment between his words and actions — was his most powerful Da\'wah tool. People could not deny what they saw.')">B. His personal example (Uswah) — he fully lived what he preached, with zero gap between words and action.</button>
+          <button class="opt" onclick="checkAnswer(this, false, 'فوجی طاقت ثانوی تھی — بہت سے لوگوں نے کسی فوجی دباؤ کے بغیر، محض آپ کے کردار کی وجہ سے اسلام قبول کیا۔')">الف۔ فوجی طاقت اور سیاسی اثر و رسوخ۔</button>
+          <button class="opt" onclick="checkAnswer(this, true, 'بالکل درست! آپ کا ذاتی نمونہ (اسوہ) — آپ کے الفاظ اور اعمال میں کامل ہم آہنگی — آپ کا سب سے طاقتور دعوتی ہتھیار تھا۔ لوگ جو دیکھتے تھے اس کا انکار نہیں کر سکتے تھے۔')">ب۔ آپ کا ذاتی نمونہ (اسوہ) — آپ نے جو سکھایا اس پر مکمل عمل کیا، قول اور عمل میں کوئی فرق نہیں تھا۔</button>
         </div>
         <div class="q-feedback"></div>
       </div>
